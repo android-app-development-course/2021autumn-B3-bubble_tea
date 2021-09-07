@@ -14,13 +14,16 @@ import com.google.android.material.navigation.NavigationView;
 import com.my.bubbletea.fragments.HomeFragment;
 import com.my.bubbletea.fragments.MomentFragment;
 import com.my.bubbletea.fragments.ProfileFragment;
+import com.my.bubbletea.ui.login.LoginFragment;
 
 public class MainActivity extends AppCompatActivity {
     private Fragment homeFragment;
     private Fragment profileFragment;
     private Fragment momentFragment;
-    private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
+    private Fragment loginFragment;
+
+
 
 
     @Override
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         profileFragment = new ProfileFragment();
         momentFragment = new MomentFragment();
+        loginFragment = new LoginFragment();
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -45,12 +49,15 @@ public class MainActivity extends AppCompatActivity {
                         changeCurrentFragment(momentFragment);
                         break;
                     case R.id.icon_profile:
-                        changeCurrentFragment(profileFragment);
+                        // should be `profileFragment`
+                        changeCurrentFragment(loginFragment);
                         break;
                 }
                 return false;
             }
         });
+
+
 
         changeCurrentFragment(homeFragment);
     }
