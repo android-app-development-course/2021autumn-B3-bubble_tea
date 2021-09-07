@@ -13,7 +13,4 @@
         android:icon="@drawable/ic_baseline_profile"
         android:title="Profile" />
 
-
-
-
 </menu>
