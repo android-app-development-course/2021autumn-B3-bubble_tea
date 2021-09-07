@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.icon_profile:
                         // should be `profileFragment`
-                        changeCurrentFragment(loginFragment);
+                        changeCurrentFragment(profileFragment);
                         break;
                 }
                 return false;

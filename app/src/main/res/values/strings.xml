@@ -10,4 +10,14 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be > 5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <string name="profile_header_title">"Milk Tea 😍"</string>
+    <string name="profile_header_slogan">"A cup of milk tea a day keeps docter away."</string>
+    <string name="profile_favorites">"🥰 My Favorites"</string>
+    <string name="profile_flavor">"🤤 My Flavor"</string>
+    <string name="profile_likes">"⭐️ Likes"</string>
+
+
+
+
 </resources>
