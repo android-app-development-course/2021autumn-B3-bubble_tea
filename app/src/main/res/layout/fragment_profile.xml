@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.ProfileFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/stroke_color"
-            app:cardElevation="0dp"
-
             android:clickable="true"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/stroke_color"
+
+            app:strokeWidth="1dp"
 
 
             >
@@ -40,24 +41,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/profile_header_title"
-                        android:textAppearance="?attr/textAppearanceHeadline6"
-                        />
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/profile_header_slogan"
                         android:textAppearance="?attr/textAppearanceBody2"
-                        android:textColor="?android:attr/textColorSecondary"
-                        />
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="16dp"-->
-<!--                        android:text="supporting_text"-->
-<!--                        android:textAppearance="?attr/textAppearanceBody2"-->
-<!--                        android:textColor="?android:attr/textColorSecondary"-->
-<!--                        />-->
+                        android:textColor="?android:attr/textColorSecondary" />
+                    <!--                    <TextView-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="16dp"-->
+                    <!--                        android:text="supporting_text"-->
+                    <!--                        android:textAppearance="?attr/textAppearanceBody2"-->
+                    <!--                        android:textColor="?android:attr/textColorSecondary"-->
+                    <!--                        />-->
 
                 </LinearLayout>
 
@@ -67,19 +67,21 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:orientation="horizontal">
+
                     <com.google.android.material.button.MaterialButton
+                        style="?attr/borderlessButtonStyle"
+                        android:id="@+id/login_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
-                        android:text="action_1"
-                        style="?attr/borderlessButtonStyle"
-                        />
+                        android:text="@string/profile_login" />
+
                     <com.google.android.material.button.MaterialButton
+                        style="?attr/borderlessButtonStyle"
+                        android:id="@+id/register_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="action_2"
-                        style="?attr/borderlessButtonStyle"
-                        />
+                        android:text="@string/profile_register" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -91,21 +93,21 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_margin="8dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/stroke_color"
-            app:cardElevation="0dp"
             android:clickable="true"
-            >
+            app:cardElevation="0dp"
+            app:strokeColor="@color/stroke_color"
+            app:strokeWidth="1dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/profile_favorites"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    />
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -115,46 +117,47 @@
             android:layout_height="45dp"
             android:layout_margin="8dp"
 
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/stroke_color"
-            app:cardElevation="0dp"
             android:clickable="true"
-            >
+            app:cardElevation="0dp"
+            app:strokeColor="@color/stroke_color"
+            app:strokeWidth="1dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/profile_flavor"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    />
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_like"
             android:layout_width="match_parent"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/stroke_color"
-            app:cardElevation="0dp"
-            android:clickable="true"
-
             android:layout_height="45dp"
             android:layout_margin="8dp"
+            android:clickable="true"
+            app:cardElevation="0dp"
+
+            app:strokeColor="@color/stroke_color"
+            app:strokeWidth="1dp"
 
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/profile_likes"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    />
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

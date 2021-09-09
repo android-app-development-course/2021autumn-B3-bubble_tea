@@ -17,7 +17,8 @@
     <string name="profile_flavor">"🤤 My Flavor"</string>
     <string name="profile_likes">"⭐️ Likes"</string>
 
-
+    <string name="profile_login">"Login"</string>
+    <string name="profile_register">"Register"</string>
 
 
 </resources>

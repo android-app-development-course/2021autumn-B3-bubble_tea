@@ -1,5 +1,6 @@
 package com.my.bubbletea.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.button.MaterialButton;
 import com.my.bubbletea.R;
+import com.my.bubbletea.user.LoginActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +19,9 @@ import com.my.bubbletea.R;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
+    private MaterialButton loginButton;
+    private MaterialButton registerButton;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +66,27 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        loginButton = (MaterialButton) view.findViewById(R.id.login_button);
+        registerButton = (MaterialButton) view.findViewById(R.id.register_button);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(view.getContext(), LoginActivity.class);
+                startActivity(it);
+            }
+        });
+        registerButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
     }
 }

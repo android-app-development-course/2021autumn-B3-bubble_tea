@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -14,14 +15,13 @@ import com.google.android.material.navigation.NavigationView;
 import com.my.bubbletea.fragments.HomeFragment;
 import com.my.bubbletea.fragments.MomentFragment;
 import com.my.bubbletea.fragments.ProfileFragment;
-import com.my.bubbletea.ui.login.LoginFragment;
+import com.my.bubbletea.user.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Fragment homeFragment;
     private Fragment profileFragment;
     private Fragment momentFragment;
     private BottomNavigationView bottomNavigationView;
-    private Fragment loginFragment;
 
 
 
@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         profileFragment = new ProfileFragment();
         momentFragment = new MomentFragment();
-        loginFragment = new LoginFragment();
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -60,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         changeCurrentFragment(homeFragment);
+
+
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
 
