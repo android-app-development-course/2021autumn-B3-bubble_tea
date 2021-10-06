@@ -3,19 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/86134/AndroidStudioProjects/bubble_tea-main/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26979166666666665" />
-        <entry key="..\:/Users/86134/AndroidStudioProjects/bubble_tea-main/app/src/main/res/drawable/ic_baseline_home.xml" value="0.26979166666666665" />
-        <entry key="..\:/Users/86134/AndroidStudioProjects/bubble_tea-main/app/src/main/res/drawable/ic_baseline_moment.xml" value="0.26979166666666665" />
-        <entry key="..\:/Users/86134/AndroidStudioProjects/bubble_tea-main/app/src/main/res/drawable/ic_baseline_profile.xml" value="0.26979166666666665" />
-        <entry key="..\:/Users/86134/AndroidStudioProjects/bubble_tea-main/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26979166666666665" />
-        <entry key="..\:/Users/86134/AndroidStudioProjects/bubble_tea-main/app/src/main/res/layout/activity_login.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/86134/AndroidStudioProjects/bubble_tea-main/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/86134/AndroidStudioProjects/bubble_tea-main/app/src/main/res/layout/fragment_home.xml" value="0.264" />
-        <entry key="..\:/Users/86134/AndroidStudioProjects/bubble_tea-main/app/src/main/res/layout/fragment_moment.xml" value="0.4" />
-        <entry key="..\:/Users/86134/AndroidStudioProjects/bubble_tea-main/app/src/main/res/menu/navi_menu.xml" value="0.25364583333333335" />
+        <entry key="app/src/main/res/drawable/ic_baseline_home.xml" value="0.25462962962962965" />
+        <entry key="app/src/main/res/drawable/ic_baseline_moment.xml" value="0.25462962962962965" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_moment.xml" value="0.15070921985815602" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_14_PREVIEW" project-jdk-name="14" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK" />
 </project>

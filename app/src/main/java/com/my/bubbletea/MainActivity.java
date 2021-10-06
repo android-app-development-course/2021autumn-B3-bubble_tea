@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        changeCurrentFragment(profileFragment);
+        changeCurrentFragment(momentFragment);
 
 
 //        startActivity(new Intent(this, LoginActivity.class));
