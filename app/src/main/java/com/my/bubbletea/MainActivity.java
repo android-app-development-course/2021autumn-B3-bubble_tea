@@ -58,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        changeCurrentFragment(homeFragment);
+        changeCurrentFragment(profileFragment);
 
 
-        startActivity(new Intent(this, LoginActivity.class));
+//        startActivity(new Intent(this, LoginActivity.class));
     }
 
 
