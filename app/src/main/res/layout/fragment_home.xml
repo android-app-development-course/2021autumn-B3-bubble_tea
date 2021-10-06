@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,15 +9,71 @@
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="This is home frag."
-            android:layout_centerInParent="true"
-            />
-    </RelativeLayout>
+        android:layout_height="765dp">
 
+
+        <MultiAutoCompleteTextView
+            android:id="@+id/home_search"
+            android:layout_width="400dp"
+            android:layout_height="52dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/home_searchbg"
+            android:completionThreshold="2"
+            android:ems="10"
+            android:hint="@string/multiAuto_hint" />
+
+
+        <ImageView
+            android:id="@+id/home_top"
+            android:layout_width="420dp"
+            android:layout_height="350dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/home_top" />
+
+        <ImageView
+            android:id="@+id/home_toptext1"
+            android:layout_width="220dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="77dp"
+            android:src="@drawable/home_toptext1" />
+
+        <ImageView
+            android:id="@+id/home_toptext2"
+            android:layout_width="220dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="220dp"
+            android:src="@drawable/home_toptext2"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/home_toppic1"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="240dp"
+            android:src="@drawable/home_toppic1" />
+
+        <ImageView
+            android:id="@+id/home_toppic2"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/home_toppic2" />
+
+        <ImageView
+            android:id="@+id/home_midleftbg1"
+            android:layout_width="180dp"
+            android:layout_height="250dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="420dp"
+            android:src="@drawable/home_midleftbg1" />
+
+    </RelativeLayout>
 
 
 </FrameLayout>
