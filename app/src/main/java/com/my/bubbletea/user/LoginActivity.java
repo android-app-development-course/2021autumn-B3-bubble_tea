@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -88,12 +89,22 @@ public class LoginActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 }).start();
+
+                submitLogin.setEnabled(true);
            }
         });
 
+        TextView t = findViewById(R.id.login_tosignup);
+        t.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(it);
+                finish();
+            }
+        });
 
     }
 }

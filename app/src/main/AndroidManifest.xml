@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BubbleTea">
         <activity
+            android:name=".user.RegisterActivity"
+            android:exported="true" />
+        <activity
             android:name=".user.LoginActivity"
             android:exported="true" />
         <activity
@@ -21,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

@@ -4,16 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.LoginActivity"
     android:orientation="vertical"
-    >
+    tools:context=".user.LoginActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-
-        >
+        android:layout_gravity="top">
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,27 +50,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/submit_login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_button" />
+        <TextView
+            android:id="@+id/login_tosignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_tosignup" />
+
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/login_progress_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="invisible"
             android:max="100"
-            />
+            android:visibility="invisible" />
     </LinearLayout>
-
-
 
 
 </LinearLayout>

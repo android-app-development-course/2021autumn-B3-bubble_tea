@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.google.android.material.button.MaterialButton;
 import com.my.bubbletea.R;
 import com.my.bubbletea.user.LoginActivity;
+import com.my.bubbletea.user.RegisterActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,14 +78,13 @@ public class ProfileFragment extends Fragment {
                 startActivity(it);
             }
         });
-        registerButton.setOnClickListener(new View.OnClickListener(){
-
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent it = new Intent(view.getContext(), RegisterActivity.class);
+                startActivity(it);
             }
         });
-
 
         // Inflate the layout for this fragment
         return view;

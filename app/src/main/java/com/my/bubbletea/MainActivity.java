@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         changeCurrentFragment(momentFragment);
 
 
-//        startActivity(new Intent(this, LoginActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
 
