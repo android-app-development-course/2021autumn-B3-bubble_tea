@@ -1,338 +1,429 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.MomentFragment">
+    tools:context=".fragments.MomentFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_search"
+            android:layout_weight="16"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id = "@+id/mid_search"
+                android:layout_marginLeft="10dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:background="@drawable/find"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/search_hint"
+                android:layout_marginLeft="10dp"
+                android:background="@null"/>
+        </LinearLayout>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:scaleType="centerInside"
+            android:src="@drawable/edit" />
+    </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:scrollbars="none">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="245dip" >
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/vp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dip"
+                    android:layout_gravity="bottom"
+                    android:background="#33000000"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:orientation="horizontal" >
+
+                        <View
+                            android:id="@+id/dot_0"
+                            android:layout_width="5dip"
+                            android:layout_height="5dip"
+                            android:layout_marginLeft="2dip"
+                            android:layout_marginRight="2dip"
+                            android:background="@drawable/ic_dot_yes"/>
+
+                        <View
+                            android:id="@+id/dot_1"
+                            android:layout_width="5dip"
+                            android:layout_height="5dip"
+                            android:layout_marginLeft="2dip"
+                            android:layout_marginRight="2dip"
+                            android:background="@drawable/ic_dot_no"/>
+                        <View
+                            android:id="@+id/dot_2"
+                            android:layout_width="5dip"
+                            android:layout_height="5dip"
+                            android:layout_marginLeft="2dip"
+                            android:layout_marginRight="2dip"
+                            android:background="@drawable/ic_dot_no"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
 
             <!--   Each cardview displays a moment.         -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                app:cardElevation="3dp"
-                >
+                app:cardElevation="3dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
-                    <!-- display the content of moment -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="精选动态"/>
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:paddingBottom="10dp"
                         android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title"
-                            android:textAppearance="?attr/textAppearanceHeadline6"
-                            android:layout_margin="16dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/head_portrait1"
+                                android:background="@drawable/bg_head_portrait1"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center"
+                                android:text="@string/username1"
+                                android:textSize="18sp"
+                                android:layout_weight="0"
+                                android:textColor="@color/black"/>
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="180dp"
+                                android:gravity="right"
+                                android:background="@color/white"
+                                android:src="@drawable/userbox_more">
+
+                            </ImageButton>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Hellooooooooooooooo..."
-                            android:textAppearance="?attr/textAppearanceBody1"
-                            android:layout_marginTop="0dp"
-                            android:layout_marginLeft="16dp"/>
-<!--                            android:layout_margin="16dp"/>-->
+                            android:layout_marginTop="10dp">
 
-
-                    </LinearLayout>
-
-                    <!--  operation to moment  -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:orientation="horizontal">
-                        <com.google.android.material.button.MaterialButton
-                            style="?attr/borderlessButtonStyle"
-                            app:icon="@drawable/ic_baseline_favorite_border_24"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/detail_comment1"
+                                android:textSize="16sp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:text="Like" />
-
-                        <com.google.android.material.button.MaterialButton
-                            style="?attr/borderlessButtonStyle"
-                            app:icon="@drawable/ic_outline_insert_comment_24"
-                            android:layout_width="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="150dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/user1_pic1"/>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="150dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/user1_pic2"/>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="150dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/user1_pic3"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Comment" />
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <ImageButton
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_weight="0.3"
+                                    android:scaleType="centerInside"
+                                    android:background="@color/white"
+                                    android:src="@drawable/user_givealike"
+                                    tools:ignore="NestedWeights" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:textSize="17sp"
+                                    android:text="@string/givealike"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+                                <ImageButton
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_weight="0.3"
+                                    android:scaleType="centerInside"
+                                    android:background="@color/white"
+                                    android:src="@drawable/user_comment"
+                                    tools:ignore="NestedWeights" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:textSize="17sp"
+                                    android:text="@string/comment"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+                                <ImageButton
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_weight="0.3"
+                                    android:scaleType="centerInside"
+                                    android:background="@color/white"
+                                    android:src="@drawable/user_collection"
+                                    tools:ignore="NestedWeights" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:textSize="17sp"
+                                    android:text="@string/collection"/>
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>
 
 
-
             </com.google.android.material.card.MaterialCardView>
+
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                app:cardElevation="3dp"
-                >
+                app:cardElevation="3dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-                    <!-- display the content of moment -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:paddingBottom="10dp"
                         android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title"
-                            android:textAppearance="?attr/textAppearanceHeadline6"
-                            android:layout_margin="16dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/head_portrait1"
+                                android:background="@drawable/bg_head_portrait2"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center"
+                                android:text="@string/username2"
+                                android:textSize="18sp"
+                                android:layout_weight="0"
+                                android:textColor="@color/black"/>
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="180dp"
+                                android:gravity="right"
+                                android:background="@color/white"
+                                android:src="@drawable/userbox_more">
+
+                            </ImageButton>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Hellooooooooooooooo..."
-                            android:textAppearance="?attr/textAppearanceBody1"
-                            android:layout_marginTop="0dp"
-                            android:layout_marginLeft="16dp"/>
-                        <!--                            android:layout_margin="16dp"/>-->
+                            android:layout_marginTop="10dp">
 
-
-                    </LinearLayout>
-
-                    <!--  operation to moment  -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:orientation="horizontal">
-                        <com.google.android.material.button.MaterialButton
-                            style="?attr/borderlessButtonStyle"
-                            app:icon="@drawable/ic_baseline_favorite_border_24"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/detail_comment2"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:text="Like" />
-
-                        <com.google.android.material.button.MaterialButton
-                            style="?attr/borderlessButtonStyle"
-                            app:icon="@drawable/ic_outline_insert_comment_24"
-                            android:layout_width="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="150dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/user2_pic1"/>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="150dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/user2_pic2"/>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="150dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/user2_pic3"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Comment" />
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <ImageButton
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_weight="0.3"
+                                    android:scaleType="centerInside"
+                                    android:background="@color/white"
+                                    android:src="@drawable/user_givealike"
+                                    tools:ignore="NestedWeights" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:textSize="17sp"
+                                    android:text="@string/givealike"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+                                <ImageButton
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_weight="0.3"
+                                    android:scaleType="centerInside"
+                                    android:background="@color/white"
+                                    android:src="@drawable/user_comment"
+                                    tools:ignore="NestedWeights" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:textSize="17sp"
+                                    android:text="@string/comment"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+                                <ImageButton
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_weight="0.3"
+                                    android:scaleType="centerInside"
+                                    android:background="@color/white"
+                                    android:src="@drawable/user_collection"
+                                    tools:ignore="NestedWeights" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:textSize="17sp"
+                                    android:text="@string/collection"/>
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>
-
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:cardElevation="3dp"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- display the content of moment -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Title"
-                            android:textAppearance="?attr/textAppearanceHeadline6"
-                            android:layout_margin="16dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hellooooooooooooooo..."
-                            android:textAppearance="?attr/textAppearanceBody1"
-                            android:layout_marginTop="0dp"
-                            android:layout_marginLeft="16dp"/>
-                        <!--                            android:layout_margin="16dp"/>-->
-
-
-                    </LinearLayout>
-
-                    <!--  operation to moment  -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:orientation="horizontal">
-                        <com.google.android.material.button.MaterialButton
-                            style="?attr/borderlessButtonStyle"
-                            app:icon="@drawable/ic_baseline_favorite_border_24"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:text="Like" />
-
-                        <com.google.android.material.button.MaterialButton
-                            style="?attr/borderlessButtonStyle"
-                            app:icon="@drawable/ic_outline_insert_comment_24"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Comment" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:cardElevation="3dp"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- display the content of moment -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Title"
-                            android:textAppearance="?attr/textAppearanceHeadline6"
-                            android:layout_margin="16dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hellooooooooooooooo..."
-                            android:textAppearance="?attr/textAppearanceBody1"
-                            android:layout_marginTop="0dp"
-                            android:layout_marginLeft="16dp"/>
-                        <!--                            android:layout_margin="16dp"/>-->
-
-
-                    </LinearLayout>
-
-                    <!--  operation to moment  -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:orientation="horizontal">
-                        <com.google.android.material.button.MaterialButton
-                            style="?attr/borderlessButtonStyle"
-                            app:icon="@drawable/ic_baseline_favorite_border_24"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:text="Like" />
-
-                        <com.google.android.material.button.MaterialButton
-                            style="?attr/borderlessButtonStyle"
-                            app:icon="@drawable/ic_outline_insert_comment_24"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Comment" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:cardElevation="3dp"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- display the content of moment -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Title"
-                            android:textAppearance="?attr/textAppearanceHeadline6"
-                            android:layout_margin="16dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hellooooooooooooooo..."
-                            android:textAppearance="?attr/textAppearanceBody1"
-                            android:layout_marginTop="0dp"
-                            android:layout_marginLeft="16dp"/>
-                        <!--                            android:layout_margin="16dp"/>-->
-
-
-                    </LinearLayout>
-
-                    <!--  operation to moment  -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:orientation="horizontal">
-                        <com.google.android.material.button.MaterialButton
-                            style="?attr/borderlessButtonStyle"
-                            app:icon="@drawable/ic_baseline_favorite_border_24"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:text="Like" />
-
-                        <com.google.android.material.button.MaterialButton
-                            style="?attr/borderlessButtonStyle"
-                            app:icon="@drawable/ic_outline_insert_comment_24"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Comment" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
 
 
             </com.google.android.material.card.MaterialCardView>
@@ -340,4 +431,4 @@
 
     </ScrollView>
 
-</FrameLayout>
+</LinearLayout>

@@ -7,7 +7,7 @@
     <string name="action_login_in">Login</string>
     <string name="welcome">"Welcome!"</string>
 
-    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_username">Not a valid username</string>qing
     <string name="invalid_password">Password must be > 5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
@@ -18,10 +18,16 @@
     <string name="profile_likes">"⭐️ Likes"</string>
 
     <string name="profile_login">"Login"</string>
-    <string name="profile_register">"Register"</string>
+    <string name="profile_register">"Register"</string> 
     <string name="multiAuto_hint">"秋天第一杯奶茶"</string>
     <string name="login_button">Login</string>
     <string name="login_tosignup">"Don't have an account?"</string>
-
-
+    <string name="username1">被奶茶控住</string>
+    <string name="givealike">点赞</string>
+    <string name="comment">评论</string>
+    <string name="collection">收藏</string>
+    <string name="username2">控几不住喝奶茶</string>
+    <string name="search_hint">搜索动态、话题、用户</string>
+    <string name="detail_comment1">    赢了 赢了  喜茶的白月光！\n\n点法：雪山思乡龙眼+少糖+冷藏牛乳茶换常规乌龙牛乳茶+脆波波\n\n真的绝了！喜茶近半年新品里我最满意的没有之一！！\n\n个人觉得奶油顶换椰椰雪糕更好喝椰子味的清新和龙岩的清甜好搭！奶油顶好看  大家按需选择~</string>
+    <string name="detail_comment2">一点点换配方了吗？怎么现在这么好喝！爱了爱了\n\n点法：阿华田+奶盖+波霸+冰淇淋+不另外加糖+去冰\n\n我也打卡了这个很火的网红喝法 真的良心推荐！巨好喝！！\n\n这次点了大杯 口感丰富 也不会甜腻 我宣布成为我的梦中情奶了！</string>
 </resources>
