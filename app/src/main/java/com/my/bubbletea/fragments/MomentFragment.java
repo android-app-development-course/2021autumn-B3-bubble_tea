@@ -2,6 +2,7 @@ package com.my.bubbletea.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,12 +18,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.my.bubbletea.DetailActivity;
 import com.my.bubbletea.R;
+import com.my.bubbletea.user.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +49,7 @@ public class MomentFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ImageButton turndetail;
 
     private ViewPager mViewPaper;
     private List<ImageView> images;
@@ -109,7 +114,15 @@ public class MomentFragment extends Fragment {
 //        ImageView searchButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
 //        searchButton.setImageResource(R.drawable.find);
         mViewPaper = (ViewPager) mView.findViewById(R.id.vp);
+        turndetail= (ImageButton) mView.findViewById(R.id.turn_detail);
 
+        turndetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(view.getContext(), DetailActivity.class);
+                startActivity(it);
+            }
+        });
         //显示的图片
         images = new ArrayList<ImageView>();
         for(int i = 0; i < imageIds.length; i++){
