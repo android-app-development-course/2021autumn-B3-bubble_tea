@@ -1,9 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LikeActivity">
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlv"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/grey"/>
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/rlv2"/>-->
+<!--        <TableRow-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:gravity="center">-->
+<!--            <Button-->
+<!--                android:id="@+id/btn1"-->
+<!--                android:text="@string/btn1"-->
+<!--                android:background="@drawable/like_button_yes"-->
+<!--                android:layout_width="90dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:textSize="20sp" />-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <Button-->
+<!--                android:id="@+id/btn2"-->
+<!--                android:text="@string/btn2"-->
+<!--                android:background="@drawable/like_button_yes"-->
+<!--                android:layout_width="90dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:textSize="20sp" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/btn3"-->
+<!--                android:text="@string/btn3"-->
+<!--                android:background="@drawable/like_button_yes"-->
+<!--                android:layout_width="90dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:textSize="20sp" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/btn4"-->
+<!--                android:text="@string/btn4"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:background="@drawable/like_button_yes"-->
+<!--                android:layout_width="90dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:textSize="20sp" />-->
+<!--        </TableRow>-->
+<!--        <TableRow-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:gravity="center">-->
+<!--            <Button-->
+<!--                android:id="@+id/btn5"-->
+<!--                android:layout_width="90dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:background="@drawable/like_button_yes"-->
+<!--                android:text="@string/btn5"-->
+<!--                android:textSize="20sp" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/btn6"-->
+<!--                android:text="@string/btn6"-->
+<!--                android:background="@drawable/like_button_yes"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_width="90dp"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:textSize="20sp" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/btn7"-->
+<!--                android:text="@string/btn7"-->
+<!--                android:background="@drawable/like_button_yes"-->
+<!--                android:layout_width="90dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:textSize="20sp" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/btn"-->
+<!--                android:text=""-->
+<!--                android:background="#ffffff"-->
+<!--                android:layout_width="90dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:textSize="20sp" />-->
+<!--        </TableRow>-->
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:background="@color/grey"/>-->
+<!--    <TableRow-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:gravity="center">-->
+<!--        <Button-->
+<!--            android:id="@+id/btn8"-->
+<!--            android:text="@string/btn8"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn9"-->
+<!--            android:text="@string/btn9"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn10"-->
+<!--            android:text="@string/btn10"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn11"-->
+<!--            android:text="@string/btn11"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:textSize="20sp" />-->
+<!--    </TableRow>-->
+<!--    <TableRow-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:gravity="center">-->
+<!--        <Button-->
+<!--            android:id="@+id/btn12"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:text="@string/btn12"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn13"-->
+<!--            android:text="@string/btn13"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn14"-->
+<!--            android:text="@string/btn14"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn15"-->
+<!--            android:text="@string/btn15"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:textSize="20sp" />-->
+<!--    </TableRow>-->
+<!--    <TableRow-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:gravity="center">-->
+<!--        <Button-->
+<!--            android:id="@+id/btn16"-->
+<!--            android:text="@string/btn16"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn17"-->
+<!--            android:text="@string/btn17"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn18"-->
+<!--            android:text="@string/btn18"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn19"-->
+<!--            android:text="@string/btn19"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:textSize="20sp" />-->
+<!--    </TableRow>-->
+<!--    <TableRow-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:gravity="center">-->
+<!--        <Button-->
+<!--            android:id="@+id/btn20"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:text="@string/btn20"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn21"-->
+<!--            android:text="@string/btn21"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn22"-->
+<!--            android:text="@string/btn22"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn23"-->
+<!--            android:text="@string/btn23"-->
+<!--            android:background="@drawable/like_button"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:textSize="20sp" />-->
+<!--    </TableRow>-->
+
+</TableLayout>

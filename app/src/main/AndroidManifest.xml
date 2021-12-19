@@ -11,21 +11,27 @@
         android:theme="@style/Theme.BubbleTea">
         <activity
             android:name=".MessageActivity"
+            android:label="@string/profile_message"
             android:exported="false" />
         <activity
             android:name=".CollectActivity"
+            android:label="@string/profile_collcet"
             android:exported="false" />
         <activity
             android:name=".ContactActivity"
+            android:label="@string/profile_contact"
             android:exported="false" />
         <activity
             android:name=".MoreActivity"
+            android:label="@string/profile_more"
             android:exported="false" />
         <activity
             android:name=".FavouriteActivity"
+            android:label="@string/profile_favourite"
             android:exported="false" />
         <activity
             android:name=".LikeActivity"
+            android:label="@string/profile_likes"
             android:exported="false" />
         <activity
             android:name=".DescribeActivity"

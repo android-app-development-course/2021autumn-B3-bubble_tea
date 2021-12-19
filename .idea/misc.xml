@@ -4,9 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/drawable/bg_search.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/drawable/like_button.xml" value="0.2064814814814815" />
+        <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/drawable/like_button_yes.xml" value="0.2064814814814815" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/drawable/radius_corner.xml" value="0.15092592592592594" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_describe.xml" value="0.13360507246376813" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_detail.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_favourite.xml" value="0.2857789855072464" />
+        <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_like.xml" value="0.22402597402597402" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_login.xml" value="0.15364583333333334" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_main.xml" value="0.16621376811594202" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_message.xml" value="0.14583333333333334" />
@@ -16,6 +20,7 @@
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/fragment_home.xml" value="0.16621376811594202" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/fragment_moment.xml" value="0.15364583333333334" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/fragment_profile.xml" value="0.13360507246376813" />
+        <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/item_letter.xml" value="0.13905775075987842" />
         <entry key="app/src/main/res/drawable/ic_baseline_home.xml" value="0.25462962962962965" />
         <entry key="app/src/main/res/drawable/ic_baseline_moment.xml" value="0.25462962962962965" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3140625" />

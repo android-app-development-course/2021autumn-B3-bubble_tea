@@ -85,8 +85,8 @@ public class ProfileFragment extends Fragment {
         loginButton = (MaterialButton) view.findViewById(R.id.login_button);
         intolikeButton = (MaterialButton) view.findViewById(R.id.into_like);
         intofavourite=(MaterialButton) view.findViewById(R.id.into_favourite);
-        intocollect=(MaterialButton) view.findViewById(R.id.into_favourite);
-        intocontact=(MaterialButton) view.findViewById(R.id.into_favourite);
+        intocollect=(MaterialButton) view.findViewById(R.id.into_collect);
+        intocontact=(MaterialButton) view.findViewById(R.id.into_contact);
         intomessage=(MaterialButton) view.findViewById(R.id.into_message);
         intomore=(MaterialButton) view.findViewById(R.id.into_more);
 

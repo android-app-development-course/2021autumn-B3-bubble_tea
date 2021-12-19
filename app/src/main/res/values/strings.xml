@@ -46,4 +46,27 @@
     <string name="password">密码</string>
     <string name="username">用户名/手机号码</string>
     <string name="register">注册</string>
+    <string name="btn1">少冰</string>
+    <string name="btn2">椰果</string>
+    <string name="btn3">无糖</string>
+    <string name="btn4">波霸</string>
+    <string name="btn7">+</string>
+    <string name="btn8">乌龙茶</string>
+    <string name="btn6">红茶</string>
+    <string name="btn5">果茶</string>
+    <string name="btn9">绿茶</string>
+    <string name="btn10">椰果</string>
+    <string name="btn11">三分糖</string>
+    <string name="btn12">去冰</string>
+    <string name="btn13">半糖</string>
+    <string name="btn14">正常冰</string>
+    <string name="btn15">多冰</string>
+    <string name="btn16">七分糖</string>
+    <string name="btn17">正常糖</string>
+    <string name="btn18">西米</string>
+    <string name="btn19">烧仙草</string>
+    <string name="btn20">红豆</string>
+    <string name="btn21">芋圆</string>
+    <string name="btn22">布丁</string>
+    <string name="btn23">柠檬</string>
 </resources>
