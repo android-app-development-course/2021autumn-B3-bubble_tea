@@ -10,14 +10,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BubbleTea">
         <activity
+            android:name=".MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CollectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ContactActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MoreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FavouriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LikeActivity"
+            android:exported="false" />
+        <activity
             android:name=".DescribeActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".DetailActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity android:name=".ReleasedynamicActivity" />
         <activity
             android:name=".user.RegisterActivity"

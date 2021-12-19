@@ -3,10 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/drawable/bg_search.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/drawable/radius_corner.xml" value="0.15092592592592594" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_describe.xml" value="0.13360507246376813" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_detail.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_login.xml" value="0.15364583333333334" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_main.xml" value="0.16621376811594202" />
+        <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_more.xml" value="0.16197916666666667" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_register.xml" value="0.15364583333333334" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/activity_releasedynamic.xml" value="0.15364583333333334" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/fragment_home.xml" value="0.16621376811594202" />

@@ -10,12 +10,16 @@
     <string name="invalid_username">Not a valid username</string>qing
     <string name="invalid_password">Password must be > 5 characters</string>
     <string name="login_failed">"Login failed"</string>
-
-    <string name="profile_header_title">"Milk Tea 😍"</string>
+    <string name="profile_username">Hi，今天喝奶茶了梅</string>
+    <string name="profile_day">今天是说你爱上奶茶的第n天</string>
+    <string name="profile_header_title">"今天喝奶茶了梅"</string>
     <string name="profile_header_slogan">"A cup of milk tea a day keeps docter away."</string>
-    <string name="profile_favorites">"🥰 My Favorites"</string>
-    <string name="profile_flavor">"🤤 My Flavor"</string>
-    <string name="profile_likes">"⭐️ Likes"</string>
+    <string name="profile_favorites">我的点赞</string>
+    <string name="profile_collcet">我的收藏</string>
+    <string name="profile_likes">我的口味</string>
+    <string name="profile_message">消息中心</string>
+    <string name="profile_contact">联系客服</string>
+    <string name="profile_more">更多</string>
     <string name="milktea_name">雪山思乡龙眼</string>
     <string name="profile_login">"Login"</string>
     <string name="profile_register">"Register"</string>

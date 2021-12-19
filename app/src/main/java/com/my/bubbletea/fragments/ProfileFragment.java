@@ -1,15 +1,23 @@
 package com.my.bubbletea.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.button.MaterialButton;
+import com.my.bubbletea.CollectActivity;
+import com.my.bubbletea.ContactActivity;
+import com.my.bubbletea.FavouriteActivity;
+import com.my.bubbletea.LikeActivity;
+import com.my.bubbletea.MessageActivity;
+import com.my.bubbletea.MoreActivity;
 import com.my.bubbletea.R;
 import com.my.bubbletea.user.LoginActivity;
 import com.my.bubbletea.user.RegisterActivity;
@@ -21,7 +29,12 @@ import com.my.bubbletea.user.RegisterActivity;
  */
 public class ProfileFragment extends Fragment {
     private MaterialButton loginButton;
-    private MaterialButton registerButton;
+    private MaterialButton intolikeButton;
+    private MaterialButton intofavourite;
+    private MaterialButton intomore;
+    private MaterialButton intocollect;
+    private MaterialButton intocontact;
+    private MaterialButton intomessage;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -70,7 +83,13 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         loginButton = (MaterialButton) view.findViewById(R.id.login_button);
-        registerButton = (MaterialButton) view.findViewById(R.id.register_button);
+        intolikeButton = (MaterialButton) view.findViewById(R.id.into_like);
+        intofavourite=(MaterialButton) view.findViewById(R.id.into_favourite);
+        intocollect=(MaterialButton) view.findViewById(R.id.into_favourite);
+        intocontact=(MaterialButton) view.findViewById(R.id.into_favourite);
+        intomessage=(MaterialButton) view.findViewById(R.id.into_message);
+        intomore=(MaterialButton) view.findViewById(R.id.into_more);
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,10 +97,46 @@ public class ProfileFragment extends Fragment {
                 startActivity(it);
             }
         });
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        intolikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(view.getContext(), RegisterActivity.class);
+                Intent it = new Intent(view.getContext(), LikeActivity.class);
+                startActivity(it);
+            }
+        });
+
+        intofavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(view.getContext(), FavouriteActivity.class);
+                startActivity(it);
+            }
+        });
+        intocollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(view.getContext(), CollectActivity.class);
+                startActivity(it);
+            }
+        });
+        intocontact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(view.getContext(), ContactActivity.class);
+                startActivity(it);
+            }
+        });
+        intomore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(view.getContext(), MoreActivity.class);
+                startActivity(it);
+            }
+        });
+        intomessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(view.getContext(), MessageActivity.class);
                 startActivity(it);
             }
         });
