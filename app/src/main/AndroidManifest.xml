@@ -10,6 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BubbleTea">
         <activity
+            android:name=".DescribeActivity"
+            android:exported="true" >
+        </activity>
+        <activity
+            android:name=".DetailActivity"
+            android:exported="true">
+
+        </activity>
+        <activity android:name=".ReleasedynamicActivity" />
+        <activity
             android:name=".user.RegisterActivity"
             android:exported="true" />
         <activity

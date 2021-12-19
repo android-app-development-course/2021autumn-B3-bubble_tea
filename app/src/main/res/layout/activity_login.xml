@@ -8,20 +8,38 @@
     tools:context=".user.LoginActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="450dp"
+        android:layout_height="300dp"
+        android:background="@drawable/log_bg">
+        <ImageView
+            android:layout_width="270dp"
+            android:layout_height="200dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/milktea">
+
+        </ImageView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="top">
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username:" />
+            android:layout_weight="1"
+            android:text="@string/username" />
 
         <EditText
+            android:layout_weight="2"
+            android:background="@color/grey"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Your Email"
+            android:layout_height="30dp"
+            android:hint=""
             android:inputType="textEmailAddress"
+            android:textSize="15dp"
             android:selectAllOnFocus="true"
             android:text="hi@example.com"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,18 +48,23 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="top">
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password:" />
+            android:layout_weight="1"
+            android:text="@string/password" />
 
         <EditText
+            android:background="@color/grey"
+            android:layout_weight="2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:hint="Your Password"
             android:inputType="textPassword"
             android:selectAllOnFocus="true"
@@ -54,11 +77,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:gravity="top|center">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/submit_login_button"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
+            android:background="@color/grey"
             android:layout_height="wrap_content"
             android:text="@string/login_button" />
         <TextView
