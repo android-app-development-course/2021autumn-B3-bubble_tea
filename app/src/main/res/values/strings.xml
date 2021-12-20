@@ -69,4 +69,10 @@
     <string name="btn21">芋圆</string>
     <string name="btn22">布丁</string>
     <string name="btn23">柠檬</string>
+    <string name="msgbox">消息通知</string>
+    <string name="privateset">隐私设置</string>
+    <string name="setting">通用设置</string>
+    <string name="acountsaft">账号与安全</string>
+    <string name="help">帮助与反馈</string>
+    <string name="about">关于奶茶控</string>
 </resources>
