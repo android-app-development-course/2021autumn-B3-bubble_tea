@@ -28,10 +28,10 @@
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
                 android:background="@drawable/find"/>
-            <Button
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/search_hint"
+                android:hint="@string/search_hint"
                 android:layout_marginLeft="10dp"
                 android:background="@null"/>
         </LinearLayout>
@@ -41,6 +41,7 @@
             android:layout_marginLeft="1dp"
             android:layout_weight="1"
             android:background="#FFFFFF"
+            android:id="@+id/upgrade"
             android:scaleType="centerInside"
             android:src="@drawable/edit" />
     </LinearLayout>

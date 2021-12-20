@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.my.bubbletea.DetailActivity;
 import com.my.bubbletea.R;
+import com.my.bubbletea.UpgradeActivity;
 import com.my.bubbletea.user.LoginActivity;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class MomentFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private ImageButton turndetail;
+    private ImageButton toupgrade;
 
     private ViewPager mViewPaper;
     private List<ImageView> images;
@@ -114,12 +116,20 @@ public class MomentFragment extends Fragment {
 //        ImageView searchButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
 //        searchButton.setImageResource(R.drawable.find);
         mViewPaper = (ViewPager) mView.findViewById(R.id.vp);
-        turndetail= (ImageButton) mView.findViewById(R.id.turn_detail);
 
+        turndetail= (ImageButton) mView.findViewById(R.id.turn_detail);
+        toupgrade=(ImageButton)mView.findViewById(R.id.upgrade);
         turndetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(view.getContext(), DetailActivity.class);
+                startActivity(it);
+            }
+        });
+        toupgrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(view.getContext(), UpgradeActivity.class);
                 startActivity(it);
             }
         });

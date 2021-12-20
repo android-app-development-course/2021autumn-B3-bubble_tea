@@ -46,6 +46,7 @@
                 android:background="@color/grey"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:maxLines="1"
                 android:text="" />
         </LinearLayout>
 
@@ -67,6 +68,7 @@
                 android:background="@color/grey"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:maxLines="1"
                 android:text="" />
         </LinearLayout>
 
@@ -86,6 +88,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:maxLines="1"
                 android:background="@color/grey"
                 android:text="" />
         </LinearLayout>
