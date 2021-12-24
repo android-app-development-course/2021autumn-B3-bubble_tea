@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Handler;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,13 +30,39 @@ import com.my.bubbletea.DetailActivity;
 import com.my.bubbletea.R;
 import com.my.bubbletea.UpgradeActivity;
 import com.my.bubbletea.user.LoginActivity;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+class Attachment {
+    public String url;
+    public String name;
+}
+
+class Moment {
+    public String id;
+    public String title;
+    public String content;
+    public List<ParseFile> attachments;
+    public ParseObject publisher;
+    Moment(String i,String t,String c,List<ParseFile> l,ParseObject user) {
+        id = i;
+        title = t;
+        content = c;
+        attachments = l;
+        publisher = user;
+    }
+}
 
 /**
  * A simple {@link Fragment} subclass.
@@ -108,6 +135,50 @@ public class MomentFragment extends Fragment {
         setView();
         return mView;
     }
+    
+    public Vector<Moment> cacheMoments = new Vector<>();
+    
+    // 获取Moment 的列表
+    public void getMoment() {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Moment");
+        query.setLimit(5); // 只获取5个先，防止太卡
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> momentList, ParseException e) {
+                if (e == null) {
+                    cacheMoments.clear();
+                    for(int i=0;i<momentList.size();i++) {
+                        cacheMoments.add(new Moment(
+                                momentList.get(i).getObjectId(),
+                                momentList.get(i).getString("title"),
+                                momentList.get(i).getString("content"),
+                                momentList.get(i).getList("attachments"),
+                                momentList.get(i).getParseObject("publisher")
+                        ));
+                        try {
+                            // 估计这个是没有cache到Object里，所以要从server端fetch一次......考虑一下需不需要存下来吧。
+                            cacheMoments.get(i).publisher.fetch();
+                            Log.e("Publisher:",cacheMoments.get(i).publisher.getString("nickname"));
+                            Log.e("Publisher's avatarUrl:",cacheMoments.get(i).publisher.getParseFile("avatar").getUrl());
+
+                        } catch (ParseException parseException) {
+                            parseException.printStackTrace();
+                        }
+                        List<ParseFile> l = momentList.get(i).getList("attachments");
+                        for(int j=0;j<l.size();j++) {
+                            // 图片附件的URL
+                            Log.e("attachments url:",l.get(j).getUrl());
+                        }
+                    }
+                    Log.e("Obejct retrived:", String.valueOf(cacheMoments.size()));
+                } else {
+                    Log.d("Moment", "Error: " + e.getMessage());
+                }
+            }
+        });
+
+    }
+
+
     private void setView(){
 //        SearchView searchView =  mView.findViewById(R.id.searchView);
 ///*        int magId = getResources().getIdentifier("android:id/search_close_btn",null, null);
@@ -142,6 +213,9 @@ public class MomentFragment extends Fragment {
                 }
             }
         });
+
+        getMoment();
+
         //显示的图片
         images = new ArrayList<ImageView>();
         for(int i = 0; i < imageIds.length; i++){
