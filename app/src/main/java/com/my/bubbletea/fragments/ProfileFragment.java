@@ -10,6 +10,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.my.bubbletea.CollectActivity;
@@ -21,6 +22,7 @@ import com.my.bubbletea.MoreActivity;
 import com.my.bubbletea.R;
 import com.my.bubbletea.user.LoginActivity;
 import com.my.bubbletea.user.RegisterActivity;
+import com.parse.ParseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,10 +95,28 @@ public class ProfileFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(view.getContext(), LoginActivity.class);
-                startActivity(it);
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                if (currentUser != null) {
+                    Toast.makeText(view.getContext(),"你都已经登录了还搁这登呢？",Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent it = new Intent(view.getContext(), LoginActivity.class);
+                    startActivity(it);
+                    // show the signup or login screen
+                }
+
+
             }
         });
+        loginButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                ParseUser.logOut();
+                Toast.makeText(view.getContext(),"Logged out",Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+
         intolikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -42,7 +42,7 @@
             android:inputType="textEmailAddress"
             android:textSize="15dp"
             android:selectAllOnFocus="true"
-            android:text="hi@example.com"
+            android:text="aaron"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -70,7 +70,7 @@
             android:maxLines="1"
             android:inputType="textPassword"
             android:selectAllOnFocus="true"
-            android:text="my_password"
+            android:text="114514"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

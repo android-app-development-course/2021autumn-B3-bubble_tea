@@ -17,6 +17,9 @@ import com.my.bubbletea.fragments.MomentFragment;
 import com.my.bubbletea.fragments.ProfileFragment;
 import com.my.bubbletea.user.LoginActivity;
 
+import com.parse.Parse;
+import com.parse.ParseUser;
+
 public class MainActivity extends AppCompatActivity {
     private Fragment homeFragment;
     private Fragment profileFragment;
@@ -30,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId("milktea")
+                .server("https://milk.app.moe.yt:233/")
+                .build()
+        );
 
         // three fragment match three page accordingly.
         homeFragment = new HomeFragment();
@@ -59,9 +68,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         changeCurrentFragment(momentFragment);
+//        ParseUser currentUser = ParseUser.getCurrentUser();
+//        if (currentUser != null) {
+//            // do stuff with the user
+//
+//        } else {
+//            // show the signup or login screen
+//        }
 
 
-        startActivity(new Intent(this, LoginActivity.class));
+//        startActivity(new Intent(this, MainActivity.class));
     }
 
 

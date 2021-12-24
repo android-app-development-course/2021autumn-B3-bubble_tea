@@ -12,6 +12,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.my.bubbletea.MainActivity;
 import com.my.bubbletea.R;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -62,35 +65,21 @@ public class LoginActivity extends AppCompatActivity {
 
                 LinearProgressIndicator lpi = findViewById(R.id.login_progress_bar);
                 lpi.show();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        LoginThread lt = new LoginThread("Me","pwd");
-                        FutureTask<Boolean> futureTask = new FutureTask<>(lt);
-                        futureTask.run();
-                        try {
-                            //  get query result from server and display in App
-                            Boolean isLoggedIn = futureTask.get();
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    lpi.hide();
-                                    if(isLoggedIn) {
-                                        Toast.makeText(LoginActivity.this,"Logged in",Toast.LENGTH_SHORT).show();
-//                                        Intent it = new Intent(LoginActivity.this, MainActivity.class);
-//                                        startActivity(it);
-                                        finish();
-                                    } else {
-                                        Toast.makeText(LoginActivity.this,"Failed to log in",Toast.LENGTH_SHORT).show();
-                                    }
+                ParseUser.logInInBackground("aaron", "114514", new LogInCallback() {
+                    public void done(ParseUser user, ParseException e) {
+                        if (user != null) {
+                            Toast.makeText(LoginActivity.this,"Logged in",Toast.LENGTH_SHORT).show();
+                            Log.e("LOGIN",user.toString());
 
-                                }
-                            });
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        } else {
+                            // Signup failed. Look at the ParseException to see what happened.
+                            Toast.makeText(LoginActivity.this,"Failed to log in",Toast.LENGTH_SHORT).show();
+                            Log.e("LOGIN",e.getMessage());
                         }
+                        lpi.hide();
+                        finish();
                     }
-                }).start();
+                });
 
                 submitLogin.setEnabled(true);
            }

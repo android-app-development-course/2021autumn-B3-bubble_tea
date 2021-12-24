@@ -3,6 +3,7 @@ package com.my.bubbletea.user;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -19,6 +20,12 @@ import java.util.concurrent.FutureTask;
     如果成功：包括显示注册成功的status code，以及包括用户信息（返回显示
         失败：status code， 根据status code 搞个snackbar显示错误信息
  */
+
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
 class RegisterThread implements Callable<Boolean> {
     private String input_usrname;
     private String input_pwd;
@@ -30,7 +37,22 @@ class RegisterThread implements Callable<Boolean> {
 
     @Override
     public Boolean call() throws Exception {
-        Thread.sleep(1000);
+        ParseUser user = new ParseUser();
+        user.setUsername(input_usrname);
+        user.setPassword(input_usrname);
+        user.signUpInBackground(new SignUpCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+
+
+
+                } else {
+                    // Sign up didn't succeed. Look at the ParseException
+                    // to figure out what went wrong
+                }
+            }
+        });
+
         return true;
     }
 }
@@ -47,38 +69,27 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registerButton.setEnabled(false);
-
                 LinearProgressIndicator lpi = findViewById(R.id.register_progress_bar);
                 lpi.show();
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        RegisterThread rt = new RegisterThread("Me","pwd");
-                        FutureTask<Boolean> futureTask = new FutureTask<>(rt);
-                        futureTask.run();
-                        try {
-                            Boolean isRegistered = futureTask.get();
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    lpi.hide();
-
-                                    // [TODO] perform differently based on status code returned
-
-                                    // back to main activity.
-                                    Toast.makeText(RegisterActivity.this,"Success",Toast.LENGTH_SHORT).show();
-                                    finish();
-
-                                }
-                            });
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                // 表单校验没做，直接一把梭。
+                EditText usernameInput = findViewById(R.id.usernameInput);
+                EditText passwordInput = findViewById(R.id.passwordInput);
+                ParseUser user = new ParseUser();
+                user.setUsername(String.valueOf(usernameInput.getText()));
+                user.setPassword(String.valueOf(passwordInput.getText()));
+                user.signUpInBackground(new SignUpCallback() {
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            Toast.makeText(v.getContext(),"Signed up",Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(v.getContext(),"Sign up failed.",Toast.LENGTH_SHORT).show();
                         }
                     }
-                }).start();
+                });
 
-
+                lpi.hide();
                 registerButton.setEnabled(true);
             }
         });

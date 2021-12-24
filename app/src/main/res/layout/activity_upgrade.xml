@@ -41,10 +41,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,10 +58,12 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/title"
+                android:id="@+id/titleInput"
                 android:maxLines="1"
                 android:background="@drawable/linearlayout_underline"/>
         </LinearLayout>
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,9 +79,10 @@
             android:gravity="top"
             android:inputType="textMultiLine"
             android:maxLines="100"
-            android:id="@+id/content"
+            android:id="@+id/contentInput"
             android:background="@drawable/linearlayout_underline"/>
         <Button
+            android:id="@+id/publish_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"

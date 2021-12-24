@@ -29,9 +29,13 @@
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/item_letter.xml" value="0.13905775075987842" />
         <entry key="app/src/main/res/drawable/ic_baseline_home.xml" value="0.25462962962962965" />
         <entry key="app/src/main/res/drawable/ic_baseline_moment.xml" value="0.25462962962962965" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.33037059651674994" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3140625" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.24791666666666667" />
+        <entry key="app/src/main/res/layout/activity_upgrade.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.12552083333333333" />
         <entry key="app/src/main/res/layout/fragment_moment.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.1" />
       </map>
     </option>
   </component>

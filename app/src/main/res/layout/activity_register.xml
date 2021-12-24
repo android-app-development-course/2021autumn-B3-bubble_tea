@@ -43,6 +43,7 @@
                 android:text="@string/username" />
 
             <EditText
+                android:id="@+id/usernameInput"
                 android:background="@color/grey"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -65,6 +66,7 @@
                 android:text="@string/password" />
 
             <EditText
+                android:id="@+id/passwordInput"
                 android:background="@color/grey"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"

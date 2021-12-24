@@ -23,11 +23,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.my.bubbletea.DetailActivity;
 import com.my.bubbletea.R;
 import com.my.bubbletea.UpgradeActivity;
 import com.my.bubbletea.user.LoginActivity;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,8 +131,15 @@ public class MomentFragment extends Fragment {
         toupgrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(view.getContext(), UpgradeActivity.class);
-                startActivity(it);
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                if (currentUser == null) {
+                    // 未登录
+                    Toast.makeText(getContext(),"Not logged in",Toast.LENGTH_SHORT).show();
+                } else {
+                    // 登录了
+                    Intent it = new Intent(view.getContext(), UpgradeActivity.class);
+                    startActivity(it);
+                }
             }
         });
         //显示的图片
