@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.my.bubbletea.CommentActivity;
 import com.my.bubbletea.DetailActivity;
 import com.my.bubbletea.R;
 import com.my.bubbletea.UpgradeActivity;
@@ -210,6 +211,19 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
             }
         });
 
+        holder.comment_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                if(currentUser == null) {
+                    Toast.makeText(view.getContext(),"没登录",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent it = new Intent(view.getContext(), CommentActivity.class);
+                it.putExtra("objectID", momentList.get(position).id);
+                view.getContext().startActivity(it);
+            }
+        });
     }
 
     @Override
@@ -224,6 +238,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
 
         private Button like_button;
         private Button collect_button;
+        private Button comment_button;
 
 
         public Viewholder(@NonNull View itemView) {
@@ -235,6 +250,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
 
             like_button = itemView.findViewById(R.id.like_button);
             collect_button = itemView.findViewById(R.id.collect_button);
+            comment_button = itemView.findViewById(R.id.comment_button);
 
         }
 
@@ -352,6 +368,7 @@ public class MomentFragment extends Fragment {
                             Log.e("Publisher's avatarUrl:",cacheMoments.get(i).publisher.getParseFile("avatar").getUrl());
 
                         } catch (ParseException parseException) {
+                            Log.e("ERR",parseException.getMessage());
                             parseException.printStackTrace();
                         }
                         List<ParseFile> l = momentList.get(i).getList("attachments");
@@ -364,6 +381,8 @@ public class MomentFragment extends Fragment {
                     Log.e("Obejct retrived:", String.valueOf(cacheMoments.size()));
                 } else {
                     Log.d("Moment", "Error: " + e.getMessage());
+                    ParseUser.logOut();
+
                 }
 
 //                Log.e("Debug",String.valueOf(i));
