@@ -126,7 +126,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_like"
+            android:id="@+id/card_flavor"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="8dp"
@@ -186,6 +186,7 @@
                     android:text="@string/profile_favorites"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
                 <LinearLayout
+                    android:id="@+id/layout_favorite"
                     android:layout_marginRight="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -202,7 +203,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_conllect"
+            android:id="@+id/card_collect"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="8dp"
