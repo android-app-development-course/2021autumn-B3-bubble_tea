@@ -77,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
-//        startActivity(new Intent(this, MainActivity.class));
-    }
+   }
 
 
     private void changeCurrentFragment(Fragment targetFragment) {
@@ -86,4 +85,5 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fl_wrapper, targetFragment.getClass(), null);
         transaction.commit();
     }
+
 }
