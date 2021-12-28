@@ -364,8 +364,8 @@ public class MomentFragment extends Fragment {
                         try {
                             // 估计这个是没有cache到Object里，所以要从server端fetch一次......考虑一下需不需要存下来吧。
                             cacheMoments.get(i).publisher.fetch();
-                            Log.e("Publisher:",cacheMoments.get(i).publisher.getString("nickname"));
-                            Log.e("Publisher's avatarUrl:",cacheMoments.get(i).publisher.getParseFile("avatar").getUrl());
+//                            Log.e("Publisher:",cacheMoments.get(i).publisher.getString("nickname"));
+//                            Log.e("Publisher's avatarUrl:",cacheMoments.get(i).publisher.getParseFile("avatar").getUrl());
 
                         } catch (ParseException parseException) {
                             Log.e("ERR",parseException.getMessage());
@@ -375,7 +375,7 @@ public class MomentFragment extends Fragment {
                         for(int j=0;j<l.size();j++) {
                             // 图片附件的URL
                             // getFile() 可以返回file，参照：https://parseplatform.org/Parse-SDK-Android/api/com/parse/ParseFile.html
-                            Log.e("attachments url:",l.get(j).getUrl());
+//                            Log.e("attachments url:",l.get(j).getUrl());
                         }
                     }
                     Log.e("Obejct retrived:", String.valueOf(cacheMoments.size()));

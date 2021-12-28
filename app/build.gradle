@@ -83,4 +83,8 @@ dependencies {
     // for RxJava support (optional)
     implementation "com.github.parse-community.Parse-SDK-Android:rxjava:$parseVersion"
 
+    implementation "com.google.accompanist:accompanist-insets:0.22.0-rc"
+    implementation "androidx.compose.material:material-icons-extended:1.1.0-rc01"
+    implementation "androidx.compose.material3:material3:1.0.0-alpha02"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
 }

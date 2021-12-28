@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.my.bubbletea.conversation.Conversation;
 import com.my.bubbletea.fragments.HomeFragment;
 import com.my.bubbletea.fragments.MomentFragment;
 import com.my.bubbletea.fragments.ProfileFragment;
@@ -75,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
 //        } else {
 //            // show the signup or login screen
 //        }
-
-
+//        Intent it = new Intent(this, Conversation.class);
+//        startActivity(it);
    }
 
 
