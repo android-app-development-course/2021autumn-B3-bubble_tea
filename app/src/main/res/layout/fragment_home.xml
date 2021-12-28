@@ -112,6 +112,21 @@
                         android:src="@drawable/home_fortune1" />
 
                 </LinearLayout>
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="5dp">-->
+
+<!--                    <GridView-->
+<!--                        android:id="@+id/grid_photo"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:numColumns="1" />-->
+
+<!--                </RelativeLayout>-->
+
+<!--            </LinearLayout>-->
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -119,18 +134,20 @@
                     android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/home_midrightbg1"
                         android:layout_width="180dp"
                         android:layout_height="150dp"
+                        android:scaleType="centerCrop"
                         android:background="@drawable/home_midrightbg1"
                         android:src="@drawable/res318" />
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/home_midrightbg2"
                         android:layout_width="180dp"
                         android:layout_height="150dp"
                         android:layout_marginTop="10dp"
+                        android:scaleType="centerCrop"
                         android:background="@drawable/home_midrightbg1"
                         android:src="@drawable/res288" />
 
@@ -160,6 +177,7 @@
                             android:layout_width="180dp"
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
+                            android:id="@+id/view3"
                             android:background="@drawable/home_midrightbg1"
                             android:src="@drawable/res424" />
                     </LinearLayout>
@@ -172,6 +190,7 @@
                             android:layout_width="180dp"
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
+                            android:id="@+id/view4"
                             android:background="@drawable/home_midrightbg1"
                             android:src="@drawable/res258" />
                     </LinearLayout>
@@ -199,8 +218,11 @@
                         <ImageView
                             android:layout_width="180dp"
                             android:layout_height="150dp"
+                            android:scaleType="centerCrop"
+                            android:id="@+id/view5"
+                            android:onClick="turn_describe"
                             android:background="@drawable/home_midrightbg1"
-                            android:src="@drawable/res258" />
+                            android:src="@drawable/res318" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="180dp"
@@ -210,6 +232,9 @@
                         <ImageView
                             android:layout_width="180dp"
                             android:layout_height="150dp"
+                            android:scaleType="centerCrop"
+                            android:id="@+id/view6"
+                            android:onClick="turn_describe"
                             android:background="@drawable/home_midrightbg1"
                             android:src="@drawable/res322"/>
                     </LinearLayout>
@@ -230,18 +255,13 @@
                     android:layout_weight="1"
                     app:cardElevation="0dp">
 
-                    <ImageView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_margin="8dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/home_midrightbg1" />
+
                 </com.google.android.material.card.MaterialCardView>
 
 
             </LinearLayout>
 
-        </LinearLayout>
+       </LinearLayout>
 
 
     </ScrollView>

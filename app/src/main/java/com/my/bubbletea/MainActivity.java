@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
 //        } else {
 //            // show the signup or login screen
 //        }
-//        Intent it = new Intent(this, Conversation.class);
-//        startActivity(it);
+       // Intent it = new Intent(this, Conversation.class);
+       // startActivity(it);
    }
 
 
