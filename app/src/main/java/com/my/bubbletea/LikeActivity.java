@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,20 +71,23 @@ public class LikeActivity extends AppCompatActivity {
             Toast.makeText(this,"Not logged in",Toast.LENGTH_SHORT).show();
             finish();
         } else {
+            Log.e("current",currentUser.getString("username"));
             List<String> flavors = null;
             try {
                 flavors = currentUser.fetch().getList("flavor");
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            try {
+            if (flavors != null) {
+                Log.e("not emptyflavors", String.valueOf(flavors.size()));
                 for(String f:flavors) {
                     Note n = new Note();
                     n.setText(f);
                     notes.add(n);
                 }
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+            } else {
+                Log.e("empty flavors", "emt" );
+                flavors = new ArrayList<String>();
             }
         }
         mRecyclerView.setAdapter(mMyAdapter);
@@ -97,14 +101,19 @@ public class LikeActivity extends AppCompatActivity {
                     return;
                 }
 
-
                 Note n =new Note();
                 n.setText(flavor);
                 notes.add(n);
 
                 ArrayList<String> flavors = null;
                 try {
-                    flavors = new ArrayList<>(currentUser.fetch().getList("flavor"));
+                    List<String> l = currentUser.fetch().getList("flavor");
+                    if (l == null ) {
+                        flavors = new ArrayList<>();
+                    } else {
+                        flavors = new ArrayList<>(l);
+                    }
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -117,6 +126,7 @@ public class LikeActivity extends AppCompatActivity {
                         if(e == null) {
                             Toast.makeText(LikeActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
                             flavorInput.setText("");
+                            mMyAdapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(LikeActivity.this,"保存失败",Toast.LENGTH_SHORT).show();
                         }

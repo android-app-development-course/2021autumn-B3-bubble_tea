@@ -24,6 +24,24 @@
         android:layout_width="match_parent"
         android:layout_margin="20dp"
         android:layout_height="200dp">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/imagePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            SelectImage
+        </com.google.android.material.button.MaterialButton>
+        <ImageView
+            android:id="@+id/attachImage1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/attachImage2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/attachImage3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
