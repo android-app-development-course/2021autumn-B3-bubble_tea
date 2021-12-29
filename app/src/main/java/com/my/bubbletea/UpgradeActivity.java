@@ -52,7 +52,7 @@ public class UpgradeActivity extends AppCompatActivity {
         imgs[0] = findViewById(R.id.attachImage1);
         imgs[1] = findViewById(R.id.attachImage2);
         imgs[2] = findViewById(R.id.attachImage3);
-        imageButton = findViewById(R.id.addphoto);
+        //imageButton = findViewById(R.id.addphoto);
 
         final boolean[] hasImage = {false};
 
@@ -149,4 +149,8 @@ public class UpgradeActivity extends AppCompatActivity {
         }
     }
 
+
+
+    public void turn_moment(View view) {
+    }
 }
