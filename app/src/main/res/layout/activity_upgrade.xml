@@ -13,6 +13,7 @@
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:id="@+id/turnback"
+            android:onClick="turn_moment"
             android:background="@drawable/arrow_turn"/>
 
     </LinearLayout>
@@ -24,12 +25,7 @@
         android:layout_width="match_parent"
         android:layout_margin="20dp"
         android:layout_height="200dp">
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/imagePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            SelectImage
-        </com.google.android.material.button.MaterialButton>
+
         <ImageView
             android:id="@+id/attachImage1"
             android:layout_width="wrap_content"
@@ -42,11 +38,14 @@
             android:id="@+id/attachImage3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/imagePicker"
+            android:text="添加图片"
             android:background="@drawable/addphoto"
-            android:id="@+id/addphoto"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            SelectImage
+        </com.google.android.material.button.MaterialButton>
 
     </LinearLayout>
     </ScrollView>
@@ -106,7 +105,6 @@
             android:layout_margin="20dp"
             android:textColor="@color/grey"
             android:background="@color/purple_700"
-            android:onClick="add"
             android:text="发布动态"
             android:textSize="20sp"/>
     </LinearLayout>

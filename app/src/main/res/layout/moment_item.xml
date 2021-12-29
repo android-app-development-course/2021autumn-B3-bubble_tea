@@ -17,46 +17,133 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical"
-
         >
-
-        <TextView
-            android:id="@+id/moment_publisher"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
-
-        <TextView
-            android:id="@+id/moment_content"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent" />
-
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                style="?attr/borderlessButtonStyle"
-                android:id="@+id/like_button"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="like" />
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/head_portrait1"
+                    android:background="@drawable/bg_head_portrait2"/>
+                <TextView
+                    android:id="@+id/moment_publisher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:layout_weight="0"
+                    android:textColor="@color/black"/>
 
-            <Button
-                style="?attr/borderlessButtonStyle"
-                android:id="@+id/comment_button"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="comment" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="270dp"
+                    android:gravity="right"
+                    android:background="@color/white"
+                    android:src="@drawable/userbox_more">
 
-            <Button
-                style="?attr/borderlessButtonStyle"
-                android:id="@+id/collect_button"
+                </ImageButton>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="collect" />
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/moment_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/moment_pic1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:id="@+id/moment_pic2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:id="@+id/moment_pic3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:id="@+id/like_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/grey"
+                    android:text="@string/givealike"
+                    android:textSize="20sp"
+                    android:layout_margin="3dp"
+                    app:strokeColor="@color/white"
+                    app:backgroundTint="@color/white"
+                    app:icon="@drawable/ic_upvote"
+                    app:iconSize="35dp"
+                    app:iconTint="?attr/colorPrimary"
+
+                    />
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:id="@+id/comment_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/comment"
+                    android:layout_margin="3dp"
+                    app:backgroundTint="@color/white"
+                    android:textColor="@color/grey"
+                    android:textSize="20sp"
+                    app:strokeColor="@color/white"
+                    app:icon="@drawable/ic_comment"
+                    app:iconSize="30dp"
+                    app:iconTint="@color/grey"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:id="@+id/collect_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/collection"
+                    app:backgroundTint="@color/white"
+                    android:textSize="20sp"
+                    android:textColor="@color/grey"
+                    app:strokeColor="@color/white"
+                    app:icon="@drawable/ic_collection"
+                    app:iconSize="35dp"
+
+                    />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-
 </com.google.android.material.card.MaterialCardView>
