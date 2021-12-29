@@ -4,6 +4,9 @@ import static com.esafirm.imagepicker.features.ImagePickerLauncherKt.createImage
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +23,7 @@ import com.esafirm.imagepicker.features.ImagePickerConfig;
 import com.esafirm.imagepicker.features.ImagePickerMode;
 import com.esafirm.imagepicker.model.Image;
 import com.google.android.material.button.MaterialButton;
+import com.my.bubbletea.fragments.MomentFragment;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -37,6 +41,9 @@ import java.util.List;
 
 public class UpgradeActivity extends AppCompatActivity {
     final int REQ_IMG = 114514;
+//    public FragmentTransaction mFragmentTransaction;
+//    public FragmentManager fragmentManager;
+//    public String curFragmentTag = "";
 
     ImageView[] imgs=new ImageView[3];
     ImageButton imageButton;
@@ -143,14 +150,18 @@ public class UpgradeActivity extends AppCompatActivity {
             List<Image> l = ImagePicker.INSTANCE.getImages(data);
             if(l != null) {
                 imagePicked.addAll(l);
+                Log.e("imgage", String.valueOf(l.size()));
+                for(int i=0;i< l.size();i++)
+                {
+                    Picasso.get().load(l.get(i).getUri()).resize(50,50).centerCrop().into(imgs[i]);
+                }
 //                Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(imageView);
             }
-
+            //Fragment moment= fragmentManager.findFragmentByTag(curFragmentTag);
+            //moment.onActivityResult(requestCode, resultCode, data);
+            //onResumeFragments();
+       //     MomentFragement.refresh();
         }
     }
 
-
-
-    public void turn_moment(View view) {
-    }
 }

@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -343,11 +344,12 @@ public class MomentFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private boolean isGetData=false;
     private View mView;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ImageButton turndetail;
+    //private ImageButton turndetail;
     private ImageButton toupgrade;
 
     private ViewPager mViewPaper;
@@ -387,6 +389,20 @@ public class MomentFragment extends Fragment {
         return fragment;
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data){
+//        super.onActivityResult(requestCode, resultCode, data);
+//        switch (requestCode) {
+//            case 1:
+//                if (resultCode != UpgradeActivity.RESULT_OK) {
+//                    getMoment();
+//                    return;
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+//    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -457,7 +473,8 @@ public class MomentFragment extends Fragment {
     // 获取Moment 的列表
     public void getMoment() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Moment");
-        query.setLimit(5); // 只获取5个先，防止太卡
+       // int size=ParseQuery.getQuery("Moment").count();
+        query.setLimit(150); // 只获取5个先，防止太卡
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> momentList, ParseException e) {
                 if (e == null) {
@@ -542,6 +559,8 @@ public class MomentFragment extends Fragment {
 
         //turndetail= (ImageButton) mView.findViewById(R.id.turn_detail);
         toupgrade=(ImageButton)mView.findViewById(R.id.upgrade);
+        this.onStop();
+        this.onDetach();
         /*turndetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -608,6 +627,7 @@ public class MomentFragment extends Fragment {
 
     }
 
+
     /*定义的适配器*/
     public class ViewPagerAdapter extends PagerAdapter {
 
@@ -668,6 +688,20 @@ public class MomentFragment extends Fragment {
             mHandler.sendEmptyMessage(0);
         }
     }
+    @Override
+    public Animation onCreateAnimation(int transit,boolean enter,int nextAnim){
+        if(enter&&!isGetData){
+            isGetData=true;
+        }else{
+            isGetData=false;
+        }
+        return super.onCreateAnimation(transit,enter,nextAnim);
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        isGetData=false;
+    }
 
     /**
      * 接收子线程传递过来的数据
@@ -686,6 +720,14 @@ public class MomentFragment extends Fragment {
             scheduledExecutorService.shutdown();
             scheduledExecutorService = null;
         }
+    }
+    @Override
+    public void onResume(){
+        if (!isGetData){
+            getMoment();
+            isGetData=true;
+        }
+        super.onResume();
     }
 
 }
