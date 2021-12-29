@@ -88,4 +88,6 @@ dependencies {
     implementation "androidx.compose.material:material-icons-extended:1.1.0-rc01"
     implementation "androidx.compose.material3:material3:1.0.0-alpha02"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
+    implementation 'com.github.esafirm:android-image-picker:3.0.0-beta1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,9 @@ class LoginThread implements Callable<Boolean> {
 public class LoginActivity extends AppCompatActivity {
 
     private MaterialButton submitLogin;
+    private EditText inputUsername;
+    private EditText inputPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         LinearProgressIndicator lpi = findViewById(R.id.login_progress_bar);
+        inputUsername = findViewById(R.id.inputUsername);
+        inputPassword = findViewById(R.id.inputPassword);
+
 //        lpi.show();
 
         submitLogin = (MaterialButton) findViewById(R.id.submit_login_button);
@@ -65,16 +72,17 @@ public class LoginActivity extends AppCompatActivity {
 
                 LinearProgressIndicator lpi = findViewById(R.id.login_progress_bar);
                 lpi.show();
-                ParseUser.logInInBackground("aaron", "114514", new LogInCallback() {
+                // TODO 前端验证
+                String username = inputUsername.getText().toString();
+                String password = inputPassword.getText().toString();
+
+                ParseUser.logInInBackground(username, password, new LogInCallback() {
                     public void done(ParseUser user, ParseException e) {
                         if (user != null) {
                             Toast.makeText(LoginActivity.this,"Logged in",Toast.LENGTH_SHORT).show();
-                            Log.e("LOGIN",user.toString());
-
                         } else {
                             // Signup failed. Look at the ParseException to see what happened.
                             Toast.makeText(LoginActivity.this,"Failed to log in",Toast.LENGTH_SHORT).show();
-                            Log.e("LOGIN",e.getMessage());
                         }
                         lpi.hide();
                         finish();

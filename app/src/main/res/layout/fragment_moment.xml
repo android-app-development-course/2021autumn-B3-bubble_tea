@@ -29,6 +29,8 @@
                 android:scaleType="centerInside"
                 android:background="@drawable/find"/>
             <EditText
+                android:maxLines="1"
+                android:id="@+id/searchInput"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:hint="@string/search_hint"
