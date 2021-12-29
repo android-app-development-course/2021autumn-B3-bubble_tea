@@ -96,6 +96,12 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        try {
+            String url =model.publisher.fetchIfNeeded().getParseFile("avatar").getUrl();
+            Picasso.get().load(url).into(holder.avatar);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         holder.contentText.setText(model.content);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,9 +165,12 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
 
             }
         });
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(holder.moment_pic1);
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(holder.moment_pic2);
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(holder.moment_pic3);
+        //Log.e("attachment",model.attachments.get(1).getUrl());
+        for (int i=0;i<model.attachments.size();i++) {
+            if (i==0) Picasso.get().load(model.attachments.get(0).getUrl()).into(holder.moment_pic1);
+            else if(i==1) Picasso.get().load(model.attachments.get(1).getUrl()).into(holder.moment_pic2);
+            else if(i==2) Picasso.get().load(model.attachments.get(2).getUrl()).into(holder.moment_pic3);
+        }
         // 收藏
         holder.collect_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,6 +259,8 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
         private ImageView moment_pic2;
         private ImageView moment_pic3;
 
+        private ImageView avatar;
+
         public Viewholder(@NonNull View itemView) {
             super(itemView);
 
@@ -263,6 +274,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
             moment_pic1 = itemView.findViewById(R.id.moment_pic1);
             moment_pic2 = itemView.findViewById(R.id.moment_pic2);
             moment_pic3 = itemView.findViewById(R.id.moment_pic3);
+            avatar = itemView.findViewById(R.id.avatar);
         }
 
     }

@@ -76,6 +76,17 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        try {
+            String url =note.publisher.fetchIfNeeded().getParseFile("avatar").getUrl();
+            Picasso.get().load(url).into(holder.avatar);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        for (int i=0;i<note.attachments.size();i++) {
+            if (i==0) Picasso.get().load(note.attachments.get(0).getUrl()).into(holder.collectionimg);
+            else if(i==1) Picasso.get().load(note.attachments.get(1).getUrl()).into(holder.collectionimg);
+            else if(i==2) Picasso.get().load(note.attachments.get(2).getUrl()).into(holder.collectionimg);
+        }
     }
 
 
@@ -112,7 +123,7 @@ public class FavouriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
         FavoriteListView = findViewById(R.id.id_div);
-        LinearLayoutManager gridLayoutManager = new LinearLayoutManager(this);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
 //        getMoment();
         getFavourite();
         FavoriteListView.setLayoutManager(gridLayoutManager);
@@ -153,8 +164,8 @@ public class FavouriteActivity extends AppCompatActivity {
                         try {
                             // 估计这个是没有cache到Object里，所以要从server端fetch一次......考虑一下需不需要存下来吧。
                             cacheFavourite.get(i).publisher.fetch();
-//                            Log.e("Publisher:",cacheMoments.get(i).publisher.getString("nickname"));
-//                            Log.e("Publisher's avatarUrl:",cacheMoments.get(i).publisher.getParseFile("avatar").getUrl());
+                            Log.e("Publisher:",cacheFavourite.get(i).publisher.getString("nickname"));
+                            Log.e("Publisher's avatarUrl:",cacheFavourite.get(i).publisher.getParseFile("avatar").getUrl());
 
                         } catch (ParseException parseException) {
                             Log.e("ERR",parseException.getMessage());
@@ -164,7 +175,7 @@ public class FavouriteActivity extends AppCompatActivity {
                         for(int j=0;j<l.size();j++) {
                             // 图片附件的URL
                             // getFile() 可以返回file，参照：https://parseplatform.org/Parse-SDK-Android/api/com/parse/ParseFile.html
-//                            Log.e("attachments url:",l.get(j).getUrl());
+                            Log.e("attachments url:",l.get(j).getUrl());
                         }
                     }
                     Log.e("Obejct retrived:", String.valueOf(cacheFavourite.size()));
