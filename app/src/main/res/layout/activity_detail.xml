@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,13 +27,15 @@
                     android:background="@drawable/detail_topbg"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/arrow_turn"
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/Turn_back"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center"
+                        android:background="@drawable/ic_leftarrow"
+                        app:backgroundTint="@color/grey"
+                        android:layout_margin="10dp"
                         android:onClick="turn_back"/>
-
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="30dp"
@@ -108,12 +110,14 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp">
+                app:cardElevation="0dp"
+                app:strokeColor="@color/white">
 
                 <LinearLayout
                     android:layout_width="410dp"
                     android:layout_height="25dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    >
                     <Button
                         android:layout_width="45dp"
                         android:layout_height="match_parent"
@@ -162,8 +166,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/detail_username"
+                            android:textSize="20sp"
                             android:layout_marginTop="15dp"
                             android:layout_marginLeft="5dp"
+                            android:textColor="@color/black"
                             android:typeface="monospace"/>
                     </LinearLayout>
                     <LinearLayout
@@ -177,7 +183,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/detail_comment1"
-                            android:textSize="12dp" />
+                            android:textSize="13dp" />
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -201,28 +207,61 @@
                                 android:background="@drawable/user1_pic3"/>
                         </LinearLayout>
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_marginTop="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp">
 
-                            <ImageButton
-                                android:layout_width="80dp"
-                                android:layout_height="20dp"
-                                android:layout_marginLeft="40dp"
-                                android:background="@drawable/nice_pic" />
-                            <ImageButton
-                                android:layout_width="80dp"
-                                android:layout_marginLeft="50dp"
-                                android:layout_height="20dp"
-                                android:background="@drawable/user_givealike"/>
-                            <ImageButton
-                                android:layout_width="80dp"
-                                android:layout_marginLeft="40dp"
-                                android:layout_height="20dp"
-                                android:background="@drawable/colloct_pic"/>
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                                android:id="@+id/like_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textColor="@color/grey"
+                                android:text="@string/givealike"
+                                android:textSize="20sp"
+                                android:layout_margin="3dp"
+                                app:strokeColor="@color/white"
+                                app:backgroundTint="@color/white"
+                                app:icon="@drawable/ic_upvote"
+                                app:iconSize="35dp"
+                                app:iconTint="?attr/colorPrimary"
+
+                                />
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:id="@+id/comment_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/comment"
+                                android:layout_margin="3dp"
+                                app:backgroundTint="@color/white"
+                                android:textColor="@color/grey"
+                                android:textSize="20sp"
+                                app:strokeColor="@color/white"
+                                app:icon="@drawable/ic_comment"
+                                app:iconSize="30dp"
+                                />
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:id="@+id/collect_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="3dp"
+                                android:layout_weight="1"
+                                android:text="@string/collection"
+                                app:backgroundTint="@color/white"
+                                android:textSize="20sp"
+                                android:textColor="@color/grey"
+                                app:strokeColor="@color/white"
+                                app:icon="@drawable/ic_collection"
+                                app:iconSize="35dp"
+
+                                />
 
                         </LinearLayout>
 
@@ -237,4 +276,4 @@
 
 
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
