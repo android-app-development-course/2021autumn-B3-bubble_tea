@@ -41,6 +41,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,12 +97,13 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
             e.printStackTrace();
         }
         holder.contentText.setText(model.content);
-//        holder.cardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.e("pos",String.valueOf(position));
-//            }
-//        });
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(view.getContext(), DetailActivity.class);
+                view.getContext().startActivity(it);
+            }
+        });
 
         // 点赞
         holder.like_button.setOnClickListener(new View.OnClickListener() {
@@ -157,6 +159,9 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
 
             }
         });
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(holder.moment_pic1);
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(holder.moment_pic2);
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(holder.moment_pic3);
         // 收藏
         holder.collect_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,6 +246,9 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
         private MaterialButton collect_button;
         private Button comment_button;
 
+        private ImageView moment_pic1;
+        private ImageView moment_pic2;
+        private ImageView moment_pic3;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
@@ -252,7 +260,9 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
             like_button = itemView.findViewById(R.id.like_button);
             collect_button = itemView.findViewById(R.id.collect_button);
             comment_button = itemView.findViewById(R.id.comment_button);
-
+            moment_pic1 = itemView.findViewById(R.id.moment_pic1);
+            moment_pic2 = itemView.findViewById(R.id.moment_pic2);
+            moment_pic3 = itemView.findViewById(R.id.moment_pic3);
         }
 
     }
