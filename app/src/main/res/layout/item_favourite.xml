@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/favourite_card"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/stroke_color"
+    >
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -11,10 +19,11 @@
         android:layout_marginLeft="5dp"
         android:background="@drawable/like_button_yes"
         android:orientation="vertical">
-        <ImageButton
+        <ImageView
             android:layout_width="150dp"
             android:layout_margin="10dp"
             android:id="@+id/image"
+            android:scaleType="centerCrop"
             android:layout_height="180dp"
             android:background="@drawable/user1_pic3"/>
         <LinearLayout
@@ -24,6 +33,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                android:id="@+id/publish_pic"
                 android:adjustViewBounds="true"
                 android:src="@drawable/head_portrait1"
                 android:background="@drawable/bg_head_portrait1"/>
@@ -31,12 +41,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
-                android:id="@+id/id1"
+                android:id="@+id/id"
                 android:gravity="center"
                 android:text="@string/username1"
                 android:textSize="12sp"
                 android:textColor="@color/black"/>
             <ImageButton
+                android:id="@+id/favbutton"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
@@ -47,5 +58,4 @@
 
     </LinearLayout>
 
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>
