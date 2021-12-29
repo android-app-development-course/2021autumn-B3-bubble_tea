@@ -78,6 +78,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
     private Context context;
     private ArrayList<Moment> momentList;
 
+
     public MomentAdapter(Context c, ArrayList<Moment> m) {
         this.context = c;
         this.momentList = m;
@@ -117,6 +118,8 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                 query.getInBackground(momentId, new GetCallback<ParseObject>() {
                     public void done(ParseObject object, ParseException e) {
                         if (e == null) {
+                            boolean likedBefore = false;
+                            int likeIndex = -1;
                             ArrayList<ParseObject> l = null;
                             try {
                                 List<ParseObject> tmpList = currentUser.fetch().getList("likes");
@@ -130,22 +133,42 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                             }
                             for (int i = 0; i < l.size(); i++) {
                                 if (l.get(i).getObjectId().equals(object.getObjectId())) {
-                                    Toast.makeText(view.getContext(), "点赞过了", Toast.LENGTH_SHORT).show();
-                                    return;
+                                    likedBefore = true;
+                                    likeIndex = i;
+                                    break;
                                 }
                             }
-                            l.add(object);
+                            if (likedBefore) {
+                                l.remove(likeIndex);
+                            } else {
+                                l.add(object);
+                            }
                             currentUser.put("likes", l);
-                            currentUser.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e == null) {
-                                        Toast.makeText(view.getContext(), "点赞成功.", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(view.getContext(), "like failed....", Toast.LENGTH_SHORT).show();
+
+                            if (likedBefore) {
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Toast.makeText(view.getContext(), "取消点赞成功.", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(view.getContext(), "like failed....", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            } else {
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Toast.makeText(view.getContext(), "点赞成功.", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(view.getContext(), "like failed....", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+
 
                         } else {
                             Toast.makeText(view.getContext(), "like failed....", Toast.LENGTH_SHORT).show();
@@ -173,6 +196,8 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                 query.getInBackground(momentId, new GetCallback<ParseObject>() {
                     public void done(ParseObject object, ParseException e) {
                         if (e == null) {
+                            boolean collectedBefore = false;
+                            int collIndex = -1;
                             ArrayList<ParseObject> l = null;
                             try {
                                 List<ParseObject> tmpList = currentUser.fetch().getList("collections");
@@ -187,22 +212,40 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
 
                             for (int i = 0; i < l.size(); i++) {
                                 if (l.get(i).getObjectId().equals(object.getObjectId())) {
-                                    Toast.makeText(view.getContext(), "收藏过了", Toast.LENGTH_SHORT).show();
-                                    return;
+                                    collectedBefore = true;
+                                    collIndex = i;
+                                    break;
                                 }
                             }
-                            l.add(object);
+                            if (collectedBefore) {
+                                l.remove(collIndex);
+                            } else {
+                                l.add(object);
+                            }
                             currentUser.put("collections", l);
-                            currentUser.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e == null) {
-                                        Toast.makeText(view.getContext(), "collect success.", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(view.getContext(), "collect failed....", Toast.LENGTH_SHORT).show();
+                            if (collectedBefore) {
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Toast.makeText(view.getContext(), "取消收藏成功.", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(view.getContext(), "like failed....", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            } else {
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Toast.makeText(view.getContext(), "收藏成功.", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(view.getContext(), "like failed....", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
 
                         } else {
                             Toast.makeText(view.getContext(), "collect failed....", Toast.LENGTH_SHORT).show();
