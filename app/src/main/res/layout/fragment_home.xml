@@ -220,7 +220,6 @@
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
                             android:id="@+id/view5"
-                            android:onClick="turn_describe"
                             android:background="@drawable/home_midrightbg1"
                             android:src="@drawable/res318" />
                     </LinearLayout>
@@ -234,7 +233,6 @@
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
                             android:id="@+id/view6"
-                            android:onClick="turn_describe"
                             android:background="@drawable/home_midrightbg1"
                             android:src="@drawable/res322"/>
                     </LinearLayout>

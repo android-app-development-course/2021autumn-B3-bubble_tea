@@ -342,7 +342,7 @@ public class MomentFragment extends Fragment {
 
         return mView;
     }
-    
+
     public Vector<Moment> cacheMoments = new Vector<>();
     
     // 获取Moment 的列表
