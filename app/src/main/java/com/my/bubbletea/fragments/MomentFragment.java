@@ -16,12 +16,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -367,6 +369,8 @@ public class MomentFragment extends Fragment {
     }
 
     RecyclerView momentListView;
+    EditText searchInput;
+    volatile ArrayList<ParseObject> searchResults = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -378,10 +382,44 @@ public class MomentFragment extends Fragment {
         // 帖子的listview
 
         momentListView = mView.findViewById(R.id.momentList);
+        searchInput = mView.findViewById(R.id.searchInput);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         momentListView.setLayoutManager(linearLayoutManager);
         momentListView.setAdapter(new MomentAdapter(mView.getContext(), new ArrayList(cacheMoments)));
 //        getMoment();
+        searchInput.setOnKeyListener(
+                new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                        if (i == KeyEvent.KEYCODE_ENTER) {
+                            searchResults.clear();
+                            String s = searchInput.getText().toString();
+                            Log.e("Search", "Searching" + s);
+//                            ParseQuery<ParseObject> query_brand = ParseQuery.getQuery("MilkteaModel").whereFullText("brand", s);
+
+                            List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
+                            queries.add(ParseQuery.getQuery("MilkteaModel").whereContains("brand", s));
+                            queries.add(ParseQuery.getQuery("MilkteaModel").whereContains("description", s));
+                            queries.add(ParseQuery.getQuery("MilkteaModel").whereContains("name", s));
+                            ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
+                            mainQuery.findInBackground(new FindCallback<ParseObject>() {
+                                public void done(List<ParseObject> results, ParseException e) {
+                                    // 返回的结果是 MilkteaModel
+                                    if (results != null && e == null) {
+                                        for (ParseObject p:results) {
+//                                            Log.e("results",p.getString("description"));
+                                        }
+                                    } else {
+                                    }
+
+                                }
+                            });
+                        }
+                        return false;
+                    }
+                }
+        );
+
 
         return mView;
     }
@@ -403,8 +441,8 @@ public class MomentFragment extends Fragment {
                         try {
                             List<ParseObject> collections = currentUser.fetchIfNeeded().getList("collections");
                             List<ParseObject> likes = currentUser.fetchIfNeeded().getList("likes");
-                            for(ParseObject o:collections) collectionsID.add(o.getObjectId());
-                            for(ParseObject o:likes) likesID.add(o.getObjectId());
+                            for (ParseObject o : collections) collectionsID.add(o.getObjectId());
+                            for (ParseObject o : likes) likesID.add(o.getObjectId());
                         } catch (ParseException parseException) {
                             parseException.printStackTrace();
                         }
@@ -415,10 +453,11 @@ public class MomentFragment extends Fragment {
                         boolean collected = false;
 
                         if (likesID.contains(momentList.get(i).getObjectId())) liked = true;
-                        if (collectionsID.contains(momentList.get(i).getObjectId())) collected = true;
+                        if (collectionsID.contains(momentList.get(i).getObjectId()))
+                            collected = true;
 
-                        if(liked) {
-                            Log.e("LIKED",momentList.get(i).getString("content"));
+                        if (liked) {
+                            Log.e("LIKED", momentList.get(i).getString("content"));
                         }
 
                         cacheMoments.add(new Moment(
