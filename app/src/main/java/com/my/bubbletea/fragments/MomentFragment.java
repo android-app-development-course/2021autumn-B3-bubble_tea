@@ -357,7 +357,7 @@ public class MomentFragment extends Fragment {
         // 帖子的listview
 
         momentListView = mView.findViewById(R.id.momentList);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         momentListView.setLayoutManager(linearLayoutManager);
         momentListView.setAdapter(new MomentAdapter(mView.getContext(),new ArrayList(cacheMoments)));
 //        getMoment();

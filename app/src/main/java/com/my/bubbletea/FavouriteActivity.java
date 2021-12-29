@@ -147,7 +147,7 @@ public class FavouriteActivity extends AppCompatActivity {
 
     public Vector<Note1> cacheFavourite= new Vector<>();
     public void getFavourite() {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Favourite");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Moment");
         query.setLimit(5);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> favouriteList, ParseException e) {
