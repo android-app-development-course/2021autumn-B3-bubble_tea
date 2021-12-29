@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.my.bubbletea.CommentActivity;
 import com.my.bubbletea.DetailActivity;
 import com.my.bubbletea.R;
@@ -237,7 +238,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
         private CardView cardView;
 
         private Button like_button;
-        private Button collect_button;
+        private MaterialButton collect_button;
         private Button comment_button;
 
 

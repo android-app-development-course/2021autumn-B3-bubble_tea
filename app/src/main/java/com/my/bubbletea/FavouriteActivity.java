@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -61,7 +62,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View fview = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_favourite, parent, false);//加载view
         return new ViewHolder(fview);
     }
@@ -103,24 +104,25 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 }
 
 public class FavouriteActivity extends AppCompatActivity {
-    RecyclerView FavoriteListView;
-    public Vector<Note1> cacheFavourite= new Vector<>();
-
+    private RecyclerView FavoriteListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
         FavoriteListView = findViewById(R.id.id_div);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        LinearLayoutManager gridLayoutManager = new LinearLayoutManager(this);
 //        getMoment();
+        getFavourite();
         FavoriteListView.setLayoutManager(gridLayoutManager);
-        FavoriteListView.setAdapter(new MyAdapter(this,new ArrayList(cacheFavourite)));
+        FavoriteListView.setAdapter(new MyAdapter(this, new ArrayList(cacheFavourite)));
+        Toast.makeText(this,"111",Toast.LENGTH_SHORT).show();
 //        notes = new ArrayList<>();
 //        String url = "https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png";
 //        for (int i=1;i<=3;i++)
 //        {
-//            Note1 note=new Note1();
+//            Note1 note=new Note1()
+//            ;
 //            //note.setId();
 //            notes.add(url, "第"+i+"个名字");
 //
@@ -128,9 +130,10 @@ public class FavouriteActivity extends AppCompatActivity {
 //        mMyAdapter = new FavouriteActivity.MyAdapter(this.getContext(), new ArrayList(cacheFavourite));
 //        FavoriteListView.setAdapter(mMyAdapter);
 //        FavoriteListView.setLayoutManager(new GridLayoutManager(this, 2));
-        getFavourite();
+
     }
 
+    public Vector<Note1> cacheFavourite= new Vector<>();
     public void getFavourite() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Favourite");
         query.setLimit(5);
