@@ -42,6 +42,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +103,20 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        try {
+            String url =model.publisher.fetchIfNeeded().getParseFile("avatar").getUrl();
+            Picasso.get().load(url).into(holder.avatar);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         holder.contentText.setText(model.content);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(view.getContext(), DetailActivity.class);
+                view.getContext().startActivity(it);
+            }
+        });
 
         // 点赞
         holder.like_button.setOnClickListener(new View.OnClickListener() {
@@ -181,6 +195,12 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
 
             }
         });
+        //Log.e("attachment",model.attachments.get(1).getUrl());
+        for (int i=0;i<model.attachments.size();i++) {
+            if (i==0) Picasso.get().load(model.attachments.get(0).getUrl()).into(holder.moment_pic1);
+            else if(i==1) Picasso.get().load(model.attachments.get(1).getUrl()).into(holder.moment_pic2);
+            else if(i==2) Picasso.get().load(model.attachments.get(2).getUrl()).into(holder.moment_pic3);
+        }
         // 收藏
         holder.collect_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -286,6 +306,11 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
         private MaterialButton collect_button;
         private Button comment_button;
 
+        private ImageView moment_pic1;
+        private ImageView moment_pic2;
+        private ImageView moment_pic3;
+
+        private ImageView avatar;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
@@ -297,7 +322,10 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
             like_button = itemView.findViewById(R.id.like_button);
             collect_button = itemView.findViewById(R.id.collect_button);
             comment_button = itemView.findViewById(R.id.comment_button);
-
+            moment_pic1 = itemView.findViewById(R.id.moment_pic1);
+            moment_pic2 = itemView.findViewById(R.id.moment_pic2);
+            moment_pic3 = itemView.findViewById(R.id.moment_pic3);
+            avatar = itemView.findViewById(R.id.avatar);
         }
 
     }
@@ -383,7 +411,7 @@ public class MomentFragment extends Fragment {
 
         momentListView = mView.findViewById(R.id.momentList);
         searchInput = mView.findViewById(R.id.searchInput);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         momentListView.setLayoutManager(linearLayoutManager);
         momentListView.setAdapter(new MomentAdapter(mView.getContext(), new ArrayList(cacheMoments)));
 //        getMoment();
