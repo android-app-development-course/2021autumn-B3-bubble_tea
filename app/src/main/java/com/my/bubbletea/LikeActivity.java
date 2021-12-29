@@ -71,6 +71,7 @@ public class LikeActivity extends AppCompatActivity {
             Toast.makeText(this,"Not logged in",Toast.LENGTH_SHORT).show();
             finish();
         } else {
+            Log.e("current",currentUser.getString("username"));
             List<String> flavors = null;
             try {
                 flavors = currentUser.fetch().getList("flavor");
@@ -78,12 +79,14 @@ public class LikeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (flavors != null) {
+                Log.e("not emptyflavors", String.valueOf(flavors.size()));
                 for(String f:flavors) {
                     Note n = new Note();
                     n.setText(f);
                     notes.add(n);
                 }
             } else {
+                Log.e("empty flavors", "emt" );
                 flavors = new ArrayList<String>();
             }
         }
