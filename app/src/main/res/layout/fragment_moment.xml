@@ -61,15 +61,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:fillViewport="true"
         android:scrollbars="none">
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -87,7 +85,6 @@
                     android:background="#33000000"
                     android:gravity="center"
                     android:orientation="vertical" >
-
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -122,17 +119,16 @@
                 </LinearLayout>
             </FrameLayout>
             <!--            Test list view-->
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:descendantFocusability="blocksDescendants">
                 <androidx.recyclerview.widget.RecyclerView
                     android:divider="@null"
                     android:id="@+id/momentList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 
