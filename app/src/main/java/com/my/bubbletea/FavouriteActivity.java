@@ -1,7 +1,6 @@
 package com.my.bubbletea;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.parse.FindCallback;
@@ -54,9 +52,9 @@ class Note1 {
 
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<Note1> favouriteList;
+    private ArrayList<CNote1> favouriteList;
 
-    public MyAdapter(Context concer, ArrayList<Note1> f) {
+    public MyAdapter(Context concer, ArrayList<CNote1> f) {
         this.context = concer;
         this.favouriteList = f;
     }
@@ -70,7 +68,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Note1 note = favouriteList.get(position);
+        CNote1 note = favouriteList.get(position);
         try {
             holder.publisherText.setText(note.publisher.fetchIfNeeded().getString("nickname"));
         } catch (ParseException e) {
@@ -145,7 +143,7 @@ public class FavouriteActivity extends AppCompatActivity {
 
     }
 
-    public Vector<Note1> cacheFavourite= new Vector<>();
+    public Vector<CNote1> cacheFavourite= new Vector<>();
     public void getFavourite() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Moment");
         query.setLimit(5);
@@ -154,7 +152,7 @@ public class FavouriteActivity extends AppCompatActivity {
                 if (e == null) {
                     cacheFavourite.clear();
                     for(int i=0;i<favouriteList.size();i++) {
-                        cacheFavourite.add(new Note1(
+                        cacheFavourite.add(new CNote1(
                                 favouriteList.get(i).getObjectId(),
                                 favouriteList.get(i).getString("title"),
                                 //favouriteList.get(i).getString("content"),
@@ -189,7 +187,7 @@ public class FavouriteActivity extends AppCompatActivity {
 //                Toast.makeText(mView.getContext(),"clicked"+String.valueOf(i),Toast.LENGTH_SHORT).show();
 
 
-                FavoriteListView.setAdapter(new MyAdapter(FavoriteListView.getContext() ,new ArrayList(cacheFavourite)));
+                FavoriteListView.setAdapter(new CMyAdapter(FavoriteListView.getContext() ,new ArrayList(cacheFavourite)));
 
 
             }

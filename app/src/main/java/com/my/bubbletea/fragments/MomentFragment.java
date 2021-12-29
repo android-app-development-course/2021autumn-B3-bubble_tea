@@ -3,6 +3,7 @@ package com.my.bubbletea.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,15 +16,21 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +48,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,12 +68,16 @@ class Moment {
     public String content;
     public List<ParseFile> attachments;
     public ParseObject publisher;
-    Moment(String i,String t,String c,List<ParseFile> l,ParseObject user) {
+    public boolean isLiked;
+    public boolean isCollected;
+    Moment(String i,String t,String c,List<ParseFile> l,ParseObject user,boolean liked,boolean coll) {
         id = i;
         title = t;
         content = c;
         attachments = l;
         publisher = user;
+        isLiked = liked;
+        isCollected = coll;
     }
 }
 
@@ -89,27 +99,20 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MomentAdapter.Viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         Moment model = momentList.get(position);
         try {
             holder.publisherText.setText(model.publisher.fetchIfNeeded().getString("nickname"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        try {
-            String url =model.publisher.fetchIfNeeded().getParseFile("avatar").getUrl();
-            Picasso.get().load(url).into(holder.avatar);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         holder.contentText.setText(model.content);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(view.getContext(), DetailActivity.class);
-                view.getContext().startActivity(it);
-            }
-        });
+//        holder.cardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.e("pos",String.valueOf(position));
+//            }
+//        });
 
         // 点赞
         holder.like_button.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +124,6 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                     return;
                 }
 
-
                 String momentId = momentList.get(position).id;
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Moment");
 
@@ -130,12 +132,14 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                         if (e == null) {
                             ArrayList<ParseObject> l = null;
                             try {
-                                l = new ArrayList<>(currentUser.fetch().getList("likes"));
+                                List<ParseObject> tmpList = currentUser.fetch().getList("likes");
+                                if(tmpList == null) {
+                                    l = new ArrayList<>();
+                                } else {
+                                    l = new ArrayList<>(tmpList);
+                                }
                             } catch (ParseException parseException) {
                                 parseException.printStackTrace();
-                            }
-                            if(l == null) {
-                                Log.e("?","这都NULL？？");
                             }
                             for(int i=0;i<l.size();i++) {
                                 if (l.get(i).getObjectId().equals(object.getObjectId())) {
@@ -165,12 +169,6 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
 
             }
         });
-        //Log.e("attachment",model.attachments.get(1).getUrl());
-        for (int i=0;i<model.attachments.size();i++) {
-            if (i==0) Picasso.get().load(model.attachments.get(0).getUrl()).into(holder.moment_pic1);
-            else if(i==1) Picasso.get().load(model.attachments.get(1).getUrl()).into(holder.moment_pic2);
-            else if(i==2) Picasso.get().load(model.attachments.get(2).getUrl()).into(holder.moment_pic3);
-        }
         // 收藏
         holder.collect_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,13 +188,16 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                         if (e == null) {
                             ArrayList<ParseObject> l = null;
                             try {
-                                l = new ArrayList<>(currentUser.fetch().getList("collections"));
+                                List<ParseObject> tmpList = currentUser.fetch().getList("collections");
+                                if(tmpList == null) {
+                                    l = new ArrayList<>();
+                                } else {
+                                    l = new ArrayList<>(tmpList);
+                                }
                             } catch (ParseException parseException) {
                                 parseException.printStackTrace();
                             }
-                            if(l == null) {
-                                Log.e("?","这都NULL？？");
-                            }
+
                             for(int i=0;i<l.size();i++) {
                                 if (l.get(i).getObjectId().equals(object.getObjectId())) {
                                     Toast.makeText(view.getContext(),"收藏过了",Toast.LENGTH_SHORT).show();
@@ -252,14 +253,9 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
         private CardView cardView;
 
         private Button like_button;
-        private MaterialButton collect_button;
+        private Button collect_button;
         private Button comment_button;
 
-        private ImageView moment_pic1;
-        private ImageView moment_pic2;
-        private ImageView moment_pic3;
-
-        private ImageView avatar;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
@@ -271,10 +267,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
             like_button = itemView.findViewById(R.id.like_button);
             collect_button = itemView.findViewById(R.id.collect_button);
             comment_button = itemView.findViewById(R.id.comment_button);
-            moment_pic1 = itemView.findViewById(R.id.moment_pic1);
-            moment_pic2 = itemView.findViewById(R.id.moment_pic2);
-            moment_pic3 = itemView.findViewById(R.id.moment_pic3);
-            avatar = itemView.findViewById(R.id.avatar);
+
         }
 
     }
@@ -287,16 +280,21 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
  * create an instance of this fragment.
  */
 public class MomentFragment extends Fragment {
-
+    private EditText mEditText;
+    private ListView mListView;
+    private ImageButton msearchbtn;
+    Context context;
+    Cursor cursor;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private boolean isGetData=false;
     private View mView;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ImageButton turndetail;
+    //private ImageButton turndetail;
     private ImageButton toupgrade;
 
     private ViewPager mViewPaper;
@@ -335,6 +333,20 @@ public class MomentFragment extends Fragment {
         return fragment;
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data){
+//        super.onActivityResult(requestCode, resultCode, data);
+//        switch (requestCode) {
+//            case 1:
+//                if (resultCode != UpgradeActivity.RESULT_OK) {
+//                    getMoment();
+//                    return;
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+//    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -357,32 +369,125 @@ public class MomentFragment extends Fragment {
         // 帖子的listview
 
         momentListView = mView.findViewById(R.id.momentList);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        searchInput = mView.findViewById(R.id.searchInput);
+        LinearLayoutManager linearLayoutManager =  new  LinearLayoutManager( getActivity(),
+                LinearLayoutManager.VERTICAL,  false ) {
+
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+
+            }
+        };
         momentListView.setLayoutManager(linearLayoutManager);
         momentListView.setAdapter(new MomentAdapter(mView.getContext(),new ArrayList(cacheMoments)));
 //        getMoment();
+        mEditText = (EditText) mView.findViewById(R.id.searchInput);
+        mListView = (ListView) mView.findViewById(R.id.listview);
+        msearchbtn= (ImageButton) mView.findViewById(R.id.mid_search);
+        mEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length()==0){
+                    //收起
+                }else{
+                    //myhandler post(changed);
+                    showListView(mView);
+                }
+            }
+        });
+        msearchbtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                //如果输入框内容为空，提示请输入搜索内容
+                if (TextUtils.isEmpty(mEditText.getText().toString().trim())) {
+                    //ToastUtils.showToast(context,"请输入您要搜索的内容");
+                } else {
+                    //判断cursor是否为空
+                    if (cursor != null) {
+                        int columnCount = cursor.getCount();
+                        if (columnCount == 0) {
+                            //ToastUtils.showToast(context, "对不起，没有你要搜索的内容");
+                        }
+                    }
+                }
+
+            }
+
+        });
         return mView;
     }
-    
+    public void showListView(View view){
+        mListView.setVisibility(View.VISIBLE);
+        //获得输入的内容
+        String str = mEditText.getText().toString().trim();
+        String[] data={"一点点","四季奶青","冰淇淋红茶","满杯红柚","奶茶三兄弟"};
+        String[] data1={};
+        ArrayAdapter<String> adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data);
+        if (str==null)
+        {
+            adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data1);
+        }
+
+        mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String result=((TextView)view).getText().toString();
+            }
+        });
+
+        //获取数据库对象
+//            MyOpenHelper myOpenHelper = new MyOpenHelper(context.getApplicationContext());
+//            SQLiteDatabase db = myOpenHelper.getReadableDatabase();
+//            //得到cursor
+//            cursor = db.rawQuery("select * from lol where name like '%" + str + "%'", null);
+//            MyListViewCursorAdapter adapter = new MyListViewCursorAdapter(context, cursor);
+
+        mListView.setAdapter(adapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //把cursor移动到指定行
+                cursor.moveToPosition(position);
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                //ToastUtils.showToast(context, name);
+            }
+        });
+    }
+
+
+
+
     public Vector<Moment> cacheMoments = new Vector<>();
-    
+
     // 获取Moment 的列表
     public void getMoment() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Moment");
-        query.setLimit(5); // 只获取5个先，防止太卡
+       // int size=ParseQuery.getQuery("Moment").count();
+        query.setLimit(150); // 只获取5个先，防止太卡
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> momentList, ParseException e) {
                 if (e == null) {
                     cacheMoments.clear();
-                    for(int i=0;i<momentList.size();i++) {
+                    for(int i=0;i<6;i++) {
                         cacheMoments.add(new Moment(
-                                momentList.get(i).getObjectId(),
-                                momentList.get(i).getString("title"),
-                                momentList.get(i).getString("content"),
-                                momentList.get(i).getList("attachments"),
-                                momentList.get(i).getParseObject("publisher")
+                                momentList.get(momentList.size()-i-1).getObjectId(),
+                                momentList.get(momentList.size()-i-1).getString("title"),
+                                momentList.get(momentList.size()-i-1).getString("content"),
+                                momentList.get(momentList.size()-i-1).getList("attachments"),
+                                momentList.get(momentList.size()-i-1).getParseObject("publisher"),
+                                false,
+                                false
                         ));
                         try {
                             // 估计这个是没有cache到Object里，所以要从server端fetch一次......考虑一下需不需要存下来吧。
@@ -414,8 +519,6 @@ public class MomentFragment extends Fragment {
 
                 momentListView.setAdapter(new MomentAdapter(getContext(),new ArrayList(cacheMoments)));
 
-
-
             }
         });
 
@@ -435,6 +538,8 @@ public class MomentFragment extends Fragment {
 
         //turndetail= (ImageButton) mView.findViewById(R.id.turn_detail);
         toupgrade=(ImageButton)mView.findViewById(R.id.upgrade);
+        this.onStop();
+        this.onDetach();
         /*turndetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -501,6 +606,7 @@ public class MomentFragment extends Fragment {
 
     }
 
+
     /*定义的适配器*/
     public class ViewPagerAdapter extends PagerAdapter {
 
@@ -561,6 +667,20 @@ public class MomentFragment extends Fragment {
             mHandler.sendEmptyMessage(0);
         }
     }
+    @Override
+    public Animation onCreateAnimation(int transit,boolean enter,int nextAnim){
+        if(enter&&!isGetData){
+            isGetData=true;
+        }else{
+            isGetData=false;
+        }
+        return super.onCreateAnimation(transit,enter,nextAnim);
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        isGetData=false;
+    }
 
     /**
      * 接收子线程传递过来的数据
@@ -579,6 +699,14 @@ public class MomentFragment extends Fragment {
             scheduledExecutorService.shutdown();
             scheduledExecutorService = null;
         }
+    }
+    @Override
+    public void onResume(){
+        if (!isGetData){
+            getMoment();
+            isGetData=true;
+        }
+        super.onResume();
     }
 
 }
