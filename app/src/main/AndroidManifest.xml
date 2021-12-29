@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BubbleTea">
         <activity
+            android:name=".SearchResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".conversation.Conversation"
             android:exported="false"
             android:label="@string/title_activity_conversation"
