@@ -31,6 +31,16 @@
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/item_collect.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/item_favourite.xml" value="0.10326086956521739" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/item_letter.xml" value="0.13905775075987842" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/activity_describe.xml" value="0.140625" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/activity_detail.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/activity_like.xml" value="0.15520833333333334" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/activity_register.xml" value="0.15104166666666666" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/fragment_home.xml" value="0.15104166666666666" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/fragment_moment.xml" value="0.15520833333333334" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/item_collect.xml" value="0.15520833333333334" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/item_favourite.xml" value="0.15520833333333334" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/item_letter.xml" value="0.15520833333333334" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/item_recommend.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/drawable/ic_baseline_home.xml" value="0.25462962962962965" />
         <entry key="app/src/main/res/drawable/ic_baseline_moment.xml" value="0.25462962962962965" />
         <entry key="app/src/main/res/layout/activity_comment.xml" value="0.5114583333333333" />
