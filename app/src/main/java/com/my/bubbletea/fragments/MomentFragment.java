@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -61,12 +62,16 @@ class Moment {
     public String content;
     public List<ParseFile> attachments;
     public ParseObject publisher;
-    Moment(String i,String t,String c,List<ParseFile> l,ParseObject user) {
+    public boolean isLiked;
+    public boolean isCollected;
+    Moment(String i,String t,String c,List<ParseFile> l,ParseObject user,boolean liked,boolean coll) {
         id = i;
         title = t;
         content = c;
         attachments = l;
         publisher = user;
+        isLiked = liked;
+        isCollected = coll;
     }
 }
 
@@ -113,7 +118,6 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                     return;
                 }
 
-
                 String momentId = momentList.get(position).id;
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Moment");
 
@@ -122,12 +126,14 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                         if (e == null) {
                             ArrayList<ParseObject> l = null;
                             try {
-                                l = new ArrayList<>(currentUser.fetch().getList("likes"));
+                                List<ParseObject> tmpList = currentUser.fetch().getList("likes");
+                                if(tmpList == null) {
+                                    l = new ArrayList<>();
+                                } else {
+                                    l = new ArrayList<>(tmpList);
+                                }
                             } catch (ParseException parseException) {
                                 parseException.printStackTrace();
-                            }
-                            if(l == null) {
-                                Log.e("?","这都NULL？？");
                             }
                             for(int i=0;i<l.size();i++) {
                                 if (l.get(i).getObjectId().equals(object.getObjectId())) {
@@ -176,13 +182,16 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                         if (e == null) {
                             ArrayList<ParseObject> l = null;
                             try {
-                                l = new ArrayList<>(currentUser.fetch().getList("collections"));
+                                List<ParseObject> tmpList = currentUser.fetch().getList("collections");
+                                if(tmpList == null) {
+                                    l = new ArrayList<>();
+                                } else {
+                                    l = new ArrayList<>(tmpList);
+                                }
                             } catch (ParseException parseException) {
                                 parseException.printStackTrace();
                             }
-                            if(l == null) {
-                                Log.e("?","这都NULL？？");
-                            }
+
                             for(int i=0;i<l.size();i++) {
                                 if (l.get(i).getObjectId().equals(object.getObjectId())) {
                                     Toast.makeText(view.getContext(),"收藏过了",Toast.LENGTH_SHORT).show();
@@ -270,11 +279,12 @@ public class MomentFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private boolean isGetData=false;
     private View mView;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ImageButton turndetail;
+    //private ImageButton turndetail;
     private ImageButton toupgrade;
 
     private ViewPager mViewPaper;
@@ -313,6 +323,20 @@ public class MomentFragment extends Fragment {
         return fragment;
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data){
+//        super.onActivityResult(requestCode, resultCode, data);
+//        switch (requestCode) {
+//            case 1:
+//                if (resultCode != UpgradeActivity.RESULT_OK) {
+//                    getMoment();
+//                    return;
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+//    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -343,24 +367,27 @@ public class MomentFragment extends Fragment {
 
         return mView;
     }
-    
+
     public Vector<Moment> cacheMoments = new Vector<>();
-    
+
     // 获取Moment 的列表
     public void getMoment() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Moment");
-        query.setLimit(5); // 只获取5个先，防止太卡
+       // int size=ParseQuery.getQuery("Moment").count();
+        query.setLimit(150); // 只获取5个先，防止太卡
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> momentList, ParseException e) {
                 if (e == null) {
                     cacheMoments.clear();
-                    for(int i=0;i<momentList.size();i++) {
+                    for(int i=0;i<6;i++) {
                         cacheMoments.add(new Moment(
-                                momentList.get(i).getObjectId(),
-                                momentList.get(i).getString("title"),
-                                momentList.get(i).getString("content"),
-                                momentList.get(i).getList("attachments"),
-                                momentList.get(i).getParseObject("publisher")
+                                momentList.get(momentList.size()-i-1).getObjectId(),
+                                momentList.get(momentList.size()-i-1).getString("title"),
+                                momentList.get(momentList.size()-i-1).getString("content"),
+                                momentList.get(momentList.size()-i-1).getList("attachments"),
+                                momentList.get(momentList.size()-i-1).getParseObject("publisher"),
+                                false,
+                                false
                         ));
                         try {
                             // 估计这个是没有cache到Object里，所以要从server端fetch一次......考虑一下需不需要存下来吧。
@@ -392,8 +419,6 @@ public class MomentFragment extends Fragment {
 
                 momentListView.setAdapter(new MomentAdapter(getContext(),new ArrayList(cacheMoments)));
 
-
-
             }
         });
 
@@ -413,6 +438,8 @@ public class MomentFragment extends Fragment {
 
         //turndetail= (ImageButton) mView.findViewById(R.id.turn_detail);
         toupgrade=(ImageButton)mView.findViewById(R.id.upgrade);
+        this.onStop();
+        this.onDetach();
         /*turndetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -479,6 +506,7 @@ public class MomentFragment extends Fragment {
 
     }
 
+
     /*定义的适配器*/
     public class ViewPagerAdapter extends PagerAdapter {
 
@@ -539,6 +567,20 @@ public class MomentFragment extends Fragment {
             mHandler.sendEmptyMessage(0);
         }
     }
+    @Override
+    public Animation onCreateAnimation(int transit,boolean enter,int nextAnim){
+        if(enter&&!isGetData){
+            isGetData=true;
+        }else{
+            isGetData=false;
+        }
+        return super.onCreateAnimation(transit,enter,nextAnim);
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        isGetData=false;
+    }
 
     /**
      * 接收子线程传递过来的数据
@@ -557,6 +599,14 @@ public class MomentFragment extends Fragment {
             scheduledExecutorService.shutdown();
             scheduledExecutorService = null;
         }
+    }
+    @Override
+    public void onResume(){
+        if (!isGetData){
+            getMoment();
+            isGetData=true;
+        }
+        super.onResume();
     }
 
 }
