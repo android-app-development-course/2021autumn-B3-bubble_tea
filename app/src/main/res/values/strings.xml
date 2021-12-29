@@ -77,4 +77,5 @@
     <string name="about">关于奶茶控</string>
     <string name="title_activity_moment_list">MomentList</string>
     <string name="title_activity_conversation">Conversation</string>
+    <string name="navigation_home">Home</string>
 </resources>

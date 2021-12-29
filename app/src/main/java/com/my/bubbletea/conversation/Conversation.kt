@@ -220,6 +220,14 @@ fun fetchMessages(): ArrayList<Message> {
     Log.e("Su", "fetchMessages")
     val currentUser = ParseUser.getCurrentUser()
     var arr = ArrayList<Message>()
+    arr.add(
+            0,
+            Message(
+                    author = "客服",
+                    content = "今天有什么可以帮到你？",
+                    timestamp = "now",
+            )
+    )
     if (currentUser != null) {
 
         val query = ParseQuery.getQuery<ParseObject>("Chat")
@@ -229,7 +237,6 @@ fun fetchMessages(): ArrayList<Message> {
             chatLists.forEach { _chat ->
                 val msgList = _chat.getList<ParseObject>("messages")
                 if (msgList != null) {
-                    Log.e("Su", msgList.size.toString())
                     msgList.forEach { msg ->
                         if (msg != null && msg.fetchIfNeeded<ParseObject>().getBoolean("isAdmin")) {
                             arr.add(
@@ -244,11 +251,10 @@ fun fetchMessages(): ArrayList<Message> {
                         } else {
                             val c = msg.fetchIfNeeded<ParseObject>().getString("content")
                             if (c != null) {
-                                Log.e("in MSGlist", c)
                                 arr.add(
                                     0,
                                     Message(
-                                        author = currentUser.getString("nickname")!!,
+                                        author = "Me",
                                         content = c,
                                         timestamp = "now",
                                     )
@@ -674,19 +680,15 @@ fun UserInput(
                 if (textState.text.isEmpty() && !textFieldFocusState) {
                     Text(
                         modifier = Modifier
-                            .align(Alignment.CenterStart)
-                            .padding(start = 32.dp),
-                        text = "Message #composers",
+                            .align(Alignment.CenterStart).padding(start = 68.dp),
+                        text = "输入你的消息",
                         style = MaterialTheme.typography.bodyLarge.copy(color = disableContentColor)
                     )
                 }
             }
-
-            //
-
             Button(
                 modifier = Modifier
-                    .wrapContentWidth()
+                    .wrapContentWidth().padding(end = 60.dp)
                     .constrainAs(button) {
                         start.linkTo(inp.end)
                         end.linkTo(parent.end)
