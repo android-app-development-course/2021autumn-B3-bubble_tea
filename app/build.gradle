@@ -90,4 +90,5 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
     implementation 'com.github.esafirm:android-image-picker:3.0.0-beta1'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.st235:expandablebottombar:1.4.0'
 }
