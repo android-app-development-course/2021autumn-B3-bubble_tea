@@ -125,7 +125,7 @@ public class FavouriteActivity extends AppCompatActivity {
 //        getMoment();
         getFavourite();
         FavoriteListView.setLayoutManager(gridLayoutManager);
-        FavoriteListView.setAdapter(new MyAdapter(this, new ArrayList(cacheFavourite)));
+        FavoriteListView.setAdapter(new CMyAdapter(this, new ArrayList(cacheFavourite)));
 //        Toast.makeText(this,"111",Toast.LENGTH_SHORT).show();
 //        notes = new ArrayList<>();
 //        String url = "https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png";

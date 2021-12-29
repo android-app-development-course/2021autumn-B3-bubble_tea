@@ -125,7 +125,6 @@
                     app:strokeColor="@color/white"
                     app:icon="@drawable/ic_comment"
                     app:iconSize="30dp"
-                    app:iconTint="@color/grey"
                     />
                 <com.google.android.material.button.MaterialButton
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
