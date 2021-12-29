@@ -60,12 +60,16 @@ class Moment {
     public String content;
     public List<ParseFile> attachments;
     public ParseObject publisher;
-    Moment(String i,String t,String c,List<ParseFile> l,ParseObject user) {
+    public boolean isLiked;
+    public boolean isCollected;
+    Moment(String i,String t,String c,List<ParseFile> l,ParseObject user,boolean liked,boolean coll) {
         id = i;
         title = t;
         content = c;
         attachments = l;
         publisher = user;
+        isLiked = liked;
+        isCollected = coll;
     }
 }
 
@@ -112,7 +116,6 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                     return;
                 }
 
-
                 String momentId = momentList.get(position).id;
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Moment");
 
@@ -121,12 +124,14 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                         if (e == null) {
                             ArrayList<ParseObject> l = null;
                             try {
-                                l = new ArrayList<>(currentUser.fetch().getList("likes"));
+                                List<ParseObject> tmpList = currentUser.fetch().getList("likes");
+                                if(tmpList == null) {
+                                    l = new ArrayList<>();
+                                } else {
+                                    l = new ArrayList<>(tmpList);
+                                }
                             } catch (ParseException parseException) {
                                 parseException.printStackTrace();
-                            }
-                            if(l == null) {
-                                Log.e("?","这都NULL？？");
                             }
                             for(int i=0;i<l.size();i++) {
                                 if (l.get(i).getObjectId().equals(object.getObjectId())) {
@@ -175,13 +180,16 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                         if (e == null) {
                             ArrayList<ParseObject> l = null;
                             try {
-                                l = new ArrayList<>(currentUser.fetch().getList("collections"));
+                                List<ParseObject> tmpList = currentUser.fetch().getList("collections");
+                                if(tmpList == null) {
+                                    l = new ArrayList<>();
+                                } else {
+                                    l = new ArrayList<>(tmpList);
+                                }
                             } catch (ParseException parseException) {
                                 parseException.printStackTrace();
                             }
-                            if(l == null) {
-                                Log.e("?","这都NULL？？");
-                            }
+
                             for(int i=0;i<l.size();i++) {
                                 if (l.get(i).getObjectId().equals(object.getObjectId())) {
                                     Toast.makeText(view.getContext(),"收藏过了",Toast.LENGTH_SHORT).show();
@@ -359,7 +367,9 @@ public class MomentFragment extends Fragment {
                                 momentList.get(i).getString("title"),
                                 momentList.get(i).getString("content"),
                                 momentList.get(i).getList("attachments"),
-                                momentList.get(i).getParseObject("publisher")
+                                momentList.get(i).getParseObject("publisher"),
+                                false,
+                                false
                         ));
                         try {
                             // 估计这个是没有cache到Object里，所以要从server端fetch一次......考虑一下需不需要存下来吧。
@@ -390,8 +400,6 @@ public class MomentFragment extends Fragment {
 
 
                 momentListView.setAdapter(new MomentAdapter(getContext(),new ArrayList(cacheMoments)));
-
-
 
             }
         });
