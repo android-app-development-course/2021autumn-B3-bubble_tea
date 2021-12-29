@@ -53,8 +53,8 @@
                         android:gravity="right"
                         android:background="@drawable/profile_topbg1">
                         <LinearLayout
-                            android:layout_width="90dp"
-                            android:layout_height="90dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:background="@drawable/bg_head_portrait1"
                             android:layout_margin="8dp"
                             android:orientation="horizontal">
@@ -63,12 +63,11 @@
                                 android:id="@+id/login_button"
                                 style="?attr/borderlessButtonStyle"
                                 android:layout_width="wrap_content"
-                                android:layout_height="75dp"
+                                android:layout_height="80dp"
                                 android:layout_margin="8dp"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/head_portrait1"
-                                android:gravity="right"
-                                app:backgroundTint="#fbfcc0" />
+                                android:gravity="right" />
 
                         </LinearLayout>
                     </LinearLayout>
