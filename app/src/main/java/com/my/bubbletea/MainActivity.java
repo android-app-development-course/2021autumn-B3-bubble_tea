@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.ImagePickerConfig;
@@ -31,6 +33,12 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import github.com.st235.lib_expandablebottombar.ExpandableBottomBar;
+import github.com.st235.lib_expandablebottombar.Menu;
+import github.com.st235.lib_expandablebottombar.MenuItemDescriptor;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function3;
 
 public class MainActivity extends AppCompatActivity {
     private static final int RC_IMAGE_PICKER = 114;
@@ -55,26 +63,93 @@ public class MainActivity extends AppCompatActivity {
         profileFragment = new ProfileFragment();
         momentFragment = new MomentFragment();
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+//        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.icon_home:
+//                        changeCurrentFragment(homeFragment);
+//                        break;
+//                    case R.id.icon_moment:
+//                        changeCurrentFragment(momentFragment);
+//                        break;
+//                    case R.id.icon_profile:
+//                        // should be `profileFragment`
+//                        changeCurrentFragment(profileFragment);
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
+
+        ExpandableBottomBar bottomBar= findViewById(R.id.expandable_bottom_bar);
+        Menu menu = bottomBar.getMenu();
+
+        bottomBar.setOnItemSelectedListener(new Function3<View, github.com.st235.lib_expandablebottombar.MenuItem, Boolean, Unit>() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.icon_home:
+            public Unit invoke(View view, github.com.st235.lib_expandablebottombar.MenuItem menuItem, Boolean aBoolean) {
+                Log.e("id", String.valueOf(menuItem.getId()));
+                switch (menuItem.getId()) {
+                    case R.id.navi_home:
+
                         changeCurrentFragment(homeFragment);
                         break;
-                    case R.id.icon_moment:
+                    case R.id.navi_moment:
                         changeCurrentFragment(momentFragment);
                         break;
-                    case R.id.icon_profile:
+                    case R.id.navi_profile:
                         // should be `profileFragment`
                         changeCurrentFragment(profileFragment);
                         break;
                 }
-                return false;
+                return null;
             }
         });
 
+
+//        menu.add(
+//                new MenuItemDescriptor.Builder(
+//                        this,
+//                        R.id.icon_home,
+//                        R.drawable.round_home_black_24dp,
+//                        R.string.navigation_home,
+//                        Color.GRAY
+//                )
+//                        .build()
+//        );
+//        menu.add(
+//                new MenuItemDescriptor.Builder(
+//                        this,
+//                        R.id.icon_home,
+//                        R.drawable.round_home_black_24dp,
+//                        R.string.navigation_home,
+//                        Color.GRAY
+//                )
+//                        .build()
+//        );menu.add(
+//                new MenuItemDescriptor.Builder(
+//                        this,
+//                        R.id.icon_home,
+//                        R.drawable.round_home_black_24dp,
+//                        R.string.navigation_home,
+//                        Color.GRAY
+//                )
+//                        .build()
+//        );
+
+//        bottomBar.onItemSelectedListener = { view, menuItem ->
+//                /**
+//                 * handle menu item clicks here,
+//                 * but clicks on already selected item will not affect this callback
+//                */
+//        }
+//
+//        bottomBar.onItemReselectedListener = { view, menuItem ->
+//                /**
+//                 * handle here all the click in already selected items
+//                */
+//        }
 
 
         changeCurrentFragment(momentFragment);

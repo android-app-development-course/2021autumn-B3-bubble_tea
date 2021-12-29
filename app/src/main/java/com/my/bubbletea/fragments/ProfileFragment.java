@@ -21,6 +21,7 @@ import com.my.bubbletea.LikeActivity;
 import com.my.bubbletea.MessageActivity;
 import com.my.bubbletea.MoreActivity;
 import com.my.bubbletea.R;
+import com.my.bubbletea.conversation.Conversation;
 import com.my.bubbletea.user.LoginActivity;
 import com.my.bubbletea.user.RegisterActivity;
 import com.parse.ParseUser;
@@ -36,7 +37,7 @@ public class ProfileFragment extends Fragment {
     private MaterialButton intofavourite;
     private MaterialButton intomore;
     private MaterialButton intocollect;
-    private MaterialButton intocontact;
+    private CardView intocontact;
     private MaterialButton intomessage;
 
     private CardView card_favorite;
@@ -93,7 +94,7 @@ public class ProfileFragment extends Fragment {
         intolikeButton = (MaterialButton) view.findViewById(R.id.into_like);
         intofavourite=(MaterialButton) view.findViewById(R.id.into_favourite);
         intocollect=(MaterialButton) view.findViewById(R.id.into_collect);
-        intocontact=(MaterialButton) view.findViewById(R.id.into_contact);
+        intocontact=view.findViewById(R.id.card_contact);
         intomessage=(MaterialButton) view.findViewById(R.id.into_message);
         intomore=(MaterialButton) view.findViewById(R.id.into_more);
         card_favorite = view.findViewById(R.id.card_favourite);
@@ -152,7 +153,7 @@ public class ProfileFragment extends Fragment {
         intocontact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(view.getContext(), ContactActivity.class);
+                Intent it = new Intent(view.getContext(), Conversation.class);
                 startActivity(it);
             }
         });

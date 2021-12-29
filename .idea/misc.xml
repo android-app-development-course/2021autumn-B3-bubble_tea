@@ -7,6 +7,7 @@
         <entry key="../../../../../layout/compose-model-1640485686440.xml" value="0.1675925925925926" />
         <entry key="../../../../../layout/compose-model-1640497452135.xml" value="0.44510135135135137" />
         <entry key="../../../../../layout/compose-model-1640501524575.xml" value="0.30185185185185187" />
+        <entry key="../../../../../layout/compose-model-1640781881870.xml" value="0.4074074074074074" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/drawable/bg_search.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/drawable/like_button.xml" value="0.2064814814814815" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/drawable/like_button_yes.xml" value="0.2064814814814815" />
@@ -48,6 +49,8 @@
         <entry key="app/src/main/res/layout/item_favourite.xml" value="0.45516304347826086" />
         <entry key="app/src/main/res/layout/item_letter.xml" value="0.45516304347826086" />
         <entry key="app/src/main/res/layout/moment_item.xml" value="0.125" />
+        <entry key="app/src/main/res/menu/navi_menu.xml" value="0.26875" />
+        <entry key="app/src/main/res/menu/new_navi_menu.xml" value="0.26875" />
       </map>
     </option>
   </component>

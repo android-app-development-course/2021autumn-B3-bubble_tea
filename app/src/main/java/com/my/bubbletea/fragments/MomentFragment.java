@@ -441,8 +441,12 @@ public class MomentFragment extends Fragment {
                         try {
                             List<ParseObject> collections = currentUser.fetchIfNeeded().getList("collections");
                             List<ParseObject> likes = currentUser.fetchIfNeeded().getList("likes");
-                            for (ParseObject o : collections) collectionsID.add(o.getObjectId());
-                            for (ParseObject o : likes) likesID.add(o.getObjectId());
+                            if (collections!=null) {
+                                for (ParseObject o : collections) collectionsID.add(o.getObjectId());
+                            }
+                            if(likes != null) {
+                                for (ParseObject o : likes) likesID.add(o.getObjectId());
+                            }
                         } catch (ParseException parseException) {
                             parseException.printStackTrace();
                         }
