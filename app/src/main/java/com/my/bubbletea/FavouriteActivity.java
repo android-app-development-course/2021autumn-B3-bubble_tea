@@ -50,7 +50,7 @@ class Note1 {
     }
 }
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context context;
     private ArrayList<Note1> favouriteList;
 
@@ -74,7 +74,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        holder.contentText.setText(model.)
     }
 
 
@@ -98,14 +97,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             avatar = itemView.findViewById(R.id.publish_pic);
             fcardview = itemview.findViewById(R.id.moment_card);
             publisherText = itemview.findViewById(R.id.id);
-            favbutton = itemview.findViewById(R.id.favbutton)
+            favbutton = itemview.findViewById(R.id.favbutton);
         }
     }
 }
 
 public class FavouriteActivity extends AppCompatActivity {
     RecyclerView FavoriteListView;
-    public Vector<Note1> cachaFavourites= new Vector<>();
+    public Vector<Note1> cacheFavourite= new Vector<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,9 +115,9 @@ public class FavouriteActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
 //        getMoment();
         FavoriteListView.setLayoutManager(gridLayoutManager);
-        FavoriteListView.setAdapter(new MyAdapter(this,new ArrayList(cachaFavourites)));
-        notes = new ArrayList<>();
-        String url = "https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png";
+        FavoriteListView.setAdapter(new MyAdapter(this,new ArrayList(cacheFavourite)));
+//        notes = new ArrayList<>();
+//        String url = "https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png";
 //        for (int i=1;i<=3;i++)
 //        {
 //            Note1 note=new Note1();
@@ -124,9 +125,10 @@ public class FavouriteActivity extends AppCompatActivity {
 //            notes.add(url, "第"+i+"个名字");
 //
 //        }
-        mMyAdapter = new FavouriteActivity.MyAdapter(this.getContext(), new ArrayList(cacheFavourite));
-        FavoriteListView.setAdapter(mMyAdapter);
-        FavoriteListView.setLayoutManager(new GridLayoutManager(this, 2));
+//        mMyAdapter = new FavouriteActivity.MyAdapter(this.getContext(), new ArrayList(cacheFavourite));
+//        FavoriteListView.setAdapter(mMyAdapter);
+//        FavoriteListView.setLayoutManager(new GridLayoutManager(this, 2));
+        getFavourite();
     }
 
     public void getFavourite() {
@@ -172,8 +174,7 @@ public class FavouriteActivity extends AppCompatActivity {
 //                Toast.makeText(mView.getContext(),"clicked"+String.valueOf(i),Toast.LENGTH_SHORT).show();
 
 
-                FavoriteListView.setAdapter(new MyAdapter(fview.getContext(),new ArrayList(cacheFavourite)));
-
+                FavoriteListView.setAdapter(new MyAdapter(FavoriteListView.getContext() ,new ArrayList(cacheFavourite)));
 
 
             }
@@ -181,14 +182,6 @@ public class FavouriteActivity extends AppCompatActivity {
 
     }
 }
-
-
-
-
-
-
-
-
 
 
 
