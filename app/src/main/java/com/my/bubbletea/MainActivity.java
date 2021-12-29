@@ -1,14 +1,22 @@
 package com.my.bubbletea;
 
+import static com.esafirm.imagepicker.features.ImagePickerLauncherKt.createImagePickerIntent;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.features.ImagePickerConfig;
+import com.esafirm.imagepicker.features.ImagePickerMode;
+import com.esafirm.imagepicker.model.Image;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
@@ -21,7 +29,11 @@ import com.my.bubbletea.user.LoginActivity;
 import com.parse.Parse;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    private static final int RC_IMAGE_PICKER = 114;
     private Fragment homeFragment;
     private Fragment profileFragment;
     private Fragment momentFragment;
@@ -67,14 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
         changeCurrentFragment(momentFragment);
 //        ParseUser currentUser = ParseUser.getCurrentUser();
-//        if (currentUser != null) {
-//            // do stuff with the user
-//
-//        } else {
-//            // show the signup or login screen
-//        }
-       // Intent it = new Intent(this, Conversation.class);
-       // startActivity(it);
+//        Intent it = new Intent(this, Conversation.class);
+//        startActivity(it);
    }
 
 
