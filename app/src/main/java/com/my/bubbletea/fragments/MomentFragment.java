@@ -3,6 +3,7 @@ package com.my.bubbletea.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,9 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +27,10 @@ import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -274,7 +280,11 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
  * create an instance of this fragment.
  */
 public class MomentFragment extends Fragment {
-
+    private EditText mEditText;
+    private ListView mListView;
+    private ImageButton msearchbtn;
+    Context context;
+    Cursor cursor;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -363,10 +373,91 @@ public class MomentFragment extends Fragment {
         momentListView.setLayoutManager(linearLayoutManager);
         momentListView.setAdapter(new MomentAdapter(mView.getContext(),new ArrayList(cacheMoments)));
 //        getMoment();
+        mEditText = (EditText) mView.findViewById(R.id.searchInput);
+        mListView = (ListView) mView.findViewById(R.id.listview);
+        msearchbtn= (ImageButton) mView.findViewById(R.id.mid_search);
+        mEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length()==0){
+                    //收起
+                }else{
+                    //myhandler post(changed);
+                    showListView(mView);
+                }
+            }
+        });
+        msearchbtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                //如果输入框内容为空，提示请输入搜索内容
+                if (TextUtils.isEmpty(mEditText.getText().toString().trim())) {
+                    //ToastUtils.showToast(context,"请输入您要搜索的内容");
+                } else {
+                    //判断cursor是否为空
+                    if (cursor != null) {
+                        int columnCount = cursor.getCount();
+                        if (columnCount == 0) {
+                            //ToastUtils.showToast(context, "对不起，没有你要搜索的内容");
+                        }
+                    }
+                }
+
+            }
+
+        });
         return mView;
     }
+    public void showListView(View view){
+        mListView.setVisibility(View.VISIBLE);
+        //获得输入的内容
+        String str = mEditText.getText().toString().trim();
+        String[] data={"一点点","四季奶青","冰淇淋红茶","满杯红柚","奶茶三兄弟"};
+        String[] data1={};
+        ArrayAdapter<String> adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data);
+        if (str==null)
+        {
+            adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data1);
+        }
+
+        mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String result=((TextView)view).getText().toString();
+            }
+        });
+
+        //获取数据库对象
+//            MyOpenHelper myOpenHelper = new MyOpenHelper(context.getApplicationContext());
+//            SQLiteDatabase db = myOpenHelper.getReadableDatabase();
+//            //得到cursor
+//            cursor = db.rawQuery("select * from lol where name like '%" + str + "%'", null);
+//            MyListViewCursorAdapter adapter = new MyListViewCursorAdapter(context, cursor);
+
+        mListView.setAdapter(adapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //把cursor移动到指定行
+                cursor.moveToPosition(position);
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                //ToastUtils.showToast(context, name);
+            }
+        });
+    }
+
+
+
 
     public Vector<Moment> cacheMoments = new Vector<>();
 
