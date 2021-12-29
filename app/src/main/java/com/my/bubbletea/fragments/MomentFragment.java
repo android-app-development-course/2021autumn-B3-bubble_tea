@@ -283,7 +283,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
         private CardView cardView;
 
         private Button like_button;
-        private Button collect_button;
+        private MaterialButton collect_button;
         private Button comment_button;
 
 
@@ -441,12 +441,8 @@ public class MomentFragment extends Fragment {
                         try {
                             List<ParseObject> collections = currentUser.fetchIfNeeded().getList("collections");
                             List<ParseObject> likes = currentUser.fetchIfNeeded().getList("likes");
-                            if (collections!=null) {
-                                for (ParseObject o : collections) collectionsID.add(o.getObjectId());
-                            }
-                            if(likes != null) {
-                                for (ParseObject o : likes) likesID.add(o.getObjectId());
-                            }
+                            for (ParseObject o : collections) collectionsID.add(o.getObjectId());
+                            for (ParseObject o : likes) likesID.add(o.getObjectId());
                         } catch (ParseException parseException) {
                             parseException.printStackTrace();
                         }
@@ -516,22 +512,22 @@ public class MomentFragment extends Fragment {
 //        searchButton.setImageResource(R.drawable.find);
         mViewPaper = (ViewPager) mView.findViewById(R.id.vp);
 
-        turndetail = (ImageButton) mView.findViewById(R.id.turn_detail);
-        toupgrade = (ImageButton) mView.findViewById(R.id.upgrade);
-        turndetail.setOnClickListener(new View.OnClickListener() {
+        //turndetail= (ImageButton) mView.findViewById(R.id.turn_detail);
+        toupgrade=(ImageButton)mView.findViewById(R.id.upgrade);
+        /*turndetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(view.getContext(), DetailActivity.class);
                 startActivity(it);
             }
-        });
+        });*/
         toupgrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 if (currentUser == null) {
                     // 未登录
-                    Toast.makeText(getContext(), "Not logged in", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Not logged in",Toast.LENGTH_SHORT).show();
                 } else {
                     // 登录了
                     Intent it = new Intent(view.getContext(), UpgradeActivity.class);
@@ -544,7 +540,7 @@ public class MomentFragment extends Fragment {
 
         //显示的图片
         images = new ArrayList<ImageView>();
-        for (int i = 0; i < imageIds.length; i++) {
+        for(int i = 0; i < imageIds.length; i++){
             ImageView imageView = new ImageView(getActivity());
             imageView.setBackgroundResource(imageIds[i]);
             images.add(imageView);
@@ -633,10 +629,10 @@ public class MomentFragment extends Fragment {
 
     /**
      * 图片轮播任务
-     *
      * @author liuyazhuang
+     *
      */
-    private class ViewPageTask implements Runnable {
+    private class ViewPageTask implements Runnable{
 
         @Override
         public void run() {
@@ -649,19 +645,16 @@ public class MomentFragment extends Fragment {
      * 接收子线程传递过来的数据
      */
     @SuppressLint("HandlerLeak")
-    private final Handler mHandler = new Handler() {
+    private final Handler mHandler = new Handler(){
         public void handleMessage(android.os.Message msg) {
             mViewPaper.setCurrentItem(currentItem);
-        }
-
-        ;
+        };
     };
-
     @Override
     public void onStop() {
         // TODO Auto-generated method stub
         super.onStop();
-        if (scheduledExecutorService != null) {
+        if(scheduledExecutorService != null){
             scheduledExecutorService.shutdown();
             scheduledExecutorService = null;
         }
