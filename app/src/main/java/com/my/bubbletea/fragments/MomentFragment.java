@@ -99,7 +99,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MomentAdapter.Viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         Moment model = momentList.get(position);
         try {
             holder.publisherText.setText(model.publisher.fetchIfNeeded().getString("nickname"));
@@ -253,7 +253,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
         private CardView cardView;
 
         private Button like_button;
-        private MaterialButton collect_button;
+        private Button collect_button;
         private Button comment_button;
 
 
@@ -369,7 +369,16 @@ public class MomentFragment extends Fragment {
         // 帖子的listview
 
         momentListView = mView.findViewById(R.id.momentList);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        searchInput = mView.findViewById(R.id.searchInput);
+        LinearLayoutManager linearLayoutManager =  new  LinearLayoutManager( getActivity(),
+                LinearLayoutManager.VERTICAL,  false ) {
+
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+
+            }
+        };
         momentListView.setLayoutManager(linearLayoutManager);
         momentListView.setAdapter(new MomentAdapter(mView.getContext(),new ArrayList(cacheMoments)));
 //        getMoment();
