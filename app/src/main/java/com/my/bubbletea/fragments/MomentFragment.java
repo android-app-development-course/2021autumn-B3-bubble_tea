@@ -429,14 +429,7 @@ public class MomentFragment extends Fragment {
         momentListView = mView.findViewById(R.id.momentList);
         searchInput = mView.findViewById(R.id.searchInput);
         LinearLayoutManager linearLayoutManager =  new  LinearLayoutManager( getActivity(),
-                LinearLayoutManager.VERTICAL,  false ) {
-
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-
-            }
-        };
+                LinearLayoutManager.VERTICAL,  false );
         momentListView.setLayoutManager(linearLayoutManager);
         momentListView.setAdapter(new MomentAdapter(mView.getContext(), new ArrayList(cacheMoments)));
 //        getMoment();
