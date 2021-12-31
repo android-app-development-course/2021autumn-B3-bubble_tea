@@ -3,6 +3,7 @@ package com.my.bubbletea.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,9 @@ import com.my.bubbletea.CommentActivity;
 import com.my.bubbletea.DetailActivity;
 import com.my.bubbletea.R;
 //import com.my.bubbletea.SearchResultActivity;
+import com.my.bubbletea.SearchResultActivity;
 import com.my.bubbletea.UpgradeActivity;
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.Parse;
@@ -44,7 +47,15 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+
+//import com.parse.boltsinternal.Continuation;
+//import com.parse.boltsinternal.Task;
+import com.parse.boltsinternal.Continuation;
+import com.parse.boltsinternal.Task;
 import com.squareup.picasso.Picasso;
+import com.stfalcon.imageviewer.StfalconImageViewer;
+import com.stfalcon.imageviewer.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +104,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
     @Override
     public MomentAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.moment_item, parent, false);
-
+        context = parent.getContext();
         return new Viewholder(rowView);
     }
 
@@ -203,6 +214,28 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
             else if(i==1) Picasso.get().load(model.attachments.get(1).getUrl()).into(holder.moment_pic2);
             else if(i==2) Picasso.get().load(model.attachments.get(2).getUrl()).into(holder.moment_pic3);
         }
+
+        ArrayList<String> images = new ArrayList<>();
+        for(ParseFile f:model.attachments) {
+            images.add(f.getUrl());
+        }
+        View.OnClickListener img_listener =  new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new StfalconImageViewer.Builder<String>(context, images, new ImageLoader<String>() {
+                    @Override
+                    public void loadImage(ImageView imageView, String image) {
+                        Picasso.get().load(image).into(imageView);
+//                Glide.with(context).load(image).into(imageView);
+                    }
+                }).show();
+            }
+        };
+        holder.moment_pic1.setOnClickListener(img_listener);
+        holder.moment_pic2.setOnClickListener(img_listener);
+        holder.moment_pic3.setOnClickListener(img_listener);
+
+
         // 收藏
         holder.collect_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -439,10 +472,10 @@ public class MomentFragment extends Fragment {
                     public boolean onKey(View view, int i, KeyEvent keyEvent) {
                         if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
                                 (i == KeyEvent.KEYCODE_ENTER)) {
-//                            String input = searchInput.getText().toString();
-//                            Intent it = new Intent(view.getContext(), SearchResultActivity.class);
-//                            it.putExtra("param",input);
-//                            startActivity(it);
+                            String input = searchInput.getText().toString();
+                            Intent it = new Intent(view.getContext(), SearchResultActivity.class);
+                            it.putExtra("param",input);
+                            startActivity(it);
                         }
                         return false;
                     }
@@ -455,69 +488,109 @@ public class MomentFragment extends Fragment {
 
     public Vector<Moment> cacheMoments = new Vector<>();
 
+    private void updateMoment(List<ParseObject> momentList) {
+        cacheMoments.clear();
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        ArrayList<String> collectionsID = new ArrayList<>();
+        ArrayList<String> likesID = new ArrayList<>();
+        if (currentUser != null) {
+            try {
+                List<ParseObject> collections = currentUser.fetchIfNeeded().getList("collections");
+                List<ParseObject> likes = currentUser.fetchIfNeeded().getList("likes");
+                if(collections != null) {
+                    for (ParseObject o : collections) collectionsID.add(o.getObjectId());
+                }
+                if(likes != null) {
+                    for (ParseObject o : likes) likesID.add(o.getObjectId());
+                }
+
+            } catch (ParseException parseException) {
+                parseException.printStackTrace();
+            }
+        }
+
+        for (int i = 0; i < momentList.size(); i++) {
+            boolean liked = false;
+            boolean collected = false;
+
+            if (likesID.contains(momentList.get(i).getObjectId())) liked = true;
+            if (collectionsID.contains(momentList.get(i).getObjectId()))
+                collected = true;
+
+//                    if (liked) {
+//                        Log.e("LIKED", momentList.get(i).getString("content"));
+//                    }
+
+            cacheMoments.add(new Moment(
+                    momentList.get(i).getObjectId(),
+                    momentList.get(i).getString("title"),
+                    momentList.get(i).getString("content"),
+                    momentList.get(i).getList("attachments"),
+                    momentList.get(i).getParseObject("publisher"),
+                    liked,
+                    collected
+            ));
+            try {
+                // 估计这个是没有cache到Object里，所以要从server端fetch一次......考虑一下需不需要存下来吧。
+                cacheMoments.get(i).publisher.fetch();
+//                            Log.e("Publisher:",cacheMoments.get(i).publisher.getString("nickname"));
+//                            Log.e("Publisher's avatarUrl:",cacheMoments.get(i).publisher.getParseFile("avatar").getUrl());
+
+            } catch (ParseException parseException) {
+                Log.e("ERR", parseException.getMessage());
+                parseException.printStackTrace();
+            }
+            List<ParseFile> l = momentList.get(i).getList("attachments");
+            for (int j = 0; j < l.size(); j++) {
+                // 图片附件的URL
+//                            Log.e("attachments url:",l.get(j).getUrl());
+            }
+        }
+        momentListView.setAdapter(new MomentAdapter(getContext(), new ArrayList(cacheMoments)));
+    }
+
     // 获取Moment 的列表
     public void getMoment() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Moment");
        // int size=ParseQuery.getQuery("Moment").count();
         query.setLimit(150); // 只获取5个先，防止太卡
+
+//        query.fromLocalDatastore().findInBackground().continueWithTask((task) -> {
+//            // Update UI with results from Local Datastore ...
+//            ParseException error = (ParseException) task.getError();
+//            if(error == null){
+//                List<ParseObject> momentList = task.getResult();
+//
+//                updateMoment(momentList);
+//            }
+//            // Now query the network:
+//            return query.fromNetwork().findInBackground();
+//        }, Task.UI_THREAD_EXECUTOR).continueWithTask((task) -> {
+//            // Update UI with results from Network ...
+//            ParseException error = (ParseException) task.getError();
+//            if(error == null){
+//                List<ParseObject> momentList = task.getResult();
+//                updateMoment(momentList);
+//                ParseObject.unpinAllInBackground("MomentList", momentList, new DeleteCallback() {
+//                    public void done(ParseException e) {
+//                        if (e != null) {
+//                            return;
+//                        }
+//
+//                        ParseObject.pinAllInBackground("MomentList", momentList);
+//                    }
+//                });
+//            }
+//
+//            return task;
+//        }, Task.UI_THREAD_EXECUTOR);
+
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> momentList, ParseException e) {
-                if (e == null) {
-                    cacheMoments.clear();
-                    ParseUser currentUser = ParseUser.getCurrentUser();
-                    ArrayList<String> collectionsID = new ArrayList<>();
-                    ArrayList<String> likesID = new ArrayList<>();
-                    if (currentUser != null) {
-                        try {
-                            List<ParseObject> collections = currentUser.fetchIfNeeded().getList("collections");
-                            List<ParseObject> likes = currentUser.fetchIfNeeded().getList("likes");
-                            for (ParseObject o : collections) collectionsID.add(o.getObjectId());
-                            for (ParseObject o : likes) likesID.add(o.getObjectId());
-                        } catch (ParseException parseException) {
-                            parseException.printStackTrace();
-                        }
-                    }
+                if (e == null && momentList!= null) {
 
-                    for (int i = 0; i < momentList.size(); i++) {
-                        boolean liked = false;
-                        boolean collected = false;
-
-                        if (likesID.contains(momentList.get(i).getObjectId())) liked = true;
-                        if (collectionsID.contains(momentList.get(i).getObjectId()))
-                            collected = true;
-
-                        if (liked) {
-                            Log.e("LIKED", momentList.get(i).getString("content"));
-                        }
-
-                        cacheMoments.add(new Moment(
-                                momentList.get(i).getObjectId(),
-                                momentList.get(i).getString("title"),
-                                momentList.get(i).getString("content"),
-                                momentList.get(i).getList("attachments"),
-                                momentList.get(i).getParseObject("publisher"),
-                                liked,
-                                collected
-                        ));
-                        try {
-                            // 估计这个是没有cache到Object里，所以要从server端fetch一次......考虑一下需不需要存下来吧。
-                            cacheMoments.get(i).publisher.fetch();
-//                            Log.e("Publisher:",cacheMoments.get(i).publisher.getString("nickname"));
-//                            Log.e("Publisher's avatarUrl:",cacheMoments.get(i).publisher.getParseFile("avatar").getUrl());
-
-                        } catch (ParseException parseException) {
-                            Log.e("ERR", parseException.getMessage());
-                            parseException.printStackTrace();
-                        }
-                        List<ParseFile> l = momentList.get(i).getList("attachments");
-                        for (int j = 0; j < l.size(); j++) {
-                            // 图片附件的URL
-                            // getFile() 可以返回file，参照：https://parseplatform.org/Parse-SDK-Android/api/com/parse/ParseFile.html
-//                            Log.e("attachments url:",l.get(j).getUrl());
-                        }
-                    }
                     // 获取喜欢和收藏状态
-
+                    updateMoment(momentList);
 
                 } else {
                     Log.d("Moment", "Error: " + e.getMessage());

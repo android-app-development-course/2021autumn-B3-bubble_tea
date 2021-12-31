@@ -56,6 +56,7 @@ public class UpgradeActivity extends AppCompatActivity {
 
         Button publishButton = findViewById(R.id.publish_button);
         MaterialButton imagePickerButton =  findViewById(R.id.imagePicker);
+        Button turnback = findViewById(R.id.turnback);
         imgs[0] = findViewById(R.id.attachImage1);
         imgs[1] = findViewById(R.id.attachImage2);
         imgs[2] = findViewById(R.id.attachImage3);
@@ -63,6 +64,14 @@ public class UpgradeActivity extends AppCompatActivity {
 
         final boolean[] hasImage = {false};
 
+
+
+        turnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                  UpgradeActivity.this.finish();
+            }
+        });
 
         publishButton.setOnClickListener(new View.OnClickListener() {
             @Override

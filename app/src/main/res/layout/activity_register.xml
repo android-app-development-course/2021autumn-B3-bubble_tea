@@ -69,6 +69,7 @@
             <EditText
                 android:id="@+id/passwordInput"
                 android:background="@color/grey"
+                android:singleLine="true"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -94,6 +95,7 @@
                 android:layout_height="30dp"
                 android:maxLines="1"
                 android:inputType="textPassword"
+                android:singleLine="true"
                 android:background="@color/grey"
                 android:text="" />
         </LinearLayout>

@@ -102,11 +102,11 @@ public class HomeFragment extends Fragment {
         view4 = (ImageView) view.findViewById(R.id.view4);
         view5 = (ImageView) view.findViewById(R.id.view5);
         view6 = (ImageView) view.findViewById(R.id.view6);
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(view1);
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(view2);
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(view3);
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(view4);
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(view5);
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/6c8876b8ec9ba07b6b52ea9021ce9681_1.png").into(view1);
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/8ea28f06f57a604bf42c817f7f2ef366_2.png").into(view2);
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/2f482e4a56ecc9c72a2ffafbe2f56ba4_3.png").into(view3);
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/3ea1a3c83dd10f735856f502bab17a6d_4.png").into(view4);
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/1156a3d20f37d6a92d654d26f8c6314c_5.png").into(view5);
         Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(view6);
 
         view1.setOnClickListener(new View.OnClickListener() {

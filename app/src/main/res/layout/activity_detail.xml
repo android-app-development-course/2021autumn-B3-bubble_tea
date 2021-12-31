@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".DetailActivity">
     <ScrollView
-        android:layout_width="410dp"
-        android:layout_height="694dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scrollbars="none">
         <!--        android:overScrollMode="always"-->
         <LinearLayout
@@ -30,12 +30,13 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/Turn_back"
                         android:layout_width="30dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_gravity="left|center"
-                        android:background="@drawable/ic_leftarrow"
+                        android:background="@drawable/arrow_turn"
                         app:backgroundTint="@color/grey"
                         android:layout_margin="10dp"
-                        android:onClick="turn_back"/>
+
+                        />
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="30dp"

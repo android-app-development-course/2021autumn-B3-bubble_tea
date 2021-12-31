@@ -636,7 +636,7 @@ fun UserInput(
         disabledContainerColor = Color.Transparent,
         disabledContentColor = disabledContentColor
     )
-
+    textState.addText(" ")
 
     Surface(tonalElevation = 2.dp) {
         ConstraintLayout(modifier = modifier) {
@@ -655,7 +655,7 @@ fun UserInput(
                     onValueChange = { textState = it },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 32.dp)
+                        .padding(start = 68.dp)
                         .align(Alignment.CenterStart)
                         .onFocusChanged { state ->
                             if (lastFocusState != state.isFocused) {

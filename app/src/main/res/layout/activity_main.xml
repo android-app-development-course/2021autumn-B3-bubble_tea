@@ -50,12 +50,12 @@
         app:exb_backgroundColor="#fff"
         app:exb_items="@menu/new_navi_menu"
         app:exb_itemInactiveColor="#c2c2c2"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="false"
         app:layout_behavior="github.com.st235.lib_expandablebottombar.behavior.ExpandableBottomBarScrollableBehavior"
 
-        android:layout_gravity="bottom"
+        android:layout_gravity="bottom"/>
 
-        />
+
 
 <!--  app:layout_anchorGravity="bottom"  app:layout_constraintBottom_toBottomOf="parent"-->
 <!--    app:layout_constraintEnd_toEndOf="parent"-->

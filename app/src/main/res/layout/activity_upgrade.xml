@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
         <Button
             android:layout_width="30dp"
-            android:layout_height="50dp"
+            android:layout_height="30dp"
             android:id="@+id/turnback"
             android:background="@drawable/arrow_turn"/>
         <com.google.android.material.button.MaterialButton
@@ -106,7 +106,7 @@
             android:layout_margin="20dp"
             android:textColor="@color/grey"
             android:background="@color/purple_700"
-            android:onClick="add"
+
             android:text="发布动态"
             android:textSize="20sp"/>
     </LinearLayout>

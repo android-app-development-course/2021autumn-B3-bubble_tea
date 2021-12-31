@@ -15,14 +15,14 @@ public class DescribeActivity extends AppCompatActivity {
     }
 
     public void turn_back(View view) {
-        Intent intent =new Intent(DescribeActivity.this,MainActivity.class);
-        startActivity(intent);
+//        Intent intent =new Intent(DescribeActivity.this,MainActivity.class);
+//        startActivity(intent);
         DescribeActivity.this.finish();
     }
 
     public void turn_detail(View view) {
-        Intent intent =new Intent(DescribeActivity.this,DetailActivity.class);
-        startActivity(intent);
+//        Intent intent =new Intent(DescribeActivity.this,DetailActivity.class);
+//        startActivity(intent);
         DescribeActivity.this.finish();
     }
 }

@@ -93,4 +93,5 @@ dependencies {
     implementation 'com.github.st235:expandablebottombar:1.4.0'
     implementation 'com.github.st235:expandablebottombar:1.4.0'
     implementation 'com.github.esafirm:android-image-picker:3.0.0-beta1'
+    implementation 'com.github.stfalcon-studio:StfalconImageViewer:v1.0.1'
 }
