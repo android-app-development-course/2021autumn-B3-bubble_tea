@@ -54,7 +54,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:scaleType="centerInside"
-                android:background="@drawable/user_collection" />
+                android:background="@drawable/ic_upvote" />
         </LinearLayout>
 
     </LinearLayout>
