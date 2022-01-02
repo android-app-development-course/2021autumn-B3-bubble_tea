@@ -3,7 +3,6 @@ package com.my.bubbletea
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
@@ -14,12 +13,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.internal.ContextUtils.getActivity
-
 import com.parse.*
+import com.squareup.picasso.Picasso
+import java.util.*
 
 internal class Moment(
     var id: String,
@@ -55,6 +55,24 @@ internal class MomentAdapter(
                 model.publisher.fetchIfNeeded<ParseObject>().getString("nickname")
         } catch (e: ParseException) {
             e.printStackTrace()
+        }
+        try {
+            val url:String
+            url = model.publisher.fetchIfNeeded<ParseObject>().getParseFile("avatar")!!.getUrl()
+            Picasso.get().load(url).into(holder.avatar);
+        } catch (e: ParseException) {
+            e.printStackTrace();
+        }
+        //Log.e("attachment",model.attachments.get(1).getUrl());
+        for (i in model.attachments.indices) {
+            if (i == 0) Picasso.get().load(
+                model.attachments[0].url
+            ).into(holder.moment_pic1)
+            else if (i == 1) Picasso.get().load(
+                model.attachments[1].url
+            ).into(holder.moment_pic2)
+            else if (i == 2) Picasso.get().load(model.attachments[2].url)
+                .into(holder.moment_pic3)
         }
         holder.contentText.text = model.content
         //        holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -189,6 +207,10 @@ internal class MomentAdapter(
         val like_button: Button
         val collect_button: Button
         val comment_button: Button
+        val moment_pic1:ImageView
+        val moment_pic2: ImageView
+        val moment_pic3: ImageView
+        val avatar: ImageView
 
         init {
             contentText = itemView.findViewById(R.id.moment_content)
@@ -197,6 +219,10 @@ internal class MomentAdapter(
             like_button = itemView.findViewById(R.id.like_button)
             collect_button = itemView.findViewById(R.id.collect_button)
             comment_button = itemView.findViewById(R.id.comment_button)
+            moment_pic1 =itemView.findViewById(R.id.moment_pic1)
+            moment_pic2 =itemView.findViewById(R.id.moment_pic2)
+            moment_pic3 =itemView.findViewById(R.id.moment_pic3)
+            avatar = itemView.findViewById(R.id.avatar)
         }
     }
 
@@ -225,7 +251,7 @@ class SearchResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result)
 
-        val cacheMoments:ArrayList<Moment> = ArrayList()
+        val cacheMoments: ArrayList<Moment> = ArrayList()
         val momentListView: RecyclerView = findViewById(R.id.resultList)
         val linearLayoutManager: LinearLayoutManager = @SuppressLint("RestrictedApi")
         object : LinearLayoutManager(
