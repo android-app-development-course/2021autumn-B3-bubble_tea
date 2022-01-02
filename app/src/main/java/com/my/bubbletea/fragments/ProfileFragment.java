@@ -18,15 +18,14 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.my.bubbletea.CollectActivity;
-import com.my.bubbletea.ContactActivity;
+
 import com.my.bubbletea.FavouriteActivity;
 import com.my.bubbletea.LikeActivity;
-import com.my.bubbletea.MessageActivity;
-import com.my.bubbletea.MoreActivity;
+
 import com.my.bubbletea.R;
 import com.my.bubbletea.conversation.Conversation;
 import com.my.bubbletea.user.LoginActivity;
-import com.my.bubbletea.user.RegisterActivity;
+
 import com.parse.ParseUser;
 
 /**

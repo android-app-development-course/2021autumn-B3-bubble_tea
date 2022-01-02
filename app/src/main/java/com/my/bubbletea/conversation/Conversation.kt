@@ -88,6 +88,9 @@ import com.parse.ParseUser
 import com.parse.ParseQuery
 import com.parse.FindCallback
 import com.parse.ParseObject
+import java.util.*
+import kotlin.collections.ArrayList
+import java.text.SimpleDateFormat as SimpleDateFormat1
 
 
 class ConversationUiState(
@@ -137,7 +140,10 @@ fun ConversationContent(
 //    val timeNow = stringResource(id = R.string.now)
 
     val authorMe = "Me"
-    val timeNow = "8:00 PM"
+    val simpleDateFormat=SimpleDateFormat1("yyyy年MM月dd日 HH:mm::ss")
+    val date= Date(System.currentTimeMillis())
+    val timeNow = simpleDateFormat.format(date);
+
 
     val scrollState = rememberLazyListState()
     val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
