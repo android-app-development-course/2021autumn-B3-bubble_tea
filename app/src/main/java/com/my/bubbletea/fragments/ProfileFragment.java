@@ -131,6 +131,9 @@ public class ProfileFragment extends Fragment {
         card_flavor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ParseUser.getCurrentUser() == null) {
+                    return;
+                }
                 Intent it = new Intent(view.getContext(), LikeActivity.class);
                 startActivity(it);
             }
@@ -140,6 +143,9 @@ public class ProfileFragment extends Fragment {
         card_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ParseUser.getCurrentUser() == null) {
+                    return;
+                }
                 Intent it = new Intent(view.getContext(), FavouriteActivity.class);
                 startActivity(it);
             }
@@ -148,6 +154,9 @@ public class ProfileFragment extends Fragment {
         card_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ParseUser.getCurrentUser() == null) {
+                    return;
+                }
                 Intent it = new Intent(view.getContext(), CollectActivity.class);
                 startActivity(it);
             }
@@ -156,6 +165,9 @@ public class ProfileFragment extends Fragment {
         intocontact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ParseUser.getCurrentUser() == null) {
+                    return;
+                }
                 Intent it = new Intent(view.getContext(), Conversation.class);
                 startActivity(it);
             }
