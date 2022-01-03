@@ -17,8 +17,8 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void turn_back(View view) {
-        Intent intent =new Intent(DetailActivity.this,MainActivity.class);
-        startActivity(intent);
+       // Intent intent =new Intent(DetailActivity.this,MainActivity.class);
+        //startActivity(intent);
         DetailActivity.this.finish();
     }
 

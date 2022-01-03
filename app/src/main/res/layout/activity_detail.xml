@@ -35,6 +35,7 @@
                         android:background="@drawable/arrow_turn"
                         app:backgroundTint="@color/grey"
                         android:layout_margin="10dp"
+                        android:onClick="turn_back"
 
                         />
                     <ImageView
