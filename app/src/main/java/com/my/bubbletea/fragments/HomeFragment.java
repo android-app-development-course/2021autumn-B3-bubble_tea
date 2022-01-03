@@ -154,66 +154,66 @@ public class HomeFragment extends Fragment {
         //btn1 = view.findViewById(R.id.home_midrightbg1);
         mTextView = (TextView) view.findViewById(R.id.searchbtn);
         mEditText = (EditText) view.findViewById(R.id.home_search);
-        mListView = (ListView) view.findViewById(R.id.listview);
-        mEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length()==0){
-
-                }else{
-                    //myhandler post(changed);
-                    showListView(view);
-                }
-            }
-        });
-        mTextView.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                //如果输入框内容为空，提示请输入搜索内容
-                if (TextUtils.isEmpty(mEditText.getText().toString().trim())) {
-                    //ToastUtils.showToast(context,"请输入您要搜索的内容");
-                } else {
-                    //判断cursor是否为空
-                    if (cursor != null) {
-                        int columnCount = cursor.getCount();
-                        if (columnCount == 0) {
-                            //ToastUtils.showToast(context, "对不起，没有你要搜索的内容");
-                        }
-                    }
-                }
-
-            }
-
-        });
+//        mListView = (ListView) view.findViewById(R.id.listview);
+//        mEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                if (editable.length()==0){
+//
+//                }else{
+//                    //myhandler post(changed);
+//                    showListView(view);
+//                }
+//            }
+//        });
+//        mTextView.setOnClickListener(new View.OnClickListener() {
+//
+//            public void onClick(View v) {
+//                //如果输入框内容为空，提示请输入搜索内容
+//                if (TextUtils.isEmpty(mEditText.getText().toString().trim())) {
+//                    //ToastUtils.showToast(context,"请输入您要搜索的内容");
+//                } else {
+//                    //判断cursor是否为空
+//                    if (cursor != null) {
+//                        int columnCount = cursor.getCount();
+//                        if (columnCount == 0) {
+//                            //ToastUtils.showToast(context, "对不起，没有你要搜索的内容");
+//                        }
+//                    }
+//                }
+//
+//            }
+//
+//        });
         return view;
     }
-        public void showListView(View view){
-            mListView.setVisibility(View.VISIBLE);
-            //获得输入的内容
-            String str = mEditText.getText().toString().trim();
-            String[] data={"一点点","四季奶青","冰淇淋红茶","满杯红柚","奶茶三兄弟"};
-            String[] data1={};
-            ArrayAdapter<String> adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data);
-            if (str==null)
-            {
-                adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data1);
-            }
-
-            mListView.setAdapter(adapter);
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String result=((TextView)view).getText().toString();
-                }
-            });
+//        public void showListView(View view){
+//            mListView.setVisibility(View.VISIBLE);
+//            //获得输入的内容
+//            String str = mEditText.getText().toString().trim();
+//            String[] data={"一点点","四季奶青","冰淇淋红茶","满杯红柚","奶茶三兄弟"};
+//            String[] data1={};
+//            ArrayAdapter<String> adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data);
+//            if (str==null)
+//            {
+//                adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data1);
+//            }
+//
+//            mListView.setAdapter(adapter);
+//            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                    String result=((TextView)view).getText().toString();
+//                }
+//            });
 
             //获取数据库对象
 //            MyOpenHelper myOpenHelper = new MyOpenHelper(context.getApplicationContext());
@@ -222,18 +222,18 @@ public class HomeFragment extends Fragment {
 //            cursor = db.rawQuery("select * from lol where name like '%" + str + "%'", null);
 //            MyListViewCursorAdapter adapter = new MyListViewCursorAdapter(context, cursor);
 
-            mListView.setAdapter(adapter);
-
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    //把cursor移动到指定行
-                    cursor.moveToPosition(position);
-                    String name = cursor.getString(cursor.getColumnIndex("name"));
-                    //ToastUtils.showToast(context, name);
-                }
-            });
-        }
+//            mListView.setAdapter(adapter);
+//
+//            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    //把cursor移动到指定行
+//                    cursor.moveToPosition(position);
+//                    String name = cursor.getString(cursor.getColumnIndex("name"));
+//                    //ToastUtils.showToast(context, name);
+//                }
+//            });
+//        }
 
 
     }

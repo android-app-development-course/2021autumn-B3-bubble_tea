@@ -21,8 +21,8 @@ public class DescribeActivity extends AppCompatActivity {
     }
 
     public void turn_detail(View view) {
-//        Intent intent =new Intent(DescribeActivity.this,DetailActivity.class);
-//        startActivity(intent);
-        DescribeActivity.this.finish();
+        Intent intent =new Intent(DescribeActivity.this,DetailActivity.class);
+        startActivity(intent);
+        //DescribeActivity.this.finish();
     }
 }
