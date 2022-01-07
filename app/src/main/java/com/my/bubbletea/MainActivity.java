@@ -51,10 +51,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Parse.enableLocalDatastore(this);
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("milktea")
-                .server("https://milk.app.moe.yt:233/")
+                .server("https://milk.app.moe.yt:233/").enableLocalDataStore()
                 .build()
         );
 
@@ -92,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("id", String.valueOf(menuItem.getId()));
                 switch (menuItem.getId()) {
                     case R.id.navi_home:
-
                         changeCurrentFragment(homeFragment);
                         break;
                     case R.id.navi_moment:
@@ -152,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
-        changeCurrentFragment(momentFragment);
+        changeCurrentFragment(homeFragment);
 //        ParseUser currentUser = ParseUser.getCurrentUser();
 //        Intent it = new Intent(this, Conversation.class);
 //        startActivity(it);

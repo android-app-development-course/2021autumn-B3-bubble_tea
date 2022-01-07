@@ -102,11 +102,11 @@ public class HomeFragment extends Fragment {
         view4 = (ImageView) view.findViewById(R.id.view4);
         view5 = (ImageView) view.findViewById(R.id.view5);
         view6 = (ImageView) view.findViewById(R.id.view6);
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(view1);
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(view2);
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(view3);
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(view4);
-        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(view5);
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/6c8876b8ec9ba07b6b52ea9021ce9681_1.png").into(view1);
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/8ea28f06f57a604bf42c817f7f2ef366_2.png").into(view2);
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/2f482e4a56ecc9c72a2ffafbe2f56ba4_3.png").into(view3);
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/3ea1a3c83dd10f735856f502bab17a6d_4.png").into(view4);
+        Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/1156a3d20f37d6a92d654d26f8c6314c_5.png").into(view5);
         Picasso.get().load("https://milk.app.moe.yt:233/files/milktea/d5476befbc7b9c92c7e0e063440e3213_CleanShot_2021-12-18_at_20.35.41.png").into(view6);
 
         view1.setOnClickListener(new View.OnClickListener() {
@@ -154,66 +154,66 @@ public class HomeFragment extends Fragment {
         //btn1 = view.findViewById(R.id.home_midrightbg1);
         mTextView = (TextView) view.findViewById(R.id.searchbtn);
         mEditText = (EditText) view.findViewById(R.id.home_search);
-        mListView = (ListView) view.findViewById(R.id.listview);
-        mEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length()==0){
-
-                }else{
-                    //myhandler post(changed);
-                    showListView(view);
-                }
-            }
-        });
-        mTextView.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                //如果输入框内容为空，提示请输入搜索内容
-                if (TextUtils.isEmpty(mEditText.getText().toString().trim())) {
-                    //ToastUtils.showToast(context,"请输入您要搜索的内容");
-                } else {
-                    //判断cursor是否为空
-                    if (cursor != null) {
-                        int columnCount = cursor.getCount();
-                        if (columnCount == 0) {
-                            //ToastUtils.showToast(context, "对不起，没有你要搜索的内容");
-                        }
-                    }
-                }
-
-            }
-
-        });
+//        mListView = (ListView) view.findViewById(R.id.listview);
+//        mEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                if (editable.length()==0){
+//
+//                }else{
+//                    //myhandler post(changed);
+//                    showListView(view);
+//                }
+//            }
+//        });
+//        mTextView.setOnClickListener(new View.OnClickListener() {
+//
+//            public void onClick(View v) {
+//                //如果输入框内容为空，提示请输入搜索内容
+//                if (TextUtils.isEmpty(mEditText.getText().toString().trim())) {
+//                    //ToastUtils.showToast(context,"请输入您要搜索的内容");
+//                } else {
+//                    //判断cursor是否为空
+//                    if (cursor != null) {
+//                        int columnCount = cursor.getCount();
+//                        if (columnCount == 0) {
+//                            //ToastUtils.showToast(context, "对不起，没有你要搜索的内容");
+//                        }
+//                    }
+//                }
+//
+//            }
+//
+//        });
         return view;
     }
-        public void showListView(View view){
-            mListView.setVisibility(View.VISIBLE);
-            //获得输入的内容
-            String str = mEditText.getText().toString().trim();
-            String[] data={"一点点","四季奶青","冰淇淋红茶","满杯红柚","奶茶三兄弟"};
-            String[] data1={};
-            ArrayAdapter<String> adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data);
-            if (str==null)
-            {
-                adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data1);
-            }
-
-            mListView.setAdapter(adapter);
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String result=((TextView)view).getText().toString();
-                }
-            });
+//        public void showListView(View view){
+//            mListView.setVisibility(View.VISIBLE);
+//            //获得输入的内容
+//            String str = mEditText.getText().toString().trim();
+//            String[] data={"一点点","四季奶青","冰淇淋红茶","满杯红柚","奶茶三兄弟"};
+//            String[] data1={};
+//            ArrayAdapter<String> adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data);
+//            if (str==null)
+//            {
+//                adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data1);
+//            }
+//
+//            mListView.setAdapter(adapter);
+//            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                    String result=((TextView)view).getText().toString();
+//                }
+//            });
 
             //获取数据库对象
 //            MyOpenHelper myOpenHelper = new MyOpenHelper(context.getApplicationContext());
@@ -222,18 +222,18 @@ public class HomeFragment extends Fragment {
 //            cursor = db.rawQuery("select * from lol where name like '%" + str + "%'", null);
 //            MyListViewCursorAdapter adapter = new MyListViewCursorAdapter(context, cursor);
 
-            mListView.setAdapter(adapter);
-
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    //把cursor移动到指定行
-                    cursor.moveToPosition(position);
-                    String name = cursor.getString(cursor.getColumnIndex("name"));
-                    //ToastUtils.showToast(context, name);
-                }
-            });
-        }
+//            mListView.setAdapter(adapter);
+//
+//            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    //把cursor移动到指定行
+//                    cursor.moveToPosition(position);
+//                    String name = cursor.getString(cursor.getColumnIndex("name"));
+//                    //ToastUtils.showToast(context, name);
+//                }
+//            });
+//        }
 
 
     }

@@ -1,6 +1,7 @@
 package com.my.bubbletea.fragments;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,22 +9,23 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.my.bubbletea.CollectActivity;
-import com.my.bubbletea.ContactActivity;
+
 import com.my.bubbletea.FavouriteActivity;
 import com.my.bubbletea.LikeActivity;
-import com.my.bubbletea.MessageActivity;
-import com.my.bubbletea.MoreActivity;
+
 import com.my.bubbletea.R;
 import com.my.bubbletea.conversation.Conversation;
 import com.my.bubbletea.user.LoginActivity;
-import com.my.bubbletea.user.RegisterActivity;
+
 import com.parse.ParseUser;
 
 /**
@@ -92,21 +94,22 @@ public class ProfileFragment extends Fragment {
 
         loginButton = (MaterialButton) view.findViewById(R.id.login_button);
         intolikeButton = (MaterialButton) view.findViewById(R.id.into_like);
-        intofavourite=(MaterialButton) view.findViewById(R.id.into_favourite);
-        intocollect=(MaterialButton) view.findViewById(R.id.into_collect);
-        intocontact=view.findViewById(R.id.card_contact);
-        intomessage=(MaterialButton) view.findViewById(R.id.into_message);
-        intomore=(MaterialButton) view.findViewById(R.id.into_more);
+        intofavourite = (MaterialButton) view.findViewById(R.id.into_favourite);
+        intocollect = (MaterialButton) view.findViewById(R.id.into_collect);
+        intocontact = view.findViewById(R.id.card_contact);
+//        intomessage=(MaterialButton) view.findViewById(R.id.into_message);
+        intomore = (MaterialButton) view.findViewById(R.id.into_more);
         card_favorite = view.findViewById(R.id.card_favourite);
         card_collect = view.findViewById(R.id.card_collect);
         card_flavor = view.findViewById(R.id.card_flavor);
+        CardView card_more = view.findViewById(R.id.card_more);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 if (currentUser != null) {
-                    Toast.makeText(view.getContext(),"你都已经登录了还搁这登呢？",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), "你都已经登录了还搁这登呢？", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent it = new Intent(view.getContext(), LoginActivity.class);
                     startActivity(it);
@@ -120,7 +123,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public boolean onLongClick(View view) {
                 ParseUser.logOut();
-                Toast.makeText(view.getContext(),"Logged out",Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Logged out", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -128,6 +131,9 @@ public class ProfileFragment extends Fragment {
         card_flavor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ParseUser.getCurrentUser() == null) {
+                    return;
+                }
                 Intent it = new Intent(view.getContext(), LikeActivity.class);
                 startActivity(it);
             }
@@ -137,6 +143,9 @@ public class ProfileFragment extends Fragment {
         card_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ParseUser.getCurrentUser() == null) {
+                    return;
+                }
                 Intent it = new Intent(view.getContext(), FavouriteActivity.class);
                 startActivity(it);
             }
@@ -145,6 +154,9 @@ public class ProfileFragment extends Fragment {
         card_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ParseUser.getCurrentUser() == null) {
+                    return;
+                }
                 Intent it = new Intent(view.getContext(), CollectActivity.class);
                 startActivity(it);
             }
@@ -153,24 +165,42 @@ public class ProfileFragment extends Fragment {
         intocontact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ParseUser.getCurrentUser() == null) {
+                    return;
+                }
                 Intent it = new Intent(view.getContext(), Conversation.class);
                 startActivity(it);
             }
         });
-        intomore.setOnClickListener(new View.OnClickListener() {
+        card_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(view.getContext(), MoreActivity.class);
-                startActivity(it);
+                new MaterialAlertDialogBuilder(view.getContext())
+                        .setMessage("确定退出登录吗")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ParseUser.logOut();
+                                Toast.makeText(view.getContext(),"已经退出登录",Toast.LENGTH_SHORT).show();
+                            }
+                        }).show();
+//                Intent it = new Intent(view.getContext(), MoreActivity.class);
+//                startActivity(it);
             }
         });
-        intomessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(view.getContext(), MessageActivity.class);
-                startActivity(it);
-            }
-        });
+//        intomessage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent it = new Intent(view.getContext(), MessageActivity.class);
+//                startActivity(it);
+//            }
+//        });
 
         // Inflate the layout for this fragment
         return view;

@@ -3,7 +3,7 @@ package com.my.bubbletea.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,9 +16,6 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -31,16 +28,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButton;
 import com.my.bubbletea.CommentActivity;
 import com.my.bubbletea.DetailActivity;
 import com.my.bubbletea.R;
+//import com.my.bubbletea.SearchResultActivity;
 import com.my.bubbletea.SearchResultActivity;
 import com.my.bubbletea.UpgradeActivity;
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.Parse;
@@ -50,6 +47,15 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+
+//import com.parse.boltsinternal.Continuation;
+//import com.parse.boltsinternal.Task;
+import com.parse.boltsinternal.Continuation;
+import com.parse.boltsinternal.Task;
+import com.squareup.picasso.Picasso;
+import com.stfalcon.imageviewer.StfalconImageViewer;
+import com.stfalcon.imageviewer.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +78,8 @@ class Moment {
     public ParseObject publisher;
     public boolean isLiked;
     public boolean isCollected;
-    Moment(String i,String t,String c,List<ParseFile> l,ParseObject user,boolean liked,boolean coll) {
+
+    Moment(String i, String t, String c, List<ParseFile> l, ParseObject user, boolean liked, boolean coll) {
         id = i;
         title = t;
         content = c;
@@ -87,6 +94,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
     private Context context;
     private ArrayList<Moment> momentList;
 
+
     public MomentAdapter(Context c, ArrayList<Moment> m) {
         this.context = c;
         this.momentList = m;
@@ -95,8 +103,8 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
     @NonNull
     @Override
     public MomentAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.moment_item,parent,false);
-
+        View rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.moment_item, parent, false);
+        context = parent.getContext();
         return new Viewholder(rowView);
     }
 
@@ -108,21 +116,28 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        try {
+            String url =model.publisher.fetchIfNeeded().getParseFile("avatar").getUrl();
+            Picasso.get().load(url).into(holder.avatar);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         holder.contentText.setText(model.content);
-//        holder.cardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.e("pos",String.valueOf(position));
-//            }
-//        });
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(view.getContext(), DetailActivity.class);
+                view.getContext().startActivity(it);
+            }
+        });
 
         // 点赞
         holder.like_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                if(currentUser == null) {
-                    Toast.makeText(view.getContext(),"没登录",Toast.LENGTH_SHORT).show();
+                if (currentUser == null) {
+                    Toast.makeText(view.getContext(), "没登录", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -132,10 +147,12 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                 query.getInBackground(momentId, new GetCallback<ParseObject>() {
                     public void done(ParseObject object, ParseException e) {
                         if (e == null) {
+                            boolean likedBefore = false;
+                            int likeIndex = -1;
                             ArrayList<ParseObject> l = null;
                             try {
                                 List<ParseObject> tmpList = currentUser.fetch().getList("likes");
-                                if(tmpList == null) {
+                                if (tmpList == null) {
                                     l = new ArrayList<>();
                                 } else {
                                     l = new ArrayList<>(tmpList);
@@ -143,27 +160,47 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                             } catch (ParseException parseException) {
                                 parseException.printStackTrace();
                             }
-                            for(int i=0;i<l.size();i++) {
+                            for (int i = 0; i < l.size(); i++) {
                                 if (l.get(i).getObjectId().equals(object.getObjectId())) {
-                                    Toast.makeText(view.getContext(),"点赞过了",Toast.LENGTH_SHORT).show();
-                                    return;
+                                    likedBefore = true;
+                                    likeIndex = i;
+                                    break;
                                 }
                             }
-                            l.add(object);
+                            if (likedBefore) {
+                                l.remove(likeIndex);
+                            } else {
+                                l.add(object);
+                            }
                             currentUser.put("likes", l);
-                            currentUser.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if(e == null) {
-                                        Toast.makeText(view.getContext(),"点赞成功.",Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(view.getContext(),"like failed....",Toast.LENGTH_SHORT).show();
+
+                            if (likedBefore) {
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Toast.makeText(view.getContext(), "取消点赞成功.", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(view.getContext(), "like failed....", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            } else {
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Toast.makeText(view.getContext(), "点赞成功.", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(view.getContext(), "like failed....", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+
 
                         } else {
-                            Toast.makeText(view.getContext(),"like failed....",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(), "like failed....", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -171,13 +208,41 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
 
             }
         });
+        //Log.e("attachment",model.attachments.get(1).getUrl());
+        for (int i=0;i<model.attachments.size();i++) {
+            if (i==0) Picasso.get().load(model.attachments.get(0).getUrl()).into(holder.moment_pic1);
+            else if(i==1) Picasso.get().load(model.attachments.get(1).getUrl()).into(holder.moment_pic2);
+            else if(i==2) Picasso.get().load(model.attachments.get(2).getUrl()).into(holder.moment_pic3);
+        }
+
+        ArrayList<String> images = new ArrayList<>();
+        for(ParseFile f:model.attachments) {
+            images.add(f.getUrl());
+        }
+        View.OnClickListener img_listener =  new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new StfalconImageViewer.Builder<String>(context, images, new ImageLoader<String>() {
+                    @Override
+                    public void loadImage(ImageView imageView, String image) {
+                        Picasso.get().load(image).into(imageView);
+//                Glide.with(context).load(image).into(imageView);
+                    }
+                }).show();
+            }
+        };
+        holder.moment_pic1.setOnClickListener(img_listener);
+        holder.moment_pic2.setOnClickListener(img_listener);
+        holder.moment_pic3.setOnClickListener(img_listener);
+
+
         // 收藏
         holder.collect_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                if(currentUser == null) {
-                    Toast.makeText(view.getContext(),"没登录",Toast.LENGTH_SHORT).show();
+                if (currentUser == null) {
+                    Toast.makeText(view.getContext(), "没登录", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -188,10 +253,12 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                 query.getInBackground(momentId, new GetCallback<ParseObject>() {
                     public void done(ParseObject object, ParseException e) {
                         if (e == null) {
+                            boolean collectedBefore = false;
+                            int collIndex = -1;
                             ArrayList<ParseObject> l = null;
                             try {
                                 List<ParseObject> tmpList = currentUser.fetch().getList("collections");
-                                if(tmpList == null) {
+                                if (tmpList == null) {
                                     l = new ArrayList<>();
                                 } else {
                                     l = new ArrayList<>(tmpList);
@@ -200,32 +267,48 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
                                 parseException.printStackTrace();
                             }
 
-                            for(int i=0;i<l.size();i++) {
+                            for (int i = 0; i < l.size(); i++) {
                                 if (l.get(i).getObjectId().equals(object.getObjectId())) {
-                                    Toast.makeText(view.getContext(),"收藏过了",Toast.LENGTH_SHORT).show();
-                                    return;
+                                    collectedBefore = true;
+                                    collIndex = i;
+                                    break;
                                 }
                             }
-                            l.add(object);
+                            if (collectedBefore) {
+                                l.remove(collIndex);
+                            } else {
+                                l.add(object);
+                            }
                             currentUser.put("collections", l);
-                            currentUser.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if(e == null) {
-                                        Toast.makeText(view.getContext(),"collect success.",Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(view.getContext(),"collect failed....",Toast.LENGTH_SHORT).show();
+                            if (collectedBefore) {
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Toast.makeText(view.getContext(), "取消收藏成功.", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(view.getContext(), "like failed....", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            } else {
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Toast.makeText(view.getContext(), "收藏成功.", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(view.getContext(), "like failed....", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
 
                         } else {
-                            Toast.makeText(view.getContext(),"collect failed....",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(), "collect failed....", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-
-
             }
         });
 
@@ -233,8 +316,8 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
             @Override
             public void onClick(View view) {
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                if(currentUser == null) {
-                    Toast.makeText(view.getContext(),"没登录",Toast.LENGTH_SHORT).show();
+                if (currentUser == null) {
+                    Toast.makeText(view.getContext(), "没登录", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Intent it = new Intent(view.getContext(), CommentActivity.class);
@@ -249,7 +332,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
         return momentList.size();
     }
 
-    public class Viewholder extends RecyclerView.ViewHolder  {
+    public class Viewholder extends RecyclerView.ViewHolder {
         private TextView contentText;
         private TextView publisherText;
         private CardView cardView;
@@ -258,6 +341,11 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
         private Button collect_button;
         private Button comment_button;
 
+        private ImageView moment_pic1;
+        private ImageView moment_pic2;
+        private ImageView moment_pic3;
+
+        private ImageView avatar;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
@@ -269,7 +357,10 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
             like_button = itemView.findViewById(R.id.like_button);
             collect_button = itemView.findViewById(R.id.collect_button);
             comment_button = itemView.findViewById(R.id.comment_button);
-
+            moment_pic1 = itemView.findViewById(R.id.moment_pic1);
+            moment_pic2 = itemView.findViewById(R.id.moment_pic2);
+            moment_pic3 = itemView.findViewById(R.id.moment_pic3);
+            avatar = itemView.findViewById(R.id.avatar);
         }
 
     }
@@ -282,11 +373,7 @@ class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.Viewholder> {
  * create an instance of this fragment.
  */
 public class MomentFragment extends Fragment {
-    private EditText mEditText;
-    private ListView mListView;
-    private ImageButton msearchbtn;
-    Context context;
-    Cursor cursor;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -313,6 +400,7 @@ public class MomentFragment extends Fragment {
     };
     private ViewPagerAdapter adapter;
     private ScheduledExecutorService scheduledExecutorService;
+
     public MomentFragment() {
         // Required empty public constructor
     }
@@ -356,205 +444,167 @@ public class MomentFragment extends Fragment {
 //            mParam1 = getArguments().getString(ARG_PARAM1);
 //            mParam2 = getArguments().getString(ARG_PARAM2);
 //        }
-
-
     }
 
     RecyclerView momentListView;
-
+    EditText searchInput;
+    volatile ArrayList<ParseObject> searchResults = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView=inflater.inflate(R.layout.fragment_moment, container, false);
+        mView = inflater.inflate(R.layout.fragment_moment, container, false);
         setView();
 
         // 帖子的listview
 
         momentListView = mView.findViewById(R.id.momentList);
-        EditText searchInput = mView.findViewById(R.id.searchInput);
+        searchInput = mView.findViewById(R.id.searchInput);
         LinearLayoutManager linearLayoutManager =  new  LinearLayoutManager( getActivity(),
-                LinearLayoutManager.VERTICAL,  false ) {
-
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-
-            }
-        };
-
-        searchInput.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (i == KeyEvent.KEYCODE_ENTER)) {
-                    String input = searchInput.getText().toString();
-                    Intent it = new Intent(view.getContext(), SearchResultActivity.class);
-                    it.putExtra("param",input);
-                    startActivity(it);
-
-
-
-
-                    return true;
-                }
-
-                return false;
-            }
-        });
-
+                LinearLayoutManager.VERTICAL,  false );
         momentListView.setLayoutManager(linearLayoutManager);
-        momentListView.setAdapter(new MomentAdapter(mView.getContext(),new ArrayList(cacheMoments)));
-        getMoment();
-//        mEditText = (EditText) mView.findViewById(R.id.searchInput);
-//        mListView = (ListView) mView.findViewById(R.id.listview);
-//        msearchbtn= (ImageButton) mView.findViewById(R.id.mid_search);
-//        mEditText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                if (editable.length()==0){
-//                    //收起
-//                }else{
-//                    //myhandler post(changed);
-//                    showListView(mView);
-//                }
-//            }
-//        });
-//        msearchbtn.setOnClickListener(new View.OnClickListener() {
-//
-//            public void onClick(View v) {
-//                //如果输入框内容为空，提示请输入搜索内容
-//                if (TextUtils.isEmpty(mEditText.getText().toString().trim())) {
-//                    //ToastUtils.showToast(context,"请输入您要搜索的内容");
-//                } else {
-//                    //判断cursor是否为空
-//                    if (cursor != null) {
-//                        int columnCount = cursor.getCount();
-//                        if (columnCount == 0) {
-//                            //ToastUtils.showToast(context, "对不起，没有你要搜索的内容");
-//                        }
-//                    }
-//                }
-//
-//            }
-//
-//        });
-
+        momentListView.setAdapter(new MomentAdapter(mView.getContext(), new ArrayList(cacheMoments)));
+//        getMoment();
+        searchInput.setOnKeyListener(
+                new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                        if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
+                                (i == KeyEvent.KEYCODE_ENTER)) {
+                            String input = searchInput.getText().toString();
+                            Intent it = new Intent(view.getContext(), SearchResultActivity.class);
+                            it.putExtra("param",input);
+                            startActivity(it);
+                        }
+                        return false;
+                    }
+                }
+        );
 
 
         return mView;
     }
 
-//    public void showListView(View view){
-//        mListView.setVisibility(View.VISIBLE);
-//        //获得输入的内容
-//        String str = mEditText.getText().toString().trim();
-//        String[] data={"一点点","四季奶青","冰淇淋红茶","满杯红柚","奶茶三兄弟"};
-//        String[] data1={};
-//        ArrayAdapter<String> adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data);
-//        if (str==null)
-//        {
-//            adapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1,data1);
-//        }
-//
-//        mListView.setAdapter(adapter);
-//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                String result=((TextView)view).getText().toString();
-//            }
-//        });
-//
-//        //获取数据库对象
-////            MyOpenHelper myOpenHelper = new MyOpenHelper(context.getApplicationContext());
-////            SQLiteDatabase db = myOpenHelper.getReadableDatabase();
-////            //得到cursor
-////            cursor = db.rawQuery("select * from lol where name like '%" + str + "%'", null);
-////            MyListViewCursorAdapter adapter = new MyListViewCursorAdapter(context, cursor);
-//
-//        mListView.setAdapter(adapter);
-//
-//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                //把cursor移动到指定行
-//                cursor.moveToPosition(position);
-//                String name = cursor.getString(cursor.getColumnIndex("name"));
-//                //ToastUtils.showToast(context, name);
-//            }
-//        });
-//    }
-
-
-
-
     public Vector<Moment> cacheMoments = new Vector<>();
+
+    private void updateMoment(List<ParseObject> momentList) {
+        cacheMoments.clear();
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        ArrayList<String> collectionsID = new ArrayList<>();
+        ArrayList<String> likesID = new ArrayList<>();
+        if (currentUser != null) {
+            try {
+                List<ParseObject> collections = currentUser.fetchIfNeeded().getList("collections");
+                List<ParseObject> likes = currentUser.fetchIfNeeded().getList("likes");
+                if(collections != null) {
+                    for (ParseObject o : collections) collectionsID.add(o.getObjectId());
+                }
+                if(likes != null) {
+                    for (ParseObject o : likes) likesID.add(o.getObjectId());
+                }
+
+            } catch (ParseException parseException) {
+                parseException.printStackTrace();
+            }
+        }
+
+        for (int i = 0; i < momentList.size(); i++) {
+            boolean liked = false;
+            boolean collected = false;
+
+            if (likesID.contains(momentList.get(i).getObjectId())) liked = true;
+            if (collectionsID.contains(momentList.get(i).getObjectId()))
+                collected = true;
+
+//                    if (liked) {
+//                        Log.e("LIKED", momentList.get(i).getString("content"));
+//                    }
+
+            cacheMoments.add(new Moment(
+                    momentList.get(i).getObjectId(),
+                    momentList.get(i).getString("title"),
+                    momentList.get(i).getString("content"),
+                    momentList.get(i).getList("attachments"),
+                    momentList.get(i).getParseObject("publisher"),
+                    liked,
+                    collected
+            ));
+            try {
+                // 估计这个是没有cache到Object里，所以要从server端fetch一次......考虑一下需不需要存下来吧。
+                cacheMoments.get(i).publisher.fetch();
+//                            Log.e("Publisher:",cacheMoments.get(i).publisher.getString("nickname"));
+//                            Log.e("Publisher's avatarUrl:",cacheMoments.get(i).publisher.getParseFile("avatar").getUrl());
+
+            } catch (ParseException parseException) {
+                Log.e("ERR", parseException.getMessage());
+                parseException.printStackTrace();
+            }
+            List<ParseFile> l = momentList.get(i).getList("attachments");
+            for (int j = 0; j < l.size(); j++) {
+                // 图片附件的URL
+//                            Log.e("attachments url:",l.get(j).getUrl());
+            }
+        }
+        momentListView.setAdapter(new MomentAdapter(getContext(), new ArrayList(cacheMoments)));
+    }
 
     // 获取Moment 的列表
     public void getMoment() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Moment");
        // int size=ParseQuery.getQuery("Moment").count();
         query.setLimit(150); // 只获取5个先，防止太卡
+
+//        query.fromLocalDatastore().findInBackground().continueWithTask((task) -> {
+//            // Update UI with results from Local Datastore ...
+//            ParseException error = (ParseException) task.getError();
+//            if(error == null){
+//                List<ParseObject> momentList = task.getResult();
+//
+//                updateMoment(momentList);
+//            }
+//            // Now query the network:
+//            return query.fromNetwork().findInBackground();
+//        }, Task.UI_THREAD_EXECUTOR).continueWithTask((task) -> {
+//            // Update UI with results from Network ...
+//            ParseException error = (ParseException) task.getError();
+//            if(error == null){
+//                List<ParseObject> momentList = task.getResult();
+//                updateMoment(momentList);
+//                ParseObject.unpinAllInBackground("MomentList", momentList, new DeleteCallback() {
+//                    public void done(ParseException e) {
+//                        if (e != null) {
+//                            return;
+//                        }
+//
+//                        ParseObject.pinAllInBackground("MomentList", momentList);
+//                    }
+//                });
+//            }
+//
+//            return task;
+//        }, Task.UI_THREAD_EXECUTOR);
+
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> momentList, ParseException e) {
-                if (e == null) {
-                    cacheMoments.clear();
-                    for(int i=0;i<6;i++) {
-                        cacheMoments.add(new Moment(
-                                momentList.get(momentList.size()-i-1).getObjectId(),
-                                momentList.get(momentList.size()-i-1).getString("title"),
-                                momentList.get(momentList.size()-i-1).getString("content"),
-                                momentList.get(momentList.size()-i-1).getList("attachments"),
-                                momentList.get(momentList.size()-i-1).getParseObject("publisher"),
-                                false,
-                                false
-                        ));
-                        try {
-                            // 估计这个是没有cache到Object里，所以要从server端fetch一次......考虑一下需不需要存下来吧。
-                            cacheMoments.get(i).publisher.fetch();
-//                            Log.e("Publisher:",cacheMoments.get(i).publisher.getString("nickname"));
-//                            Log.e("Publisher's avatarUrl:",cacheMoments.get(i).publisher.getParseFile("avatar").getUrl());
+                if (e == null && momentList!= null) {
 
-                        } catch (ParseException parseException) {
-                            Log.e("ERR",parseException.getMessage());
-                            parseException.printStackTrace();
-                        }
-                        List<ParseFile> l = momentList.get(i).getList("attachments");
-                        for(int j=0;j<l.size();j++) {
-                            // 图片附件的URL
-                            // getFile() 可以返回file，参照：https://parseplatform.org/Parse-SDK-Android/api/com/parse/ParseFile.html
-//                            Log.e("attachments url:",l.get(j).getUrl());
-                        }
-                    }
-                    Log.e("Obejct retrived:", String.valueOf(cacheMoments.size()));
+                    // 获取喜欢和收藏状态
+                    updateMoment(momentList);
+
                 } else {
                     Log.d("Moment", "Error: " + e.getMessage());
                     ParseUser.logOut();
 
                 }
-
-//                Log.e("Debug",String.valueOf(i));
-//                Toast.makeText(mView.getContext(),"clicked"+String.valueOf(i),Toast.LENGTH_SHORT).show();
-
-
-                momentListView.setAdapter(new MomentAdapter(getContext(),new ArrayList(cacheMoments)));
-
+                momentListView.setAdapter(new MomentAdapter(getContext(), new ArrayList(cacheMoments)));
             }
         });
 
     }
 
 
-    private void setView(){
+    private void setView() {
 //        SearchView searchView =  mView.findViewById(R.id.searchView);
 ///*        int magId = getResources().getIdentifier("android:id/search_close_btn",null, null);
 //

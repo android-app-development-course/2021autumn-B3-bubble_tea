@@ -88,6 +88,9 @@ import com.parse.ParseUser
 import com.parse.ParseQuery
 import com.parse.FindCallback
 import com.parse.ParseObject
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ConversationUiState(
@@ -137,7 +140,9 @@ fun ConversationContent(
 //    val timeNow = stringResource(id = R.string.now)
 
     val authorMe = "Me"
-    val timeNow = "8:00 PM"
+    val simpleDateFormat= SimpleDateFormat("yyyy年MM月dd日 HH:mm::ss")
+    val date= Date(System.currentTimeMillis())
+    val timeNow = simpleDateFormat.format(date);
 
     val scrollState = rememberLazyListState()
     val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
@@ -221,12 +226,12 @@ fun fetchMessages(): ArrayList<Message> {
     val currentUser = ParseUser.getCurrentUser()
     var arr = ArrayList<Message>()
     arr.add(
-            0,
-            Message(
-                    author = "客服",
-                    content = "今天有什么可以帮到你？",
-                    timestamp = "now",
-            )
+        0,
+        Message(
+            author = "客服",
+            content = "今天有什么可以帮到你？",
+            timestamp = "now",
+        )
     )
     if (currentUser != null) {
 
@@ -636,7 +641,7 @@ fun UserInput(
         disabledContainerColor = Color.Transparent,
         disabledContentColor = disabledContentColor
     )
-
+    textState.addText(" ")
 
     Surface(tonalElevation = 2.dp) {
         ConstraintLayout(modifier = modifier) {
@@ -655,7 +660,7 @@ fun UserInput(
                     onValueChange = { textState = it },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 32.dp)
+                        .padding(start = 68.dp)
                         .align(Alignment.CenterStart)
                         .onFocusChanged { state ->
                             if (lastFocusState != state.isFocused) {

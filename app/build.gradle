@@ -57,6 +57,7 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
     implementation 'androidx.activity:activity-compose:1.4.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     ext {
@@ -92,4 +93,7 @@ dependencies {
     implementation 'com.github.st235:expandablebottombar:1.4.0'
     implementation 'com.github.st235:expandablebottombar:1.4.0'
     implementation 'com.github.esafirm:android-image-picker:3.0.0-beta1'
+    implementation 'com.github.stfalcon-studio:StfalconImageViewer:v1.0.1'
+    implementation "com.squareup.picasso:picasso:2.71828"
+    implementation 'com.github.stfalcon-studio:Chatkit:0.4.1'
 }

@@ -258,44 +258,44 @@
             android:orientation="vertical"
             android:layout_margin="8dp"
             android:background="@drawable/blackground">
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_message"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="12dp"
-                android:clickable="true"
-                app:cardElevation="0dp">
+<!--            <com.google.android.material.card.MaterialCardView-->
+<!--                android:id="@+id/card_message"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:layout_marginTop="12dp"-->
+<!--                android:clickable="true"-->
+<!--                app:cardElevation="0dp">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="#f7f6fb"
-                    android:gravity="center">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:background="#f7f6fb"-->
+<!--                    android:gravity="center">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="@string/profile_message"
-                        android:textAppearance="?attr/textAppearanceHeadline6" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:gravity="right">
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:text="@string/profile_message"-->
+<!--                        android:textAppearance="?attr/textAppearanceHeadline6" />-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:gravity="right">-->
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/into_message"
-                            android:layout_width="30dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right|center"
-                            android:layout_margin="10dp"
-                            app:backgroundTint="@color/grey"
-                            android:background="@drawable/ic_rightarrow" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+<!--                        <com.google.android.material.button.MaterialButton-->
+<!--                            android:id="@+id/into_message"-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="right|center"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            app:backgroundTint="@color/grey"-->
+<!--                            android:background="@drawable/ic_rightarrow" />-->
+<!--                    </LinearLayout>-->
+<!--                </LinearLayout>-->
+<!--            </com.google.android.material.card.MaterialCardView>-->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_contact"
                 android:layout_width="match_parent"
@@ -370,7 +370,9 @@
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
         </LinearLayout>
 
 

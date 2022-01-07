@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/compose-model-1640887154141.xml" value="0.1" />
         <entry key="../../../../../layout/compose-model-1640407565406.xml" value="0.6101083032490975" />
         <entry key="../../../../../layout/compose-model-1640485686440.xml" value="0.1675925925925926" />
         <entry key="../../../../../layout/compose-model-1640497452135.xml" value="0.44510135135135137" />
@@ -32,6 +33,10 @@
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/item_collect.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/item_favourite.xml" value="0.10326086956521739" />
         <entry key="..\:/AndroidStudioProjects/bubble_tea/app/src/main/res/layout/item_letter.xml" value="0.13905775075987842" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/drawable/ic_collection.xml" value="0.17760416666666667" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/drawable/ic_dot_no.xml" value="0.17760416666666667" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/drawable/ic_upvote.xml" value="0.17760416666666667" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/drawable/like_button.xml" value="0.17760416666666667" />
         <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/activity_collect.xml" value="0.15520833333333334" />
         <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/activity_comment.xml" value="0.15520833333333334" />
         <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/activity_contact.xml" value="0.15520833333333334" />
@@ -48,6 +53,7 @@
         <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/activity_upgrade.xml" value="0.15520833333333334" />
         <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/fragment_home.xml" value="0.15104166666666666" />
         <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/fragment_moment.xml" value="0.15520833333333334" />
+        <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/fragment_profile.xml" value="0.17604166666666668" />
         <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/item_collect.xml" value="0.15520833333333334" />
         <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/item_favourite.xml" value="0.3333333333333333" />
         <entry key="..\:/AndroidStudioProjects/milktea/milk-tea-control/app/src/main/res/layout/item_letter.xml" value="0.15520833333333334" />
@@ -61,7 +67,9 @@
         <entry key="app/src/main/res/layout/activity_like.xml" value="0.5255208333333333" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3140625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.4994356659142212" />
+        <entry key="app/src/main/res/layout/activity_message.xml" value="0.36302083333333335" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.24791666666666667" />
+        <entry key="app/src/main/res/layout/activity_search_result.xml" value="0.525" />
         <entry key="app/src/main/res/layout/activity_upgrade.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.12552083333333333" />
         <entry key="app/src/main/res/layout/fragment_moment.xml" value="0.1" />
@@ -69,7 +77,7 @@
         <entry key="app/src/main/res/layout/item_collect.xml" value="0.45516304347826086" />
         <entry key="app/src/main/res/layout/item_favourite.xml" value="0.45516304347826086" />
         <entry key="app/src/main/res/layout/item_letter.xml" value="0.45516304347826086" />
-        <entry key="app/src/main/res/layout/moment_item.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/moment_item.xml" value="0.25" />
         <entry key="app/src/main/res/menu/navi_menu.xml" value="0.26875" />
         <entry key="app/src/main/res/menu/new_navi_menu.xml" value="0.26875" />
       </map>
